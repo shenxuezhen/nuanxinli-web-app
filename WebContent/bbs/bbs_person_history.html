@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>我的心事</title>
+    <link rel="stylesheet" href="../Vue/bbs_person_history.css">
+    <link rel="stylesheet" href="css/bbs_person_history.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../css/myScroll.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+    <script type="text/javascript" src="../js/alertView.js"></script>
+</head>
+<body>
+
+<div class="main">
+    <div class="listSelect">
+        <div @touchstart="changeType('bbs-post')" v-bind:class="['submit', type=='bbs-post' ? 'bottomSelect' : 'bottomNotSelect']">我发的心事</div>
+        <div @touchstart="changeType('bbs-reply')" v-bind:class="['revert', type=='bbs-reply' ? 'bottomSelect' : 'bottomNotSelect']">我回的心事</div>
+    </div>
+            <div class="list" id="thelist">
+                <div class="cell" v-for="bbsItem in bbsList" @click="bbsDetailClick(bbsItem.postId)">
+                    <div class="title">{{bbsItem.title}}</div>
+                    <div class="content">{{bbsItem.content}}</div>
+                    <div class="bottom">
+                        <img class="showimg" v-if="bbsItem.isPrivate==1" src="../images/bbs/show_myself.png" alt="">
+                        <img class="showimg" v-else src="../images/bbs/show_everyone.png" alt="">
+                        <div class="time">{{deleteSecondTime(bbsItem.createTime)}}</div>
+                        <div class="rank">
+                            <img class="delete_gray_img" v-on:click="deleteClick(type=='bbs-post' ? bbsItem.postId : bbsItem.instanceId,event)" src="../images/bbs/delete_gray.png" alt="">
+                        </div>
+                        <div class="rank">
+                        <img class="rankimge" src="../images/bbs/Seen.png" alt="">
+                        <div class="ranktext">{{bbsItem.hotrank}}</div>
+                        <img class="rankimge" src="../images/bbs/comment_gray.png" alt="">
+                        <div class="ranktext">{{bbsItem.replyCount}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="js/bbs_person_history.js"></script>

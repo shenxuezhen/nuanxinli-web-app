@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.test-list-fs-2-640{
+    position: absolute;
+    right: -.4rem;
+    top: 0;
+    width: 2.24rem;
+    height: .8rem;
+    line-height: .8rem;
+    margin: 0;
+    background: #000;
+    opacity: .6;
+    color: #fff;
+    font-size: .3733rem;
+    border-radius: .4rem;
+    text-align: center;
+}
+.test-list-fs-3-640{
+    height: .56rem;
+    line-height: .56rem;
+    font-size: .4533rem;
+    font-weight: bold;
+    color: #393932;
+    margin-bottom: .36rem;
+}
+.test-list-fs-4-640{
+    height: 1.2rem;
+    line-height: .6rem;
+    font-size: .37rem;
+    color: #81807E;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.test-list-fs-5-640{
+    height: .4533rem;;
+    font-size: .3467rem;
+    color: #B1AFAE;
+    font-style: normal;
+    font-family: Helvetica;
+    display:flex;/*Flex布局*/
+    display: -webkit-flex; /* Safari */
+    align-items:center;/*指定垂直居中*/
+}
+.test-list-fs-6-640{
+    font-size: .4533rem;
+    color: #EF7E38;
+}
+.test-list-test-card{
+    list-style: none;
+    width: 100%;
+    padding-top: .6rem;
+    border-bottom: 1px solid #EFEFEE;
+}
+.test-list-test-card>div{
+    position: relative;
+    height: 4.5067rem;
+    width: 9.2267rem;
+    margin: 0 .4rem;
+    overflow: hidden;
+}
+.test-list-test-card>div>img{
+    width: 100%;
+    height: 100%;
+}
+.test-list-test-other-info{
+    display: flex;
+    justify-content: space-between;
+    margin-top: .5067rem;
+}
+.test-list-test-card>article{
+    display: grid;
+    margin: .4267rem .4rem;
+}
+.test-list-test-card>article>p img{
+    width: .4533rem;
+    height: .4533rem;
+}

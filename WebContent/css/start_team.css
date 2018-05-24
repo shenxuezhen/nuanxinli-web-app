@@ -1,0 +1,134 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+body{
+    font-size: 10px;
+}
+.interview{
+    width: 100%;
+    height: 100%;
+}
+.inter-company{
+    width: 2.6rem;
+    height: 2.6rem;
+    margin: 1rem auto;
+}
+.inter-company>img{
+    width: 100%;
+    height: 100%;
+}
+.inter-guide{
+    width: 8rem;
+    margin: 0 auto 1rem;
+    text-align: center;
+}
+.inter-guide p{
+    margin: 0.5rem 0 0.3rem;
+    text-align: center;
+    font-size: 0.5rem;
+    color: #393932;
+    height: 0.4rem;
+    line-height: 0.4rem;
+}
+.inter-guide p img{
+    height: 100%;
+    margin: 0 0.3125rem;
+}
+.inter-group{
+    height: 1.5625rem;
+    line-height: 1.5625rem;
+    margin-bottom: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+}
+.inter-group div{
+    display: inline-block;
+    width: 1.5rem;
+}
+.inter-group div img{
+    width: 1.5rem;
+    margin: 0.8rem 0;
+}
+.inter-group>img:nth-child(2){
+    width: 6.32rem;
+    height: 1.5625rem;
+}
+.inter-info{
+    width: 8rem;
+    margin: auto;
+    text-align: center;
+}
+.inter-info>p:last-child{
+    width: 6.3rem;
+    height: 1.1rem;
+    text-align: center;
+    line-height: 1.1rem;
+    margin: 1.5rem auto;
+    font-size: 0.56rem;
+    background: #FCAB55;
+    color: #FFFFFF;
+    border-radius: 1rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.inter-info>p>span{
+    font-size: 0.25rem;
+    color: #e9322d;
+    width: 100%;
+    text-align: left;
+    margin-left: 1rem;
+}
+.inter-info>p>input{
+    height: 0.84rem;
+    line-height: 0.84rem;
+    width: 5.8rem;
+    padding-left: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #DCDCDC;
+    background: #F6F6F6;
+    outline: none;
+    font-size: 0.4rem;
+    margin: 0.3rem;
+}
+.inter-info>p>input:focus{
+    border: 1px solid #3F907E;
+}
+.warning{
+    width: 8rem;
+    height: 6rem;
+    text-align: center;
+    position: fixed;
+    top: 35%;
+    left: 10%;
+    background: #ffffff;
+    padding-top: 20px;
+    border-radius: 5px;
+}
+.warning .tip{
+    font-size: 0.4375rem;
+}
+.warning .con-tip{
+    font-size: 0.34375rem;
+    color: #9d9c9b;
+    line-height: 1.5;
+    text-align: left;
+    padding-left: 1.5rem;
+}
+.warning div{
+    font-size: 0.46875rem;
+    margin-bottom: 0.5rem;
+}
+.warning div:nth-of-type(2){
+    text-align: center;
+    margin: 1rem auto;
+    color: #FCAB55;
+    border-top: 1px solid #FCAB55;
+    width: 100%;
+    padding: 0.4rem 0;
+}

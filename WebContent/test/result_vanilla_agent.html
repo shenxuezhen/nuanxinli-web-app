@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>测评结果</title>
+</head>
+<body>
+<div class="mask" style="background:#000;opacity:0.5;position: absolute;left: 0;top: 0;display: none"></div>
+<div id="resultAgent"></div>
+</body>
+</html>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/common_methods.js"></script>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script type="text/javascript">
+    //ajax请求判断
+    var url = decodeURIComponent(window.parent.location.search);
+    if (!testIId)var testIId = getParamAndUrl(url, "testIId");//获取testIId
+    if (!role)var role = getParamAndUrl(url, 'role');
+    var sid = getParamAndUrl(url, "sid");
+    if (sid != null && sid != 'null') setCookie('sid', getParamAndUrl(url,'sid'));
+    if(!testDId)var testDId=getParamAndUrl(url,'testDId');
+    if(!tel)var tel=getParamAndUrl(url,'tel');
+    if(!companyId)var companyId=getParamAndUrl(url,'companyId');
+    if(!testIRule)var testIRule=getParamAndUrl(url,'testIRule');
+    if(!username)var username=getParamAndUrl(url,'shareUsername');
+    if(testDId&&tel&&companyId&&testIRule){
+        var team='?testIRule='+testIRule+'&testDId='+testDId+'&cellphone='+tel+'&companyId='+companyId;
+    }else if(testDId&&username&&testIRule){
+        var team='?testIRule='+testIRule+'&testDId='+testDId+'&shareUsername='+username;
+    }else if(testIRule){
+        var team='?testIRule='+testIRule;
+    }else {
+        var team='';
+    }
+    var responseObj;
+    agent();
+    function agent() {
+        if (role == 'interviewer') {
+            $("#resultAgent").load('result_interview.html');
+            return;
+        }
+        $.ajax({
+            url: '/public/test-i/' + testIId+team,
+            type: 'GET',
+            dataType: "json",
+            async: true,
+            success: function (resObj) {
+                responseObj=resObj;
+                resultType = resObj.testD.resultType;
+                resultRule=resObj.testD.resultRule;
+                if(resultRule=='MBTI'){
+                    $("#resultAgent").load('result_MBTI.html');
+                    return;
+                }if (resultType == "arrage") {
+                    $("#resultAgent").load('result_vanilla_arrange.html');
+                } else if (resultType == "combine") {//组合类型的答案
+
+                } else if (resultType == "general") {//计分类型的答案
+                    $("#resultAgent").load('result_vanilla_general.html');
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert(XMLHttpRequest.responseText);
+            }
+        });
+    }
+</script>

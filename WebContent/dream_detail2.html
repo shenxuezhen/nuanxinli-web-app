@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>梦</title>
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="css/size.css">
+    <link rel="stylesheet" href="css/dream_detail.css">
+</head>
+<body>
+<div id="body_div">
+    <div class="item">
+        <div class="question">
+            <div class="need_answer_img">*</div>
+            <div id="customer_info" class="question_div"></div>
+        </div>
+        <div id="dream_content" class="answer_div"></div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="question">
+            <div class="need_answer_img">*</div>
+            <div class="question_div">2.如果给这个梦取个名字那会是什么？</div>
+        </div>
+        <div id="a2" class="answer_div">未填写</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="question">
+            <div class="need_answer_img">*</div>
+            <div class="question_div">3.梦里的情绪是什么？</div>
+        </div>
+        <div id="a3" class="answer_div">未填写</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="question">
+            <div class="need_answer_img">▍</div>
+            <div class="question_div">4.在梦里，哪个情结让你印象深刻？</div>
+        </div>
+        <div id="a4" class="answer_div">未填写</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="question">
+            <div class="need_answer_img">▍</div>
+            <div class="question_div">5.这个梦让你想到了什么？最近生活中发生了什么事？</div>
+        </div>
+        <div id="a5" class="answer_div">未填写</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="question">
+            <div class="need_answer_img">▍</div>
+            <div class="question_div">6.根据近期实际情况，请给你的生活打个分？</div>
+        </div>
+        <div id="a6" class="answer_div">未填写</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="question">
+            <div class="need_answer_img">▍</div>
+            <div class="question_div">7.描述下你最近的情况，基本信息</div>
+        </div>
+        <div id="a7" class="answer_div">由于保护隐私，这部分内容不能显示哟</div>
+    </div>
+    <div class="line"></div>
+</div>
+<div id="provider_info_div">
+    <div id="provider_img"></div>
+    <div id="provider_name"></div>
+    <div id="provider_title"></div>
+</div>
+<div id="reply_content">
+    <div id="reply_content_text">由于保护隐私，这部分内容也不能显示哟</div>
+</div>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript">
+    var wid = document.documentElement.clientWidth;// 屏幕宽
+    var hei = document.documentElement.clientHeight;// 屏幕高
+    var bodyDiv = document.getElementById('body_div');
+    /*请求数据*/
+    var jsonStr = '';
+    var url = '/public/dream-service/' + getParam('dreamId') + '?detail=true';
+    var httpRequest;
+    if (window.XMLHttpRequest) {
+        httpRequest = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        try {
+            httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
+        } catch (e) {
+            try {
+                httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+            } catch (e) {
+            }
+        }
+    }
+    if (!httpRequest) {
+        alert('Giving up L Cannot create an XMLHTTP instance');
+    } else {
+        httpRequest.open('GET', url, false);
+        httpRequest.send();
+        /* alert(httpRequest.status+'----'+httpRequest.responseText); */
+        if (httpRequest.readyState == 4) {
+            if (httpRequest.status == 200) {
+                jsonStr = httpRequest.responseText;
+            } else {
+                /* alert('There was a problem with the request.'); */
+            }
+        }
+    }
+    var customerInfo = document.getElementById('customer_info');
+    var dreamContent = document.getElementById('dream_content');
+    var a2 = document.getElementById('a2');
+    var a3 = document.getElementById('a3');
+    var a4 = document.getElementById('a4');
+    var a5 = document.getElementById('a5');
+    var a6 = document.getElementById('a6');
+    var a7 = document.getElementById('a7');
+    var havePersonDiv = document.getElementById('have_person_div');
+    var providerInfoDiv = document.getElementById('provider_info_div');
+    var providerImage = document.getElementById('provider_img');
+    var providerName = document.getElementById('provider_name');
+    var providerTitle = document.getElementById('provider_title');
+    var replyContent = document.getElementById('reply_content');
+    var replyContentText = document.getElementById('reply_content_text');
+    var json = eval('[' + jsonStr + ']');
+    var dreamServiceJson;
+    var itemJson;
+    var customerJson;
+    var providerJson;
+    if (json) {
+        dreamServiceJson = json[0].dreamService;
+        if (dreamServiceJson) {
+            //梦主
+            customerJson = dreamServiceJson.customer;
+            if (customerJson) {
+                var sex;
+                if (customerJson.sex == 'M') {
+                    sex = '男';
+                } else {
+                    sex = '女';
+                }
+                if (customerJson.userType && customerJson.userType != null && customerJson.userType != '') {
+                    customerInfo.innerHTML = '梦主：' + sex + ',' + customerJson.age + ',' + customerJson.userType;
+                } else {
+                    customerInfo.innerHTML = '梦主：' + sex + ',' + customerJson.age;
+                }
+            }
+            //梦的内容
+            dreamContent.innerHTML = '梦：' + dreamServiceJson.content;
+            //梦的条目
+            itemJson = dreamServiceJson.items;
+            if (itemJson) {
+                for (var i = 0; i < itemJson.length; i++) {
+                    if (itemJson[i].mastSeq == 1) {
+                        if (itemJson[i].content && itemJson[i].content != '') {
+                            a2.innerHTML = itemJson[i].content;
+                        }
+                    }
+                    if (itemJson[i].mastSeq == 2) {
+                        if (itemJson[i].content && itemJson[i].content != '') {
+                            a3.innerHTML = itemJson[i].content;
+                        }
+                    }
+                    if (itemJson[i].mastSeq == 3) {
+                        if (itemJson[i].content && itemJson[i].content != '') {
+                            a4.innerHTML = itemJson[i].content;
+                        }
+                    }
+                    if (itemJson[i].mastSeq == 4) {
+                        if (itemJson[i].content && itemJson[i].content != '') {
+                            a5.innerHTML = itemJson[i].content;
+                        }
+                    }
+                    if (itemJson[i].mastSeq == 5) {
+                        if (itemJson[i].content && itemJson[i].content != '') {
+                            var content = itemJson[i].content;
+                            var contents = new Array;
+                            contents = content.split(",");
+                            if (contents.length >= 1) {
+                                a6.innerHTML = '情感：' + contents[0];
+                            }
+                            if (contents.length >= 2) {
+                                a6.innerHTML = '情感：' + contents[0] + '&nbsp&nbsp&nbsp&nbsp' +
+                                    '工作：' + contents[1];
+                            }
+                            if (contents.length >= 3) {
+                                a6.innerHTML = '情感：' + contents[0] + '&nbsp&nbsp&nbsp&nbsp' +
+                                    '工作：' + contents[1] + '&nbsp&nbsp&nbsp&nbsp' + '经济：' + contents[2];
+                            }
+                        }
+                    }
+                    /* if(itemJson[i].mastSeq == 6){
+                     if(itemJson[i].content && itemJson[i].content != ''){
+                     a7.innerHTML = itemJson[i].content;
+                     }
+                     } */
+                }
+            }
+            //回复内容
+            providerJson = dreamServiceJson.provider;
+            if (dreamServiceJson.interpretation) {
+                providerInfoDiv.style.display = 'block';
+                replyContent.style.display = 'block';
+                providerName.innerHTML = providerJson.alias;
+                if (providerJson.title) {
+                    providerTitle.innerHTML = providerJson.title;
+                }
+                providerImage.style.background = 'url(' + providerJson.photo
+                    + ') center no-repeat';
+                providerImage.style.backgroundSize = 'cover';
+                /* replyContentText.innerHTML = dreamServiceJson.interpretation; */
+            } else {
+                providerInfoDiv.style.display = 'none';
+                replyContent.style.display = 'none';
+            }
+        }
+    }
+</script>
+</body>
+</html>

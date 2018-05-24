@@ -1,0 +1,190 @@
+/*body{*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+/*}*/
+.jyc_abourtwarm{
+    padding: 5%;
+    overflow: hidden;
+    font-size: 1.1rem;
+}
+.jyc_warmimg1{
+    /*width: 18.40277777777778%;*/
+    margin: 0px auto;
+    overflow: hidden;
+    margin-top: 15px;
+}
+.jyc_warmimg1 img{
+    width: 100%;
+}
+.edition{
+    /*width: 43.39622641509434%;*/
+    width: 100%;
+    float: left;
+    color: #f08443;
+    text-align: center;
+}
+.jyc_warmimg2{
+    width: 23.61111111111111%;
+    margin: 0px auto;
+}
+.jyc_warmimg2 img{
+    width: 100%;
+}
+p{
+    margin-top:10px ;
+}
+.warms{
+    margin-top:5px;
+    text-align: center;
+}
+.warmsPrivilegeCar{
+    text-align: center;
+    border: 0.7px solid #947700;
+    height: 4.3rem;
+    font-size: 1.4rem;
+    color: #947700;
+    margin-top: 80px;
+    margin: 30px auto 0px;
+}
+.warmsPrivilegeBT{
+    margin-top:0.8rem;
+}
+.warmsPrivilegeST{
+    background: #FFFFFF;
+    text-align: center;
+    margin: 0 auto;
+    width: 60%;
+    height: 1.3rem;
+    color: #B1B0AE;
+    font-size: 1.1rem;
+    margin-top:0.6rem;
+}
+.yellowBackground{
+    margin: auto;
+    margin-top: 28px;
+    background: #fcf9e9;
+}
+#youhuilists{
+    padding-bottom: 15px;
+    width: 100%;
+    margin-top: 28px;
+}
+#youhui1{
+    margin-left: 15px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color: #393932;
+    height: 1.5rem;
+    width: 29%;
+}
+#youhui2{
+    margin-left: 10px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    text-decoration: line-through ;
+    color: #393932;
+    height: 1.5rem;
+    width: 22%;
+}
+#youhui3{
+    margin-left: 10px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color: #393932;
+    height: 1.5rem;
+    width: 30%;
+}
+.jyc_Wrap{
+    margin-bottom: 25px;
+    line-height: 175%;
+}
+#closeDiv{
+    margin: 0px auto;
+}
+#closeBtn{
+    margin-top:38px;
+    margin-bottom: 8rem;
+    height: 3rem;
+    overflow: hidden;
+    background: #fcac55;
+    width:100% ;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 1.5rem;
+    border:1px solid #fcac55;
+    border-radius: 30px;
+}
+.prompt{
+    color:#3f907e ;
+}
+#logoAll{
+    width: 20rem;
+    margin: auto;
+    /*margin-top: 1rem;*/
+}
+
+span{
+    display: inline-block;
+}
+
+.smallImage {
+    height: 3rem;
+    width: 32%;
+}
+
+.smallImage img{
+    height: 100%;
+    margin: 5px;
+}
+
+#logoTitle{
+    width: 16rem;
+    height: 2rem;
+    margin: auto;
+}
+#youhuijiaText{
+    margin-top: 13px;
+    width: 5rem;
+    height: 2rem;
+    line-height: 2rem;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #947700;
+}
+.line{
+    width: 5rem;
+    margin: 0 auto 5px;
+    padding: 0;
+    height:1px;
+    border-bottom: 1px solid #947700;
+}
+
+#logoArea{
+    margin-top: 2.5rem;
+}
+.loading img{
+    width: 0.5rem;
+    height: 0.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+/*#title{*/
+    /*background: #FCAC55;*/
+    /*height: 5.5rem;*/
+    /*vertical-align: bottom;*/
+    /*line-height:6;*/
+/*}*/
+/*#titleH2{*/
+    /*color: #FFFFFF;*/
+    /*margin: auto;*/
+    /*text-align: center;*/
+    /*font-size: 1.3rem;*/
+    /*font-weight: 200;*/
+    /*letter-spacing:3px;*/
+    /*top: auto;*/
+/*}*/

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--排列组合测评结果页面 eg.DISC-->
+<head>
+    <meta charset="UTF-8">
+    <title>DISC测评结果</title>
+    <meta name="viewport"
+          content="wdth=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <script src="js/flexible.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/evaluationResult.css"/>
+    <link rel="stylesheet" type="text/css" href="css/arrageResult.css">
+    <script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/themes/grid-light.js"></script>
+</head>
+<body style="text-align: center;">
+<div class="loading" style="display: block">
+    <img src="images/loading.gif">
+</div>
+<div id="body_div" class="body_div" style="display: none">
+    <img src="images/result.png">
+    <div class="top">
+        <div class="title">{{data.testD.title}}</div>
+        <div class="condition"><span>{{data.testD.testCount}}</span>人测过/<span>{{data.testD.type}}</span></div>
+        <div class="people">测评简介：</div>
+        <div class="detail">{{data.testD.descr}}</div>
+    </div>
+    <div class="center">
+        <div class="result_total">
+            <div class="h1">「测评结果」</div>
+            <div class="isEarnest"><!--判断是否是测谎题-->
+                <img v-if="earnests[0].isEarnest" src="images/renzhen_jieguoye.png">
+                <img v-if="!earnests[0].isEarnest" src="images/burenzhen_jieguoye.png">
+            </div>
+            <!--画图的容器-->
+            <div id="container" style="min-width: 8rem;height: 6.3rem"></div>
+            <h1 class="h2">{{divisions[0].divisionTitle}}{{divisions[0].title}}</h1>
+        </div>
+        <div v-show="earnests[0].isEarnest=='0'" id="stretch" onclick="stretch()" class="stretch">
+            <p style="font-size: 0.5rem">查看更多分析</p>
+            <p style="font-size: 0.3rem">MORE</p>
+        </div>
+        <div v-show="(earnests.length==0) || (earnests.length==1 && earnests[0].isEarnest==1)" class="trait">
+            <p class="p1">性格特质：</p>
+            <p class="p2">{{{divisions[0].content}}}</p>
+        </div>
+        <div v-show="(earnests.length==0) || (earnests.length==1 && earnests[0].isEarnest==1)" class="trait">
+            <p class="p1">职业特质：</p>
+            <p class="p2 work">{{{divisions[0].suggestion}}}</p>
+        </div>
+        <div v-show="(earnests.length==0) || (earnests.length==1 && earnests[0].isEarnest==1)" class="dimension" v-for="division in divisions[0].testIResultAnalysisList">
+            <div id="divisionColor" v-bind:style="{background: dyeing(division.color)}">
+                <span class="p3" v-bind:style="{color: division.color}">{{division.title}}</span>
+                <p class="p4">{{division.content}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="result">你与<span>{{data.sameAs}}</span>%的人测评结果相同</div>
+        <div class="tip">抉择只有一次哦 </br> 准的话,不分享给小伙伴一下咩？</div>
+        <div class="isAccurate">
+            <div class="yes"><img id="accuracy" src="images/exact_0.png"></div>
+            <div class="no"><img id="not_accuracy" src="images/forbid_0.png"></div>
+        </div>
+        <div id="share" class="translation" onclick="shareF()">分享结果</div>
+        <iframe style="display: none;" id="iosIfram"></iframe>
+    </div>
+</div>
+</body>
+</html>
+<script src="js/html5.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script src="js/zepto.min.js" type="text/javascript"></script>
+<script src="js/tools.js" type="text/javascript"></script>
+<!--数据请求-->
+<script type="text/javascript">
+    var share = document.getElementById("share");
+    var iosIfram = document.getElementById("iosIfram");
+    var sid=getParam('sid');
+    if (sid != null && sid != 'null') {
+        setCookie('sid', getParam('sid'));
+    }
+    var testIId = getParam("testIId");
+    localStorage.setItem('testIId',testIId);
+    var resultUrl = testIId ? '/public/test-i/' + testIId : '/public/test-i/create';
+    var resultType = testIId ? 'GET' : 'POST';
+    var resultData;
+    //显示隐藏准不准按钮
+    var url=window.parent.location.search;
+    var role=getParamAndUrl(url,'role');
+    if(role=='team-member'){
+        $(".tip").hide();
+        $(".isAccurate").hide();
+        $(".translation").hide();
+    }
+    var data=testIId ? '' : localStorage.getItem("answerJson");
+    ajax(resultUrl,data,function (resp) {
+        resultData = resp;
+        var division = [],  earnest = [],results=[];//division===testIResultAnalysisList子结果分析项  earnest测谎结果
+        for (var i = 0; i < resultData.results.length; i++) {
+            if (resultData.results[i].testIResultAnalysisList) {
+                var result = resultData.results[i];
+                if (result.content){
+                    result.content.replace('   ','\r\n');
+                }
+                if (result.suggestion){
+                    result.content.replace('   ','\r\n');
+                }
+                division.push(result);
+            } else {
+                if (resultData.results[i].isLieDetector) {
+                    earnest.push(resultData.results[i]);
+                    //earnest[0].isEarnest 1认真0不认真
+                } else {
+                    results.push(resultData.results[i]);
+                }
+            }
+        }
+        //调整二次分享
+        // parent.wxTitle = data.testD.title;
+        // parent.wxDesc = data.testD.descr;
+        // parent.iframeLoadConfig();
+        var vm = new Vue({
+            el: "#body_div",
+            data: {
+                "data": resultData,//全部结果
+                "divisions": division,//维度
+                "results": results,//总结果
+                "earnests": earnest//测谎结果  isEarnest  1认真0不认真
+            },
+            ready: function () {
+                $('.loading').hide();
+                $('.body_div').show();
+            },
+            methods: {
+                dyeing:function(color){
+                    return color.colorRgb()
+                }
+            }
+        });
+        draw(data);
+        //直接显示
+        if (testIId) {
+            //之所以要方分别判断0和1，是因为有null的情况，这时两个都不选
+            if (resultData.feelGood == '0' || resultData.feelGood == '1') {
+                (resultData.feelGood == '1') ? accuracyY() : accuracyN();
+            } else {
+                accuracyFunction();
+            }
+            /*(resultData.feelGood=='0')? accuracyN(): (1==1);*/
+        } else {
+            accuracyFunction();
+        }
+        (function isShare(resultData) {
+            var isS = getParam('isShare');
+            if (isS == '1') {
+                $("#share").hide();
+                $('.stretch').hide();
+                $('.trait').show();
+                $('.dimension').show();
+                if (resultData.feelGood == '0' || resultData.feelGood == '1') {
+                    (resultData.feelGood == '1') ? accuracyY() : accuracyN();
+                } else {
+                    $(".isAccurate").hide();
+                    $(".bottom .tip").hide();
+                }
+            }
+        })(resultData)
+    });
+    //准与不准点击的相关操作
+    function accuracyFunction() {
+        $("#accuracy").on('click', function () {
+            $("#accuracy").off('click');
+            $("#not_accuracy").off('click');
+            accuracyY();
+            clearInterval(time);
+            var time = setTimeout(function () {
+                $("#accuracy").attr("class", "animate");
+            }, 10);
+            save(resultData.id, 1);
+        });
+        $("#not_accuracy").on('click', function () {
+            $("#accuracy").off('click');
+            $("#not_accuracy").off('click');
+            accuracyN();
+            clearInterval(time);
+            var time = setTimeout(function () {
+                $("#not_accuracy").attr("class", "animate");
+            }, 10);
+            save(resultData.id, 0);
+        })
+    }
+    //分享相关的操作，调的是app的样式
+    function shareF() {
+        if (browser.ios) {
+            iosIfram.src = 'testShare';
+        } else {
+            if (window.appInterface) {
+                window.appInterface.share(getShareUrl(), getTestDId());
+            }
+        }
+    }
+    //iOS用的 获取url的方法 客户端调用
+    function getShareUrl() {
+        return "/warm/arrageResult.html?testIId=" + resultData.id + "&isShare=1";
+    }
+    //iOS用的 获取TestDId的方法 客户端调用
+    function getTestDId() {
+        return resultData.testId;
+    }
+    //觉得准或者不准的post请求
+    save(testIId, feelGood);
+    //改变准或者不准的样式，以及动画效果
+    function accuracyY() {
+        $("#accuracy").attr("src", "images/exact.png");
+        $(".yes").css("border", "1px solid #EF7E38");
+        $(".yes").css("background", "#FFEADD");
+    }
+    function accuracyN() {
+        $("#not_accuracy").attr("src", "images/forbid.png");
+        $(".no").css("border", "1px solid #EF7E38");
+        $(".no").css("background", "#FFEADD");
+    }
+    //判断这个页面是否可以分享
+    function stretch() {
+        $('.stretch').hide();
+        $('.trait').show();
+        $('.dimension').show();
+    }
+
+    /*16进制颜色转为RGB格式*/
+    String.prototype.colorRgb = function(){
+        var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+        var sColor = this.toLowerCase();
+        if(sColor && reg.test(sColor)){
+            if(sColor.length === 4){
+                var sColorNew = "#";
+                for(var i=1; i<4; i+=1){
+                    sColorNew += sColor.slice(i,i+1).concat(sColor.slice(i,i+1));
+                }
+                sColor = sColorNew;
+            }
+            //处理六位的颜色值
+            var sColorChange = [];
+            for(var i=1; i<7; i+=2){
+                sColorChange.push(parseInt("0x"+sColor.slice(i,i+2)));
+            }
+            console.log("rgba(" + sColorChange.join(",") + ",0.1"+")");
+            return "rgba(" + sColorChange.join(",") + ",0.1"+")";
+        }else{
+            return sColor;
+        }
+    };
+</script>
+<!--饼状图相关-->
+<script type="text/javascript">
+    function draw(data){
+        var legendData = [];
+        var colorArray = [];
+        for(var i = 0;i< data.arrageDivisionList.length;i++){
+            var divis = data.arrageDivisionList[i].name;
+            legendData[i] = divis;
+            var coloris =  data.arrageDivisionList[i].color;
+            colorArray[i] = coloris;
+        }
+        //highcharts相关配置
+        $(function () {
+            $('#container').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: false,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                width: '100px', // 重点在此
+                                'color': (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                                'fontSize' : '14px'
+
+                            },
+                            distance: 10,//控制引导线的长度
+                        }
+                    },
+                },
+            exporting: {//导出的菜单
+                    enabled: false,  //设置导出按钮不可用
+                },
+                credits:{//右下角的公司相关
+                    text:"",
+                    href:"http://"
+                },
+                series: [{
+                    type: 'pie',
+                    name: '占比',
+                    data:data.arrageDivisionList
+                }],
+                colors: colorArray
+            });
+        });
+    }
+</script>

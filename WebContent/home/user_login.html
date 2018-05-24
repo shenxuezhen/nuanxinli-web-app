@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <style type="text/css">
+        .login-box {
+            width: 40rem;
+            height: 40rem;
+            border: 1px solid #3F907F;
+            text-align: center;
+            margin: 10rem auto;
+        }
+
+        .tel {
+            margin-top: 8rem !important;
+        }
+
+        .tel, .pwd {
+            width: 30rem;
+            height: 4rem;
+            padding-left: 1rem;
+            margin: 0 auto 3rem;
+            line-height: 4rem;
+            font-size: 2rem;
+            border: 1px solid;
+        }
+
+        .login-btn {
+            width: 30rem;
+            height: 5rem;
+            line-height: 5rem;
+            text-align: center;
+            background: #3F907F;
+            color: #FFFFFF;
+            margin: 3rem auto;
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script>
+    console.log(localStorage);
+    //调试代码
+    var userInfo={
+        company:{
+            isProvidePhone:0,
+            isVendor:0,
+            logo:"",
+            name:"s365模拟测试",
+            thirdPartyId:"03001",
+            vendor:{
+                id:"1",
+                thirdPartyName:"nxl"
+            }
+        },
+        department:"",
+        name:"8509尾号",
+        photo:"http://inte-sto.chanapp.chanjet.com/a31cad70-142e-44f3-85ab-488629ec0275/cia/headpicture/2017/09/25/37871ef631d6451589cf2cd29e342ad6.jpg",
+        position:"",
+        thirdPartyId:"03001001",
+        /*validate:{
+            accessToken:"",
+            appId:'',
+            auth:""
+        }*/
+    };
+    ajax("/public/company/vendor/login",userInfo,function (resp, status, xhr) {
+        localStorage.setItem('userInfo',JSON.stringify(userInfo));
+        var companyMainColor = resp.company.vendor.mainColor;
+        var companyBtnColor = resp.company.vendor.buttonColor;
+        if (companyMainColor) {
+            localStorage.setItem('companyMainColor', companyMainColor);
+        }
+        else {
+            localStorage.setItem('companyMainColor', "#fcab55");
+        }
+        if (companyBtnColor) {
+            localStorage.setItem('companyBtnColor', companyBtnColor);
+        }
+        else {
+            localStorage.setItem('companyBtnColor', "#3f907e");
+        }
+        var headers = xhr.getAllResponseHeaders();
+        headers.split('\r\n').forEach(function (value) {
+            if (value.indexOf('sid: ') > -1) {
+                if (value.indexOf('=')) {
+                    localStorage.setItem('sid', value.slice(value.indexOf('=') + 1));
+                    var companyName = localStorage.getItem('company');
+                    //TODO: 究竟是不同环境有不同页面还是...
+                    if (companyName == 'gzq') {
+                        window.location.href = '/warm/home/home.html?id=2&thirdPartyName=gzq&isEntry=0';
+                    } else if (companyName == 's365') {
+                        window.location.href = '/warm/home/home.html?id=2&thirdPartyName=s365&isEntry=0';
+                    }else if(browser.weixin){
+                        window.location.href='/warm/home/home.html?isEntry=0';
+                    }
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

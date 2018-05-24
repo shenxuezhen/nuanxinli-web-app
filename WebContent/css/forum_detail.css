@@ -1,0 +1,285 @@
+body {
+	width: 100%;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	font-family: "Arial";
+	/*overflow-y: hidden;*/
+}
+
+p{
+	margin: 0;
+}
+
+/*ios需要的iframe*/
+#ios_iframe{
+	display: none;
+}
+/*回复区上部div*/
+#up_div{
+	width: 100%;
+	margin-bottom: 4rem;
+	margin-top: 2rem;
+}
+
+/*帖子标题*/
+#card_title{
+	width: 90%;
+	max-height: 8rem;
+	line-height: 2rem;
+	font-size: 1.3rem;
+	color: #1a1a1a;
+	text-align: center;
+	font-weight: 600;
+	margin: auto;
+}
+
+/*用户div*/
+#user_div{
+	width: 90%;
+	height: 3rem;
+	line-height: 3rem;
+	margin: auto;
+}
+
+/*用户头像*/
+.user_img{
+	width: 3rem;
+	height: 3rem;
+	border-radius: 100%;
+	background: url(../images/default_photo.png) center no-repeat;
+	background-size: 100%;
+	float: left;
+}
+
+/*用户名*/
+.user_name{
+	font-size: 1rem;
+	color: #4a5f7b;
+}
+#card_user_name{
+	height: 3rem;
+	line-height: 3rem;
+	margin-left: 0.5rem;
+	float: left;
+}
+
+/*帖子内容*/
+#card_content{
+	width: 90%;
+	margin: auto;
+	font-size: 1.1rem;
+	color: #494838;
+	line-height: 1.9rem;
+	margin-top: 0.5rem;
+}
+
+/*送暖div*/
+#praise_div{
+	width: 100%;
+	height: 2rem;
+	line-height: 2rem;
+	margin-top: 0.5rem;
+	margin-bottom: 1.5rem;
+}
+
+/*送暖内容*/
+#praise{
+	float: right;
+	margin-right: 3rem;
+}
+
+/*送暖图片*/
+/* #praise_img{
+	width: 3.5rem;
+	height: 2rem;
+	border-radius: 50px;
+	background-color: #aaa;
+	border: none;
+	outline: none;
+	font-size: 1rem;
+	color: #fff;
+	text-align: center;
+	float: left;
+} */
+
+.praise_img_nomal{
+	width: 3.5rem;
+	height: 2rem;
+	border-radius: 50px;
+	background-color: #aaa;
+	border: none;
+	outline: none;
+	font-size: 1rem;
+	color: #fff;
+	text-align: center;
+	float: left;
+}
+
+.praise_img_praised{
+	width: 3.5rem;
+	height: 2rem;
+	border-radius: 50px;
+	background-color: #fcab55;
+	border: none;
+	outline: none;
+	font-size: 1rem;
+	color: #fff;
+	text-align: center;
+	float: left;
+}
+
+/*送暖数*/
+#praise_count{
+	height: 2rem;
+	line-height: 2rem;
+	font-size: 1.2rem;
+	margin-left: 0.5rem;
+	float: left;
+}
+
+/*全部回复div*/
+#all_reply_div{
+	width: 100%;
+	height: 3rem;
+	line-height: 3rem;
+	background-color: #eee;
+	font-size: 1.3rem;
+	color: #282828;
+}
+
+/*全部回复内容*/
+#all_reply{
+	width: 90%;
+	margin: auto;
+}
+
+/*回复item*/
+.reply_item{
+	width: 90%;
+	margin: auto;
+	padding-top: 1rem;
+	padding-bottom: 0.5rem;
+}
+
+/*回复区用户div*/
+.reply_user_div{
+	width: 100%;
+	height: 3rem;
+	max-height: 4rem;
+}
+
+/*用户头像div*/
+.user_img_div{
+	width: 15%;
+	float: left;
+}
+
+/*回复区用户名和头像div*/
+.user_right{
+	width: 85%;
+	max-height: 6rem;
+	float: left;
+}
+
+/*回复区用户名div*/
+.reply_user_name_div{
+	line-height: 1.5rem;
+	margin-top: 0.25rem;
+}
+
+/*回复用户名*/
+.reply_user_name{
+	font-size: 1rem;
+	color: #282828;
+}
+
+/*被回复用户名*/
+.reply_user_name_other{
+	font-size: 0.9rem;
+	color: #8c8c8c;
+}
+
+/*回复两个字*/
+.reply_text{
+	color: #8c8c8c;
+}
+
+/*回复日期*/
+.reply_date{
+	height: 1rem;
+	line-height: 1rem;
+	font-size: 0.8rem;
+	color: #aaa;
+}
+
+/*回复内容*/
+.reply_content{
+	font-size: 1rem;
+	color: #666;
+	line-height: 1.6rem;
+	margin-top: 0.5rem;
+}
+
+/*回复操作*/
+.operate_div{
+	width: 90%;
+	height: 1.5rem;
+	margin: auto;
+	margin-top: 0.5rem;
+}
+
+/*恢复操作内容*/
+.operate_content_div{
+	float: right;
+}
+
+/*删除帖子图片*/
+.delete_img{
+	width: 1rem;
+}
+
+/*回复线*/
+.reply_line{
+	width: 100%;
+	height: 1px;
+	background-color: #e8e8e8;
+}
+
+/*底部回复div*/
+#bottom_reply_div{
+	width: 100%;
+	height: auto;
+	background-color: #aaa;
+	position: fixed;
+	bottom: 0;
+}
+
+/*输入内容*/
+#reply_content_div{
+	width: 90%;
+	margin: auto;
+}
+
+/*输入框*/
+#reply_area{
+	width: 80%;
+	border-radius: 5px;
+	border-style: none;
+	outline: none;
+	resize: none;
+	font-size: 1.3rem;
+	padding: 0.5rem;
+	float: left;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+/*发送图片*/
+#send_img{
+	height: 2rem;
+	margin-left: 1rem;
+	position: absolute;
+	bottom: 0.7rem;
+}

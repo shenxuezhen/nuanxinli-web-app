@@ -1,0 +1,50 @@
+body{
+    overflow: scroll;
+}
+.abourtwarm{
+    position: absolute;
+    left:0;
+    padding-top: .6267rem;
+    width: 100%;
+    background: #fff;
+}
+.abourtwarm>div{
+    width: 8.1867rem;
+    margin: 0 auto;
+    text-align: center;
+}
+.warmimg1 img{
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-bottom: .6267rem;
+}
+.warmimg2 img{
+    width: 4.7067rem;
+    height: 4.7067rem;
+}
+.abourtwarm p{
+    font-size: .32rem;
+    color: #000000;
+    margin-top: 0;
+}
+.abourtwarm .paragraph{
+    margin: 0 auto .8rem;
+}
+.abourtwarm .key-points,.abourtwarm span{
+    font-weight: bold;
+}
+.abourtwarm .warm-tip1{
+    font-size: .32rem;
+    color: #EE7F38;
+}
+.abourtwarm .warm-tip-bold{
+    font-size: .4rem;
+    color: #EE7F38;
+}
+.abourtwarm .warm-tip-bold a{
+    color: #EE7F38;
+}
+.chocolateCompany{
+    color: #393932!important;
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,132 @@
+body{
+    margin-bottom: 2.03125rem;
+    font-size: 0.3865rem;
+}
+.bottom{
+    width: 100%;
+    height: 2.32813rem;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    right:0;
+    justify-content: space-between;
+    z-index: 9999;
+    background: #fff;
+    display: block;
+}
+.collection_image{
+    width: 0.8125rem;
+    height: 0.73125rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -0.40625rem;
+    margin-top: -0.65rem;
+}
+.collection_text{
+    width: 100%;
+    text-align: center;
+    margin-top: 1.375rem;
+    color: #B1AFAE;
+    font-size: 0.325rem;
+}
+@-webkit-keyframes buzz{
+    0% {
+        width: 0.8125rem;
+        height: 0.73125rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.40625rem;
+        margin-top: -0.65rem;
+    }
+    50% {
+        width: 1.625rem;
+        height: 1.4625rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.8125rem;
+        margin-top: -1.38125rem;
+    }
+    100% {
+        width: 0.8125rem;
+        height: 0.73125rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.40625rem;
+        margin-top: -0.65rem;
+    }
+}
+@-moz-keyframes buzz{
+    0% {
+        width: 0.8125rem;
+        height: 0.73125rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.40625rem;
+        margin-top: -0.65rem;
+    }
+    50% {
+        width: 1.625rem;
+        height: 1.4625rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.8125rem;
+        margin-top: -1.38125rem;
+    }
+    100% {
+        width: 0.8125rem;
+        height: 0.73125rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.40625rem;
+        margin-top: -0.65rem;
+    }
+}
+@keyframes buzz{
+    0% {
+        width: 0.8125rem;
+        height: 0.73125rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.40625rem;
+        margin-top: -0.65rem;
+    }
+    50% {
+        width: 1.625rem;
+        height: 1.4625rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.8125rem;
+        margin-top: -1.38125rem;
+    }
+    100% {
+        width: 0.8125rem;
+        height: 0.73125rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.40625rem;
+        margin-top: -0.65rem;
+    }
+}
+.animateName {
+    animation:buzz 1s forwards;
+    -moz-animation:buzz 1s forwards;
+    -webkit-animation:buzz 1s forwards;
+    -o-animation:buzz 1s forwards;
+    width: 0.8125rem;
+    height: 0.73125rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -0.40625rem;
+    margin-top: -0.65rem;
+}

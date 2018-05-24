@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <title>心理测评</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/size.css">
+    <link rel="stylesheet" type="text/css" href="css/evaluationTopic.css"/>
+</head>
+<body>
+<div class="loading">
+    <img src="images/loading.gif">
+</div>
+<div class="body_div" style="display: none">
+    <div class="synopsis"><span id="testCount"></span>人测过/<span id="type"></span></div>
+    <div id="strip">
+        <span id="progress_text">1/20</span>
+        <div class="strip">
+            <div class="strip_down"></div>
+            <div class="steip_up" id="progress"></div>
+        </div>
+    </div>
+    <div class="subject" id="title">我觉得闷闷不乐，情绪低沉..</div>
+    <div id="point">请选择答案</div>
+    <div id="topic">
+    </div>
+    <div class="bodyBotoom">
+        <div id="goUp" onclick="prevQuestion();">上一题</div>
+        <div id="goDown" onclick="nextQuestion();">下一题</div>
+        <div id="submit" onclick="nomalSubmit();" style="display: none">提交</div>
+    </div>
+    <!-- <div id="button" onclick="nomalSubmit();" style="display: none;">提交</div> -->
+    <iframe style="display: none;" id="iosIfram"></iframe>
+</div>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript">
+    setCookie('sid', getParam('sid'));
+
+    var httpRequest;
+    if (window.XMLHttpRequest) {
+        httpRequest = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        try {
+            httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
+        } catch (e) {
+            try {
+                httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+            } catch (e) {
+            }
+        }
+    }
+    var testDUrl = '/public/test-d/' + getParam("testDId");
+    var testDJsonStr = '';
+    if (!httpRequest) {
+        alert('Giving up L Cannot create an XMLHTTP instance');
+    } else {
+        httpRequest.open('GET', testDUrl, false);
+        httpRequest.send();
+        if (httpRequest.readyState == 4) {
+            if (httpRequest.status == 200) {
+                testDJsonStr = httpRequest.responseText;
+            } else {
+                alert(httpRequest.responseText);
+            }
+        }
+    }
+    var createTime = getCurrentTime();//获取当前时间
+    var testJson = eval('[' + testDJsonStr + ']');
+    var questionJson = testJson[0].questions;//问题
+    var commonChoiceJson = testJson[0].choices;//答案
+    var testCounts = document.getElementById("testCount");
+    var testTypes = document.getElementById("type");
+    var loading=document.getElementsByClassName('loading')[0];
+    var bodyDiv=document.getElementsByClassName('body_div')[0];
+    var currentQuestion = 1;//当前问题
+    var questionCount = questionJson.length;//问题的长度
+    var choiceDiv = document.getElementById("topic");//存放问题的容器
+    var progressText = document.getElementById("progress_text");//答题进度
+    var progress = document.getElementById("progress");//进度条展示
+    var title = document.getElementById("title");//题目
+    var point = document.getElementById("point");//请选择答案
+    var prev = document.getElementById("goUp");//上一题
+    var next = document.getElementById("goDown");//下一题
+    var submit = document.getElementById("submit");//提交
+    var iosIfram = document.getElementById("iosIfram");
+    testCounts.innerHTML = testJson[0].testCount;
+    testTypes.innerHTML = testJson[0].type;
+    showProgress(currentQuestion);
+    nextPrevShow(currentQuestion);
+    var questionMap = new Map();
+    var answerMap = new Map();
+    point.style.display = "none";
+    //如果问题数量大于等于1
+    if (questionCount >= 1) {
+        questionMap.putOverride(currentQuestion - 1, questionJson[currentQuestion - 1].id);//题目覆盖
+        if (questionJson[currentQuestion - 1].type == "single") {//单选题
+            if (isImageChoice(questionJson[currentQuestion - 1])) {
+                addImageChoice(questionJson[currentQuestion - 1].choices);
+            } else {
+                if (questionJson[currentQuestion - 1].choices) {
+                    addSingleChoice(questionJson[currentQuestion - 1].choices);
+                } else {
+                    addSingleChoice(commonChoiceJson);
+                }
+            }
+        } else if (questionJson[currentQuestion - 1].type == "multiple") {//多选题
+            if (questionJson[currentQuestion - 1].choices) {
+                addMultipleChoice(questionJson[currentQuestion - 1].choices);
+            } else {
+                addMultipleChoice(commonChoiceJson);
+            }
+        }else if(questionJson[currentQuestion - 1].type == "descr"){//描述题
+            addDescr();
+        }else if(questionJson[currentQuestion - 1].type == "lie"){//测谎题
+            if (questionJson[currentQuestion - 1].choices) {
+                addLie(questionJson[currentQuestion - 1].choices);
+            } else {
+                addLie(commonChoiceJson);
+            }
+        }
+    }
+    //添加单选题选项
+    function addSingleChoice(choiceJsonParam) {
+        title.innerHTML = findQuestion(questionMap.get(currentQuestion - 1)).title;
+        choiceDiv.innerHTML = "";
+        for (var i = 0; i < choiceJsonParam.length; i++) {
+            var div = document.createElement('div');
+            var choiceHtml = "";
+            if (answerMap.get(questionMap.get(currentQuestion - 1)) == choiceJsonParam[i].id) {
+                choiceHtml = "<input class='radio' type='radio' id='a" + currentQuestion + i + "' name='question" +
+                        currentQuestion + "' onchange='jump()' value='" + choiceJsonParam[i].score + "' checked='true'>" +
+                        "<label for='a" + currentQuestion + i + "'>" + choiceJsonParam[i].title + "</label>";
+            } else {
+                choiceHtml = "<input class='radio' type='radio' id='a" + currentQuestion + i + "' name='question" +
+                        currentQuestion + "' onchange='jump()' value='" + choiceJsonParam[i].score + "'>" +
+                        "<label for='a" + currentQuestion + i + "'>" + choiceJsonParam[i].title + "</label>";
+            }
+            div.innerHTML = choiceHtml;
+            choiceDiv.appendChild(div);
+        }
+    }
+
+    //延迟加载定时器
+    (function(){
+        var timer=setTimeout(function(){
+            loading.style.display="none";
+            bodyDiv.style.display="block";
+        },500);
+    })();
+
+    //单选题延迟跳转
+    function jump() {
+        clearInterval(timer);
+        var timer = setTimeout(function () {
+            nextQuestion();
+        }, 500);
+    }
+
+    //添加图片选项
+    function addImageChoice(choiceJsonParam) {
+        title.innerHTML = findQuestion(questionMap.get(currentQuestion - 1)).title;//获取题目
+        choiceDiv.innerHTML = "";
+        for (var i = 0; i < choiceJsonParam.length; i++) {
+            var div = document.createElement('div');
+            div.className = "image_div";
+            var choiceHtml = "";
+            if (answerMap.get(questionMap.get(currentQuestion - 1)) == choiceJsonParam[i].id) {
+                choiceHtml = "<input class='radio' type='radio' id='a" + currentQuestion + i + "' name='question" +
+                        currentQuestion + "' value='" + choiceJsonParam[i].score + "' checked='true'>" +
+                        "<label for='a" + currentQuestion + i + "'><img src='" + choiceJsonParam[i].img + "'/></label>";
+            } else {
+                choiceHtml = "<input class='radio' type='radio' id='a" + currentQuestion + i + "' name='question" +
+                        currentQuestion + "' value='" + choiceJsonParam[i].score + "'>" +
+                        "<label for='a" + currentQuestion + i + "'><img src='" + choiceJsonParam[i].img + "'/></label>";
+            }
+            div.innerHTML = choiceHtml;
+            choiceDiv.appendChild(div);
+        }
+    }
+
+    //添加多选题选项
+    function addMultipleChoice(choiceJsonParam) {
+        title.innerHTML = findQuestion(questionMap.get(currentQuestion - 1)).title;//获取题目
+        choiceDiv.innerHTML = "";
+        for (var i = 0; i < choiceJsonParam.length; i++) {
+            var div = document.createElement('div');
+            var choiceHtml = "";
+            if (answerMap.get(questionMap.get(currentQuestion - 1))) {
+                var map1 = new Map();
+                var ids = answerMap.get(questionMap.get(currentQuestion - 1)).split(",");
+                for (var k = 0; k < ids.length; k++) {
+                    map1.put(k, ids[k]);
+                }
+                if (map1.containsValue(choiceJsonParam[i].id)) {
+                    choiceHtml = "<input class='radio' type='checkbox' id='a" + currentQuestion + i + "' name='question" +
+                            currentQuestion + "' value='" + choiceJsonParam[i].score + "' checked='true'>" +
+                            "<label for='a" + currentQuestion + i + "'>" + choiceJsonParam[i].title + "</label>";
+                } else {
+                    choiceHtml = "<input class='radio' type='checkbox' id='a" + currentQuestion + i + "' name='question" +
+                            currentQuestion + "' value='" + choiceJsonParam[i].score + "'>" +
+                            "<label for='a" + currentQuestion + i + "'>" + choiceJsonParam[i].title + "</label>";
+                }
+            } else {
+                choiceHtml = "<input class='radio' type='checkbox' id='a" + currentQuestion + i + "' name='question" +
+                        currentQuestion + "' value='" + choiceJsonParam[i].score + "'>" +
+                        "<label for='a" + currentQuestion + i + "'>" + choiceJsonParam[i].title + "</label>";
+            }
+            div.innerHTML = choiceHtml;
+            choiceDiv.appendChild(div);
+        }
+    }
+
+    //添加描述题
+    function addDescr() {
+        title.innerHTML = findQuestion(questionMap.get(currentQuestion - 1)).title;
+        choiceDiv.innerHTML='';
+    }
+
+    //添加测谎题
+    function addLie(choiceJsonParam) {
+        title.innerHTML = findQuestion(questionMap.get(currentQuestion - 1)).title;
+        choiceDiv.innerHTML='';
+        for (var i = 0; i < choiceJsonParam.length; i++) {
+            var div = document.createElement('div');
+            var choiceHtml = "";
+            if (answerMap.get(questionMap.get(currentQuestion - 1)) == choiceJsonParam[i].id) {
+                choiceHtml = "<input class='radio' type='radio' id='a" + currentQuestion + i + "' name='question" +
+                        currentQuestion + "' onchange='jump()' value='" + choiceJsonParam[i].score + "' checked='true'>" +
+                        "<label for='a" + currentQuestion + i + "'>" + choiceJsonParam[i].title + "</label>";
+            } else {
+                choiceHtml = "<input class='radio' type='radio' id='a" + currentQuestion + i + "' name='question" +
+                        currentQuestion + "' onchange='jump()' value='" + choiceJsonParam[i].score + "'>" +
+                        "<label for='a" + currentQuestion + i + "'>" + choiceJsonParam[i].title + "</label>";
+            }
+            div.innerHTML = choiceHtml;
+            choiceDiv.appendChild(div);
+        }
+    }
+
+    //选项是否是图片
+    function isImageChoice(question) {
+        if (question.choices && question.choices[0].img) {
+            return true;
+        }
+        return false;
+    }
+
+    //根据问题id找问题
+    function findQuestion(questionId) {
+        var question = null;
+        for (var i = 0; i < questionJson.length; i++) {
+            if (questionJson[i].id == questionId) {
+                question = questionJson[i];
+            }
+        }
+        return question;
+    }
+
+    //根据选项id找选项
+    function findChoice(choiceJson, choiceId) {
+        var choice = null;
+        for (var i = 0; i < choiceJson.length; i++) {
+            if (choiceJson[i].id == choiceId) {
+                choice = choiceJson[i];
+            }
+        }
+        return choice;
+    }
+
+    //上一题
+    function prevQuestion() {
+        if (currentQuestion == 1) {
+            prev.style.background = "gainsboro";
+            prev.removeEventListener("click", prevQuestion, false);
+        }
+        point.style.display = "none";
+        addAnswer(currentQuestion);
+        questionMap.remove(currentQuestion - 1);
+        currentQuestion--;
+        showProgress(currentQuestion);
+        nextPrevShow(currentQuestion);
+        var question = findQuestion(questionMap.get(currentQuestion - 1));
+        if (question.type == "single") {
+            if (isImageChoice(question)) {
+                addImageChoice(question.choices);
+            } else {
+                if (question.choices) {
+                    addSingleChoice(question.choices);
+                } else {
+                    addSingleChoice(commonChoiceJson);
+                }
+            }
+        } else if (question.type == "multiple") {
+            if (question.choices) {
+                addMultipleChoice(question.choices);
+            } else {
+                addMultipleChoice(commonChoiceJson);
+            }
+        }else if(question.type == "descr"){
+            addDescr();
+        }else if(question.type == "lie"){
+            if (isImageChoice(question)) {
+                addLie(question.choices);
+            } else {
+                if (question.choices) {
+                    addLie(question.choices);
+                } else {
+                    addLie(commonChoiceJson);
+                }
+            }
+        }
+    }
+    //下一题
+    function nextQuestion() {
+        if (currentQuestion == questionCount) {
+            next.style.display = "none";
+            submit.style.display = "block";
+            return;
+        }
+        var flag = isSelect(currentQuestion);
+        if (flag) {
+            point.style.display = "none";
+            addAnswer(currentQuestion);
+            var nextQuestion = null;
+            var questionId = questionMap.get(currentQuestion - 1);
+            var question = findQuestion(questionId);
+            var choiceId = answerMap.get(questionId);
+            currentQuestion++;
+            if (question.type == "single") {
+                var choice = null;
+                if (question.choices) {
+                    choice = findChoice(question.choices, choiceId);
+                } else {
+                    choice = findChoice(commonChoiceJson, choiceId);
+                }
+                var str = isJump(choice);
+                if ("answer" == str) {//如果跳转的是答案，直接提交
+                    getResult();
+                    return;
+                } else if ("false" == str) {//不跳题
+                    nextQuestion = questionJson[currentQuestion - 1];
+                } else {
+                    nextQuestion = findQuestion(str);
+                }
+            } else {
+                nextQuestion = questionJson[currentQuestion - 1];
+            }
+            questionMap.putOverride(currentQuestion - 1, nextQuestion.id);
+            showProgress(currentQuestion);
+            nextPrevShow(currentQuestion);
+            if (nextQuestion.type == "single") {
+                if (isImageChoice(nextQuestion)) {
+                    addImageChoice(nextQuestion.choices);
+                } else {
+                    if (nextQuestion.choices) {
+                        addSingleChoice(nextQuestion.choices);
+                    } else {
+                        addSingleChoice(commonChoiceJson);
+                    }
+                }
+            } else if (nextQuestion.type == "multiple") {
+                if (nextQuestion.choices) {
+                    addMultipleChoice(nextQuestion.choices);
+                } else {
+                    addMultipleChoice(commonChoiceJson);
+                }
+            }else if(nextQuestion.type == "descr"){
+                addDescr();
+            }else if(nextQuestion.type == "lie"){
+                if (isImageChoice(nextQuestion)) {
+                    addLie(nextQuestion.choices);
+                } else {
+                    if (nextQuestion.choices) {
+                        addLie(nextQuestion.choices);
+                    } else {
+                        addLie(commonChoiceJson);
+                    }
+                }
+            }
+        } else {
+            point.style.display = "block";
+        }
+    }
+    //验证是否选则答案
+    function isSelect(currentQuestion) {
+        var flag = false;
+        var questionId = questionMap.get(currentQuestion - 1);
+        var questions=findQuestion(questionId);
+        if(questions.type=='descr'){
+            flag = true;
+            return flag;
+        }
+        var radios = document.getElementsByName('question' + currentQuestion);
+        for (var k = 0; k < radios.length; k++) {
+            if (radios[k].checked) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+    //判断是否跳题
+    function isJump(choice) {
+        var str = "";//三种情况：1.false不跳题2.answer跳到答案3.id跳转问题的id
+        var jumpToType = "";
+        if (choice.jumpToType) {
+            jumpToType = choice.jumpToType;
+        }
+        if ("Answer" == jumpToType) {
+            str = "answer";
+        } else if ("Question" == jumpToType) {
+            str = choice.jumpTo;
+        } else {
+            str = "false";
+        }
+        return str;
+    }
+    //记录答案
+    function addAnswer(currentQuestion) {
+        var question = findQuestion(questionMap.get(currentQuestion - 1));
+        var radios = document.getElementsByName('question' + currentQuestion);
+        if (question.type == "single") {
+            for (var k = 0; k < radios.length; k++) {
+                if (radios[k].checked) {
+                    if (question.choices) {
+                        answerMap.putOverride(questionMap.get(currentQuestion - 1), question.choices[k].id);
+                    } else {
+                        answerMap.putOverride(questionMap.get(currentQuestion - 1), commonChoiceJson[k].id);
+                    }
+                }
+            }
+        } else if (question.type == "multiple") {
+            var ids = "";
+            for (var k = 0; k < radios.length; k++) {
+                if (radios[k].checked) {
+                    ids += question.choices[k].id + ",";
+                }
+            }
+            ids = ids.substring(0, ids.length - 1);
+            answerMap.putOverride(questionMap.get(currentQuestion - 1), ids);
+        }else if(question.type == "lie") {
+            for (var k = 0; k < radios.length; k++) {
+                if (radios[k].checked) {
+                    if (question.choices) {
+                        answerMap.putOverride(questionMap.get(currentQuestion - 1), question.choices[k].id);
+                    } else {
+                        answerMap.putOverride(questionMap.get(currentQuestion - 1), commonChoiceJson[k].id);
+                    }
+                }
+            }
+        }
+    }
+    //处理答案
+    function getResult() {
+        var answers = "";
+        for (var m = 0; m < questionMap.size(); m++) {
+            var questionId = questionMap.get(m);
+            var choice=answerMap.get(questionId);
+            if(typeof choice !='undefined'){
+                answers += '{"questionId":' + questionId + ',"choices":"' + choice + '"},';
+            }
+        }
+        answers = answers.substring(0, answers.length - 1);
+        var param = '{"testId":' + testJson[0].id + ',"createTime":"' + createTime + '","endTime":"' + getCurrentTime() + '","answers":[' + answers + ']}';
+        localStorage.setItem('answerJson', param);
+        var resultType = testJson[0].resultType;
+        //排列类型的答案disc
+        if(resultType == "arrage") {
+            window.location.href = 'arrageResult.html?testDId=' + getParam('testDId') + "&isShare=" + getParam("isShare") + "&sid=" + getParam("sid");
+        } else if(resultType == "combine"){//组合类型的答案
+
+        } else if(resultType == "general"){//计分类型的答案
+            window.location.href = 'evaluationResult.html?testDId=' + getParam('testDId') + "&isShare=" + getParam("isShare") + "&sid=" + getParam("sid");
+        }
+        console.log(param);
+        if (browser.versions.ios) {
+            iosIfram.src = "changeTitleAndHiddenButton";
+        } else {
+            if (window.appInterface) {
+                window.appInterface.changeTitle();
+            }
+        }
+    }
+
+    //正常提交
+    function nomalSubmit() {
+        var userInfo = {"username":"13131702346","password":"123456789"};
+        $.ajax({
+            url: '/public/user/login',
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(userInfo),
+            async: false,
+            success: function (result, status, xhr) {
+                console.log("登录成功了！！！！");
+                console.log(result);
+                console.log(status);
+                console.log(xhr);
+            },
+            error: function (error) {
+                console.log("登录失败了！！！！");
+            }
+        });
+
+        var flag = isSelect(currentQuestion);
+        if (flag) {
+            point.style.display = "none";
+            addAnswer(currentQuestion);
+            getResult();
+        } else {
+            point.style.display = "block";
+        }
+    }
+
+    //进度条控制
+    function showProgress(currentQuestion) {
+        progressText.innerHTML = currentQuestion + "/" + questionCount;
+        var p = (currentQuestion / questionCount) * 100;
+        progress.style.width = p + "%";
+    }
+    //控制上一题下一题的显示与隐藏
+    //此处有改变  第一题的上一题默认为灰   最后一题的下一题默认为灰
+    function nextPrevShow(currentQuestion) {
+        if (questionCount == 1) {//长度==1
+            //改变样式就好
+            next.style.display = "none";
+            prev.style.display = "none";
+            submit.style.display = "";
+        } else {
+            if (currentQuestion == questionCount) {
+                next.style.display = "none";
+                submit.style.display = "";
+                /* if(getParam("isShare") == 1){
+                 }else{
+                 submit.style.display = "none";
+                 if(browser.versions.ios){
+                 iosIfram.src = 'showCommitButton';
+                 }else{
+                 if(window.appInterface){
+                 window.appInterface.showCommitButton();
+                 }
+                 }
+                 } */
+            } else {
+                next.style.display = "";
+                submit.style.display = "none";
+                /* if(browser.versions.ios){
+                 iosIfram.src = 'hiddenCommitButton';
+                 }else{
+                 if(window.appInterface){
+                 window.appInterface.hiddenCommitButton();
+                 }
+                 } */
+            }
+            if (currentQuestion == 1) {
+                prev.style.display = "none";
+            } else {
+                prev.style.display = "";
+            }
+        }
+    }
+</script>
+</body>
+</html>

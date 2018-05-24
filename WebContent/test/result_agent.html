@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>测评结果</title>
+    <link rel="stylesheet" href="css/result_agent.css">
+    <link rel="stylesheet" href="css/result_general.css">
+</head>
+<body>
+<div class="loading" ><img src="../images/loading.gif"></div>
+<div class="mask" style="background:#000;opacity:0.5;position: absolute;left: 0;top: 0;display: none"></div>
+<div id="resultAgent"></div>
+</body>
+</html>
+<script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!--<script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>-->
+<script src="//cdn.staticfile.org/vue/2.2.6/vue.js"></script>
+<script type="text/javascript" src="js/common_methods.js"></script>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../js/Decimal.js"></script>
+<!-- <script type="text/javascript" src="../js/wxShare.js"></script> -->
+<script type="text/javascript" src="../js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../js/payment/payment.js"></script>
+<script type="text/javascript">
+    //ajax请求判断
+    var sid = getParam("sid");
+    if (sid != null && sid != 'null') setCookie('sid',sid);
+    if (!testIId)var testIId = getParam("testIId");//获取testIId
+    if (!role)var role = getParam('role');
+    if (!testDId)var testDId = getParam('testDId');
+    if (!tel)var tel = getParam('tel');
+    if (!companyId)var companyId = getParam('companyId');
+    if (!testIRule)var testIRule = getParam('testIRule');
+    //判断权限
+    if (testDId && tel && companyId && testIRule) {//普通员工
+        var team = '?testIRule=' + testIRule + '&testDId=' + testDId + '&cellphone=' + tel + '&companyId=' + companyId;
+    } else if (testIRule) {
+        var team = '?testIRule=' + testIRule;
+    } else {
+        var team = '';
+    }
+    if(browser.nuanApp){
+        browser.nuanApp.stateChange(JSON.stringify({"stateCode": "test_result", "stateDesc": "测评结束"}));
+    }
+    var responseObj;
+    agent();
+    function agent() {
+        if (role == 'interviewer') {
+            $("#resultAgent").load('result_interview.html');
+            return;
+        }
+        loadEnv(
+            function () {
+                pushToHistory(window.location.href);
+                ajax('/public/test-i/' + testIId + team,null,function (resp) {
+                    if (resp.isValid == 0) {//是否购买
+                        if (browser.nuanApp) {
+                            getTestD(resp);
+                        }else if(localStorage.getItem('company')){
+                            localStorage.setItem('testIId',resp.id);
+                            window.location.href='/warm/order/test_order_details.html';
+                        }else{
+                            localStorage.setItem('testTime','testAfter');
+                            var vueData='';
+                            localStorage.setItem('serviceType', 'test');
+                            placeOrder();
+                        }
+                    } else {
+                        initShareObj({
+                            title:resp.testD.title,
+                            content:resp.testD.descr,
+                            iconUrl:window.location.origin+resp.testD.img,
+                            shareUrl:window.location.origin+'/warm/test/start_employee.html?testDId='+resp.testId
+                        });
+                        responseObj = resp;
+                        resultType = resp.testD.resultType;
+                        resultRule = resp.testD.resultRule;
+                        if (resultRule == 'MBTI') {
+                            $("#resultAgent").load('result_MBTI.html');
+                            return;
+                        }
+                        if (resultType == "arrage") {
+                            $("#resultAgent").load('result_arrange.html');
+                        } else if (resultType == "combine") {//组合类型的答案
+
+                        } else if (resultType == "general") {//计分类型的答案
+                            $("#resultAgent").load('result_general.html');
+                        }
+                    }
+                });
+            },
+            function () {
+                if(window.confirm('确定返回列表吗？')){
+                    //确定
+                    var history=JSON.parse(localStorage.getItem('history'));
+                    if(history.length>2 && history.slice(history.length-2)[0].indexOf('start_normal')>-1){
+                        history.splice(history.length-2,1);
+                        localStorage.setItem('history',JSON.stringify(history));
+                    }
+                    popToHistory(window.location.href);
+                    return true;
+                }else {
+                    //取消
+                    return false;
+                }
+            },
+            {
+                "type":"menu",
+                "hide":false,
+                "item":[
+                    {
+                        "text":"分享",
+                        "onClick":"share();"
+                    }
+                ]
+            },testIRule=='backend'?0:null);
+    }
+    function getTestD(testD) {
+        ajax('/public/test-d/service/' + testD.testId,null,function (resp) {
+            browser.nuanApp.pay(JSON.stringify({
+                'type': 'test',
+                'po': {
+                    'testIId': testIId,
+                    'testDId': testD.testId,
+                    'price': resp.isSalePrice ? resp.testDPrice.salePrice : resp.price,
+                    'serviceValidTime': testD.endTime
+                }
+            }))
+        })
+    }
+</script>

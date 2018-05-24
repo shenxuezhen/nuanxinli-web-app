@@ -1,0 +1,151 @@
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #FFFFFF;
+	font-family: "Arial";
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.loading img{
+	width: 1.2rem;
+	height: 1.2rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+.body_div{
+	width:90%;
+	padding:0 3%;
+	height: 90%;
+	margin: 5% 2%;
+    /* border: 1px solid #fcab55;
+    /* -moz-border-radius: 2%;     
+    -webkit-border-radius: 2%;  
+    border-radius:2%; */
+    background: #fff;
+}
+.body_div .synopsis{
+	width: 100%;
+	text-align: center;
+	color: #a4a9ad;
+	font-size: 1rem;
+	margin-top: 4rem;
+}
+#strip{
+	overflow: hidden;
+	margin: 0px auto 3rem;
+}
+#strip span{
+	float: left;
+	color: #a4a9ad;
+	font-size: 1.2rem;
+}
+#strip .strip{
+	float: left;
+	position: relative;
+	width: 80%;
+	top: 7px;
+	left: 2%;
+}
+#strip .strip_down{
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	background: #b2b2b2;
+	z-index: 10;
+}
+#strip .steip_up{
+	position: absolute;
+	width: 50%;
+	height: 2px;
+	background: #fcad55;
+	z-index: 100;
+}
+#topic{
+	overflow: hidden;
+} 
+.subject{
+	width: 98%;
+	text-align: center;
+	font-size: 1.3rem;
+	color: #fcab55;
+	margin: 10px 0px;
+} 
+#point{
+	width: 98%;
+	text-align: center;
+	font-size: 1rem;
+	margin: 10px 0px;
+	color: #f00;
+}
+#point{
+	display: none;
+}
+#topic label{
+	width: 99%;
+	border: 1px solid #393932;
+	border-radius: 4px;
+	color: #393932;
+	padding: 10px 0px;
+	margin: 13px 0px;
+	float: left;
+	font-size: 1.1rem;
+	text-align: center;
+}
+#topic .image_div{
+	width: 40%;
+	margin: 5%;
+	float: left;
+}
+#topic .image_div img{
+	width: 90%;
+}
+#topic input{
+	display: none;
+}
+#topic .radio:checked+label{
+	border: 2px solid #3F907E;
+	color: #3F907E;
+	margin: 9px 0px;
+}  
+.bodyBotoom{
+	overflow: hidden;
+	width: 100%;
+	margin: 20px auto 30px;
+}
+#goUp{
+	padding: 0.4rem 0.6rem;
+	float: left;
+	border: 1px solid #FCAC55;
+	font-size: 1rem;
+	color: #FCAC55;
+	text-align: center;
+	-moz-border-radius: 6%/15%;    
+    -webkit-border-radius: 6%/15%;  
+    border-radius:6%/15%;
+}
+#goDown{
+	padding:0.4rem 0.6rem;
+	float: right;
+	border: 1px solid #3f907e;
+	font-size: 1rem;
+	color: #3f907e;
+	text-align: center;
+	-moz-border-radius: 6%/15%;;     
+    -webkit-border-radius: 6%/15%;  
+    border-radius:6%/15%;
+}
+#submit{
+	padding: 0.4rem 0.6rem;
+	float: right;
+	font-size: 1rem;
+	border: 1px solid #3f907e;
+	background: #3f907e;
+	color: #fff;
+	text-align: center;
+	-moz-border-radius: 6%/15%;
+	-webkit-border-radius: 6%/15%;
+	border-radius: 6%/15%;
+	width: 3rem;
+}
+
+

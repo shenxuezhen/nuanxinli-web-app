@@ -1,0 +1,115 @@
+.slider_image{
+    width: 100%;
+    height: 6rem;
+    background: greenyellow;
+    position: relative;
+}
+#slider_img{
+    width: 100%;
+    height: 100%;
+}
+#play_progress{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 6rem;
+    margin: 0;
+    background: #000;
+    opacity: 0.1;
+    color: #fff;
+    font-size: .5333rem;
+}
+#current_time{
+    height: 1.3467rem;
+    line-height: 1.3467rem;
+    float: left;
+    color: #00BBD2;
+    font-size: .3466rem;
+    margin-left: 0.2rem;
+}
+#progress_div{
+    width: 70%;
+    height:  1.3467rem;
+    float: left;
+    margin-left: .2rem;
+}
+#duration_time{
+    height: 1.3467rem;
+    line-height: 1.3467rem;
+    float: right;
+    color: #00BBD2;
+    font-size: .3466rem;
+    margin-right: 0.2rem;
+}
+#slider_button_div{
+    height: .9466rem;
+    margin: .5rem auto;
+    padding: 0 .5rem;
+}
+#play_img{
+    width: 1rem;
+    height: 1rem;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -.5rem; /* 高度的一半 */
+    margin-left: -.5rem; /* 宽度的一半 */
+}
+#slider_button_div img{
+    float: right;
+    width: 1rem;
+    height: 1rem;
+    margin-left: .5rem;
+}
+#slider_content_div{
+    padding: 0 .5rem;
+    font-size: .4rem;
+    line-height: .8rem;
+    color: #393932;
+    margin-bottom: .5rem;
+}
+#second_progress{
+    width: 70%;
+    height: .2rem;
+    background: #00BBD2;
+    top: 50%;
+    position: absolute;
+    margin-top: -.1rem;
+}
+#progress{
+    width: 100%;
+    background: white;
+}
+.course-name-lecturer p {
+    margin-right: 0.6rem;
+    margin-left: 0.4rem;
+    line-height: 0.72rem;
+}
+.course-name {
+    line-height: 0.53rem;
+    font-size: 0.53rem;
+}
+.course-lecturer {
+    line-height: 0.4rem;
+    font-size: 0.4rem;
+}
+.course-description {
+    margin-top: 0.55rem;
+    margin-right: 0.6rem;
+    margin-bottom: 0.89rem;
+    margin-left: 0.4rem;
+}
+.course-description-h {
+    margin-bottom: 0.1rem;
+    font-size: 0.45rem;
+}
+.course-description-c {
+    line-height: 0.64rem;
+    color: #81807E;
+}
+.course-lecturer-description {
+    margin-top: 0.55rem;
+    margin-right: 0.6rem;
+    margin-bottom: 0.89rem;
+    margin-left: 0.4rem;
+}

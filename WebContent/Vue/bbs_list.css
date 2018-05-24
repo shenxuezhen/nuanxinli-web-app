@@ -1,0 +1,111 @@
+.bbs-list-list{
+    width: 100%;
+    height: 100%;
+}
+.bbs-list-cell{
+    border-bottom: 1px solid #efefee;
+    padding: .5rem;
+    background: white;
+}
+.bbs-list-userPhoto{
+    width: .706rem;
+    height: .706rem;
+    border-radius: .353rem;
+    left: auto;
+    float: left;
+}
+.bbs-list-userName{
+    height: .706rem;
+    line-height: .706rem;
+    margin-left: .2rem;
+    size: .28rem;
+    color: #3A3732;
+    float: left;
+}
+.bbs-list-typeDiv{
+    width: 1.8rem;
+    height: 0.55rem;
+    float: right;
+    line-height: .55rem;
+    text-align: right;
+    margin-top: .1rem;
+}
+.bbs-list-typeDiv .bbs-list-color{
+    height: 97%;
+    float: left;
+    width: 10%;
+    border: .5px solid #393932;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+.bbs-list-typeDiv .bbs-list-text{
+    color: #3A3732;
+    size: .28rem;
+    float: left;
+    height: 97%;
+    width: 85%;
+    text-align: center;
+    border: .5px solid #393932;
+    border-left: 0;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+.bbs-list-title{
+    clear: both;
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    font-size: .4533rem;
+    font-weight: bold;
+    color: #393932;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:1;
+    font-family: "Helvetica";
+}
+.bbs-list-content{
+    width: 100%;
+    max-height: 1.2rem;
+    line-height: .6rem;
+    font-size: .37rem;
+    color: #393932;
+    margin-bottom: .5rem;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    font-family: "Helvetica";
+}
+.bbs-list-bottom{
+    width: 100%;
+    height: .3rem;
+}
+.bbs-list-time{
+    height: .3rem;
+    line-height: .34rem;
+    font-size: .34rem;
+    color: #aaaaaa;
+    float: left;
+    font-family: "Helvetica";
+}
+.bbs-list-rank{
+    height: .3rem;
+    line-height: .3rem;
+    float: right;
+    display: inline-flex;
+}
+.bbs-list-rank .bbs-list-rankimge{
+    height: .3rem;
+    width: .4rem;
+    margin-left: .4rem;
+}
+.bbs-list-rank .bbs-list-ranktext{
+    height: .34rem;
+    font-size: .34rem;
+    color: #aaa;
+    margin-left: .1rem;
+    font-family: "Helvetica";
+}

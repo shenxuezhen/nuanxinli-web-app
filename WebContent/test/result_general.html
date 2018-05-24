@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <title>测评结果</title>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <link rel="stylesheet" href="../recommendation/css/recommendation.css">
+    <script type="text/javascript" src="../Vue/components.js"></script>
+</head>
+<body>
+<div id="resultGeneral" class="general-div" style="display: none">
+    <div id="resultPng"></div>
+    <div class="top">
+        <span class="title">{{data.testD.title}}</span>
+        <div class="condition"><span>{{testcount}}</span>人测过&nbsp;/<span>{{data.testD.type}}</span></div>
+    </div>
+    <div class="test-conclusion">
+        <div class="test-title">
+            <p>「测评结果」</p>
+            <div class="isEarnest" v-if="earnests !='' "><!--判断是否是测谎题-->
+                <img v-if="earnests.isEarnest==1" src="../images/renzhen_jieguoye.png">
+                <img v-if="earnests.isEarnest==0" src="../images/burenzhen_jieguoye.png">
+            </div>
+            <div v-if="earnests !=''" class="earnest-result">{{earnests.content}}</div>
+            <!-- 暂时没有办法少量修改解决 先用v-if区分情况 -->
+            <div class="test-result-title" class="earnests-result-title" v-if="earnests==''">
+            	<hr v-bind:style="{background:results.color,border:results.color}">
+                <div class="title-bg" v-bind:style="{background:results.color,color:results.color}">{{results.title}}</div>
+                <div class="title-text" v-bind:style="{background:results.color}">{{results.title}}</div>
+            </div>
+            <div class="test-result-title" v-if="earnests!=''">
+                <hr v-bind:style="{background:results.color,border:results.color}">
+                <div class="title-bg" v-bind:style="{background:results.color,color:results.color}">{{results.title}}
+                </div>
+                <div class="title-text" v-bind:style="{background:results.color}">{{results.title}}</div>
+            </div>
+        </div>
+        <div v-if="divisions!=''" class="test-icon">
+            <div class="left">
+                <p class="p4"></p>
+                <p class="p6">指标正常</p>
+            </div>
+            <div class="right">
+                <p class="p5"></p>
+                <p class="p6">指标超标</p>
+            </div>
+        </div>
+        <div v-if="divisions!=''" class="icon-left">
+            <div v-for="division in divisions">{{division.division.title}}</div>
+            <div v-if="divisions" class="totalScore">
+                总分
+            </div>
+        </div>
+        <div v-if="divisions!=''" class="icon-right">
+            <div v-for="division in divisions">
+                <p v-bind:style="divisionWidth(division.id)"></p><span>{{division.score}}</span>
+            </div>
+            <div v-if="divisions" class="totalScore">
+                {{results.score}}
+            </div>
+        </div>
+        <div style="width: 10%;height: 1px;clear: both"></div>
+        <div class="conclusion" v-if="data.isSimpleResult">
+            <p class="p2" v-html="results.simpleResult"></p>
+        </div>
+        <div class="conclusion" v-if="!data.isSimpleResult">
+            <p class="p2" v-html="results.content"></p>
+        </div>
+        <div v-if="results.resultImageList && results.resultImageList[0]" class="result-image">
+            <img v-bind:src="results.resultImageList[0].url">
+        </div>
+        <div v-if="results.suggestion" class="tip">
+            <p class="p1 advice">说明/建议</p>
+            <p class="p2" v-html="results.suggestion"></p>
+        </div>
+        <div v-if="results.resultImageList && results.resultImageList[1]" class="result-image">
+            <img v-bind:src="results.resultImageList[1].url">
+        </div>
+        <div v-if="divisions && !data.isSimpleResult" class="evaluation-show" v-for="division in divisions">
+            <span class="show-left">{{division.division.title}}:</span>
+            <span class="show-right" v-bind:style="{background:division.color}">{{division.title}}</span>
+            <p v-if="division.content" class="p2 content" v-html="division.content"></p>
+            <p v-if="division.suggestion" class="p1 advice">说明/建议</p><!--show-text-->
+            <p v-if="division.suggestion" class="p2" v-html="division.suggestion"></p>
+        </div>
+    </div>
+    <div class="payTips" v-if="data.isSimpleResult">
+        <div class="p1">「注意」</div>
+        <div class="payReason">
+            <p>您还有80%的测评结果未查看</p>
+            <img src="../images/payjiantou.png">
+        </div>
+        <div class="payBtn" @touchstart="payBtn" v-if="data.testDPrice">{{data.testDPrice.salePrice}}元员工专享价</div>
+        <div class="payBtn" @touchstart="payBtn" v-if="!data.testDPrice">查看更多{{data.testD.price}}元</div>
+        <div class="payClues" v-if="data.testDPrice">原价{{data.testD.price}}元，企业用户可享特价</div>
+        <iframe id="payIframe" frameborder="0" style="display: none"></iframe>
+    </div>
+    <div class="bottom" v-if="!data.isSimpleResult">
+        <div class="result" v-show="data.moreThan && data.moreThan != 0 && isSCL(data.testD.title)">{{moreThanInfo(data.moreThan)}}</div>
+        <div id="warm-tip" onclick="tested()" v-show="isShowWarmTip">如何查看全部测评？</div>
+        <div id="share" class="translation" v-on:click="shareF()"
+             v-show="nuanApp">
+            分享测评
+        </div>
+
+        <iframe style="display: none;" id="iosIfram"></iframe>
+    </div>
+    <recommendation-component v-if="serviceRecommend.relationList.length>0"
+                              :item="serviceRecommend"></recommendation-component>
+    <div class="warningBox" style="display: none"></div>
+    <div class="warning" style="display: none">
+        <p>暖心提示</p>
+        <p><a href="" id="down-warm-app">下载暖心理app</a></p>
+        <p>登录账号：手机号</p>
+        <p>密码：点击“忘记密码”修改密码后登陆</p>
+        <p id="close-down">知道了</p>
+    </div>
+
+</div>
+<iframe id="alipayWap" src="" frameborder="0" style="display: none"></iframe>
+<script>
+    //改颜色
+    var resultPng = document.getElementById("resultPng");
+    resultPng.style.background = localStorage.getItem('companyMainColor');
+</script>
+<script type="text/javascript" src="js/result_general.js"></script>
+</body>
+</html>

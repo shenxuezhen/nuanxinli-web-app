@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <title>心理健康</title>
+    <link rel="stylesheet" href="css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="../lib/pure/base-min.css"/>
+    <link rel="stylesheet" href="../lib/pure/grids-min.css"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../Vue/magazine_list.css">
+    <link rel="stylesheet" href="../Vue/test_list.css">
+    <link rel="stylesheet" href="css/home.css"/>
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script src="../js/zg_io.js"></script>
+    <script src="../js/flexible.js"></script>
+    <script src="../js/alertView.js"></script>
+</head>
+<body>
+<div class="loading" style="width:.6rem;height:.6rem;position: absolute;left: 50%;top: 50%;margin-left: -.3rem;margin-top: -.3rem"><img src="../images/loading.gif" style="width: 100%;height: 100%"></div>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+</div>
+<div id="homeView" style="display: none">
+    <div class="per-head-portrait" @click="getPersonHomepage" style="display: none">
+        <img id="userPhoto" src="../images/test/gzq_header.jpg">
+    </div>
+    <div class="lineView"></div>
+    <div class="navigationView">
+        <div class="pure-u-1-1" id="logoArea">
+            <div id="logoAll">
+                <div>
+                    <div class="smallImage" v-for="(bbsItem,index) in bbsTypeList" v-on:click="pushTypeViewClick(bbsItem.code,bbsItem.name)" v-if="index<8">
+                        <img :src="bbsItem.image"/>
+                        <div>{{bbsItem.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="lineView"></div>
+    <div class="class_view">
+        <div class="magazine" v-on:click="magazineClick()">
+            <div class="title1">杂志</div>
+            <div class="content">上万篇心理文章剖析问题真相</div>
+            <img :src="magazineLists[0].image">
+        </div>
+        <div class="courses" v-on:click="coursesClick()">
+            <img class="publicImage" src="../images/navigation/course.png" >
+            <div class="publicTitle">课程</div>
+            <div class="publicContent">精品、垂直、干货是不变的定位</div>
+        </div>
+        <div class="test" v-on:click="testClick()">
+            <img class="publicImage" src="../images/navigation/evaluation.png">
+            <div class="publicTitle">测评</div>
+            <div class="publicContent">为你的心理健康保驾护航</div>
+        </div>
+        <div class="lineView"></div>
+        <div class="heart" v-on:click="bbsClick()">
+            <img class="heartImage" src="../images/navigation/thatmind365.png" alt="">
+            <div class="heartTitle">诉心事</div>
+            <div class="heartContent">最专业的心理学社区，有问必答，即时回应</div>
+            <div class="heartDesc">咨询师回答丨匿名发帖丨仅自己看</div>
+        </div>
+        <div class="lineView"></div>
+        <div class="heart" v-on:click="audioClick()">
+            <img class="heartImage" src="../images/navigation/decompression_audio.png" alt="">
+            <div class="heartTitle">减压音频</div>
+            <div class="heartContent">专业催眠师录制，助你放松、好眠</div>
+            <div class="heartDesc">呼吸减压丨身心放松丨轻松入眠丨提升安全感</div>
+        </div>
+    </div>
+    <div class="lineView"></div>
+    <div class="magazineView">
+        <div class="mark">
+            <div class="mark-title">杂志</div>
+            <div class="mark-line"></div>
+        </div>
+        <div class="magazine">
+            <magazine-component v-for="magazineItem in magazineLists" :item="magazineItem"></magazine-component>
+            <div class="more-btn" v-on:click="magazineClick()">查看更多 &nbsp;&nbsp;》&nbsp;</div>
+        </div>
+    </div>
+    <div class="lineView"></div>
+</div>
+<script src="js/swiper-3.4.2.min.js"></script>
+<script src="../js/tools.js"></script>
+<script src="../test/js/common_methods.js"></script>
+<script src="../Vue/components.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

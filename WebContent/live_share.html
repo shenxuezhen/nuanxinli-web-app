@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>直播分享</title>
+    <script src="js/flexible.js"></script>
+    <link rel="stylesheet" href="css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="css/share.css">
+    <link rel="stylesheet" href="css/lives.css">
+</head>
+<body>
+<section id="nxl-box" class="nxl-box">
+    <!--直播的分享页面-->
+    <div id="video" class="video">
+        <div class="play">
+            <div id="videoSource" style="display: none"></div>
+            <div id="download" style="display: none">戳我~下载暖心理观看直播</div>
+            <img id="img" src="images/lives/voice_play_img.png" v-on:click="changeRoom(id,thirdpartId,videoSource)"/>
+        </div>
+        <div class="video_tip">
+            <p>{{title}}</p>
+        </div>
+    </div>
+    <!--付费直播间-->
+    <div id="feeRoom" style="display: none">
+        <div id="feeRooms">
+            <p>本直播为付费直播</p>
+            <p>下载app、付费后可以观看直播</p>
+            <div onclick="download()">戳我下载~~</div>
+        </div>
+    </div>
+    <!--直播模块和回放模块-->
+    <div id="live_video" class="live_video" style="display: none">
+        <div id="player"></div>
+        <video id="live_false" autoplay controls style="display: none"></video>
+        <div id="live-box" class="live_box">
+            <div class="top">
+                <div class="top_left">
+                    <img v-bind:src="photo"/>
+                    <div class="live_detail">
+                        <p class="tea_name">{{name}}</span></p>
+                        <p class="per_looking"><span id="watch">0</span>人正在看</p>
+                    </div>
+                </div>
+                <div class="swiper-container top_right">
+                    <div class="swiper-wrapper">
+                        <div id="swiper-slide" class="swiper-slide"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul id="list-items" class="center">
+            <li class="list-item" v-for="list in liveCommentLists">
+                <span class="userName">{{list.alias}}</span>
+                <span class="userComments">{{list.content}}</span>
+            </li>
+        </ul>
+        <div id="bottom" class="bottom">
+            <div class="app_tip">
+                <p onclick="download()">点击<a>下载暖心理</a>app后尽情聊天互动吧~~</p>
+            </div>
+            <div class="send">
+                <p onclick="download()">发送</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tec-img">
+            <img v-bind:src="photo"/>
+        </div>
+        <div class="teacher">
+            <span class="name">{{name}}</span>
+            <span id="tea_post" class="post">咨询师</span>
+        </div>
+    </div>
+    <div class="live_info">
+        <div>直播介绍</div>
+        <span></span>
+        <p id="descr"></p>
+    </div>
+    <div id="row" class="rowTab">
+        <ul id="myTab" class="nav nav-tabs">
+            <li id="more" class="active">更多精彩</li>
+            <li>Ta的回放</li>
+        </ul>
+        <!-- 选项卡面板 -->
+        <div id="wonderful" class="actives">
+            <ul class="content-wonder">
+                <li v-on:click="changeRoom(more.id, more.thirdpartId,more.videoSource)" v-for="more in moreList">
+                    <img v-bind:src='more.image'/>
+                    <p>{{more.title}}</p>
+                </li>
+            </ul>
+        </div>
+        <div id="back" style="display: none;">
+            <ul class="content-wonder">
+                <li v-on:click="liveBack(playback.id, playback.thirdpartId,playback.videoSource)"
+                    v-for="playback in playbackList">
+                    <img v-bind:src='playback.image'/>
+                    <p>{{playback.title}}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <iframe id="c_iframe" height="0" width="0" style="display:none"></iframe>
+</section>
+<script type="text/javascript" src="js/html5.js"></script>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+<script type="text/javascript" src="js/swipe.js"></script>
+<script type="text/javascript" src="http://open.yizhibo.tv/player/yzbPlayer.js"></script>
+<script src="//qzonestyle.gtimg.cn/open/qcloud/video/h5/h5connect.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var watch = document.getElementById('watch');
+    var teaPost = document.getElementById('tea_post');
+    var proBar = document.getElementById('pro_bar');
+    var videos = document.getElementById('video');
+    var feeRoom = document.getElementById('feeRoom');
+    var feeRooms = document.getElementById('feeRooms');
+    var swiperSlide = document.getElementById('swiper-slide');
+    var liveVideo = document.getElementById('live_video');
+    var aud = document.getElementById('player');
+    var liveFalse = document.getElementById("live_false");
+    var liveBox = document.getElementById('live-box');
+    var listItems = document.getElementById('list-items');
+    var bottoms = document.getElementById('bottom');
+    var descr = document.getElementById('descr');
+    var myTabs = document.getElementById('myTab').getElementsByTagName('li');
+    var myTabContents = document.getElementById('row').getElementsByTagName('div');
+    var videoSource = document.getElementById("videoSource");
+    var down = document.getElementById("download");
+    var img = document.getElementById("img");
+    var start1 = 0, start2 = 1, flag1 = 0, flag3 = 0;//start直播评论,num回放评论,flag执行定时器的标志
+    var wid = window.innerWidth, hei = window.innerHeight;
+    var url = '/public/live-cast/detail?id=' + getParam('id');
+    ajax(url,null,function (resp) {
+        var responseObj=resp;
+        if (responseObj.videoSource) {
+            img.style.display = "none";
+            videoSource.style.display = "block";
+            down.style.display = "block";
+            down.onclick = download();
+        }
+        if (responseObj.type == "playback") {
+            videoSource.style.display = "none";
+            down.style.display = "none";
+            img.style.display = "block";
+        }
+        var vm = new Vue({
+            el: '#nxl-box',
+            data: responseObj,
+            methods: {
+                changeRoom: function (id, thirdpartId, videoSource) {
+                    ajax('/public/live-cast/detail?id=' + id,null,function (resp) {
+                        if (resp.isFee == 1) {
+                            feeRoomStyle();
+                            return;
+                        }
+                        if (responseObj.type == 'playback') {
+                            //回房间
+                            liveBacks(id, thirdpartId, videoSource);
+                        } else {
+                            //直播间
+                            jumpRoom(id, thirdpartId);
+                        }
+                    });
+                },
+                liveBack: function (id, thirdpartId, videoSource) {
+                    ajax('/public/live-cast/detail?id=' + id,null,function (resp) {
+                        if (resp.isFee == 1) {
+                            feeRoomStyle();
+                            return;
+                        }
+                        liveBacks(id, thirdpartId, videoSource);
+                    });
+                }
+            }
+        });
+        var des = responseObj.descr;
+        des = des.split('\n');
+        var fragment = document.createDocumentFragment();
+        for (var i = 0; i < des.length; i++) {
+            var p = document.createElement('p');
+            p.innerHTML = des[i];
+            p.style.width='100%';
+            p.style.wordWrap='break-word';
+            p.style.wordBreak='break-all';
+            fragment.appendChild(p);
+        }
+        descr.appendChild(fragment);
+        fragment = null;
+        videos.style.background = 'url(' + responseObj.image + ') center no-repeat';
+        videos.style.backgroundSize = '100% 100%';
+        var teaRoles = responseObj.roleNameDescr;
+        if (teaRoles.length) {
+            teaPost.innerHTML = '咨询师';
+        } else {
+            teaPost.style.display = 'none';
+        }
+        var b_height = Math.max(document.body.scrollHeight, document.body.clientHeight);
+        var c_iframe = document.getElementById("c_iframe");
+        if (document.referrer.lastIndexOf('www') < 0) {
+            c_iframe.src = "http://nuanxinli.com/resource/tools/agent.html#" + b_height;  // 这里通过hash传递b.htm的宽高
+        } else {
+            c_iframe.src = "http://www.nuanxinli.com/resource/tools/agent.html#" + b_height;  // 这里通过hash传递b.htm的宽高
+        }
+
+        //调整二次分享
+        // parent.wxTitle = responseObj.title;
+        // parent.wxDesc = responseObj.descr;
+        // parent.setWxImageUrl(responseObj.image);
+
+        // parent.iframeLoadConfig();
+    });
+
+    var a, b, c, d;
+    //选项面卡
+    !function changeTab() {
+        for (var i = 0; i < myTabs.length; i++) {
+            myTabs[i].zdy = i;
+            myTabs[i].onclick = function () {
+                for (var i = 0; i < myTabs.length; i++) {
+                    myTabs[i].className = '';
+                    myTabContents[i].className = '';
+                    myTabContents[i].style.display = 'none';
+                }
+                this.className = 'active';
+                myTabContents[this.zdy].className = 'actives';
+                myTabContents[this.zdy].style.display = "block";
+            }
+        }
+    }();
+    //直播间
+    function jumpRoom(id, thirdpartId) {
+        window.scrollTo(0,0);
+        videos.style.display = 'none';
+        liveVideo.style.display = 'block';
+        liveBox.style.display = 'block';
+        listItems.style.display = 'block';
+        liveFalse.style.display != "block";
+        bottoms.style.display = 'block';
+        feeRoom.style.display = 'none';
+        while (aud.hasChildNodes()) {//当存在子节点时，循环继续
+            aud.removeChild(aud.firstChild);
+        }
+        if (aud.style.display != 'block') {
+            aud.style.display = 'block';
+        } else {
+            aud.style.display = 'none';
+        }
+        ajax('/public/live-cast/signinfo/' + thirdpartId,null,function (resp) {
+            a = resp.app_nonce;
+            b = resp.app_key_id;
+            c = resp.app_signature;
+            d = resp.vid;
+            var livePlayer = new yzbPlayer({
+                playerid: 'player',
+                app_nonce: a,
+                app_key_id: b,
+                app_signature: c,
+                vid: d,
+                setOptions: {
+                    height: hei,
+                    width: wid,
+                    backgroundSize: 'cover',
+                    poster: 'images/lives/daizhibo_tubiao.png',
+                    autostart: false
+                }
+            });
+        });
+        createLive(id);
+    }
+    //创建直播间
+    function createLive(id) {
+        //头像
+        var timer2 = setInterval(function () {
+            flag3 += 1;
+            ajax('/public/live-cast/viewer-list?liveId=' + id + '&start=' + start2 + '&visitSize=10',null,function (resp) {
+                start2 = resp.seq;
+                watch.innerHTML = resp.viewerCount;
+                var list = resp.visitList;
+                var fragment = document.createDocumentFragment();
+                for (var i = 0; i < list.length; i++) {
+                    if (!list[i].photo)continue;
+                    var img = document.createElement('img');
+                    img.zdy = flag3;
+                    img.src = list[i].photo;
+                    fragment.appendChild(img);
+                }
+                fragment.scrollLeft = swiperSlide.offsetWidth;
+                swiperSlide.appendChild(fragment);
+                fragment = null;
+                //即将执行出队
+                if (flag1 > 20) {
+                    for (var j = 1; j < swiperSlide.length; j++) {
+                        if (swiperSlide[j].zdy == flag1 - 14) {
+                            swiperSlide.removeChild(swiperSlide.childNodes[j]);
+                            j--;
+                        }
+                    }
+                }
+            });
+        }, 2000);
+        //评论
+        var timer1 = setInterval(function () {
+            flag1 += 1;
+            ajax('/public/live-comment/latest-list?liveId=' + id + '&start=' + start1 + '&messageCount=20',null,function (resp) {
+                start1 = resp.seq;
+                var liveCommentLists = resp.liveCommentList;
+                var len = liveCommentLists.length;
+                for (var i = 0; i < len; i++) {
+                    if (liveCommentLists[i].type != 'normal')continue;
+                    var li = document.createElement('li');
+                    li.className = 'list-item';
+                    li.zdy = flag1;
+                    var str = '';
+                    str = '<span class="userName">' + liveCommentLists[i].alias + ':</span><span class="userComments">' + liveCommentLists[i].content + '</span>';
+                    li.innerHTML = str;
+                    listItems.appendChild(li);
+                    listItems.scrollTop = listItems.scrollHeight;
+                }
+                if (flag1 > 20) {
+                    for (var j = 1; j < listItems.length; j++) {
+                        if (listItems[j].zdy == flag1 - 14) {
+                            listItems.removeChild(listItems.childNodes[j]);
+                            j--;
+                        }
+                    }
+                }
+            });
+        }, 2000);
+    }
+    //回放间
+    function liveBacks(id, thirdpartId, videoSource) {
+        window.scrollTo(0,0);
+        while (aud.hasChildNodes()) {//当存在子节点时，循环继续
+            aud.removeChild(aud.firstChild);
+        }
+        aud.style.display = 'block';
+        videos.style.display = 'none';
+        liveVideo.style.display = 'block';
+        feeRoom.style.display = 'none';
+        liveBox.style.display = 'block';
+        listItems.style.display = 'block';
+        liveFalse.style.display != "block";
+        bottoms.style.display = 'block';
+        if (!videoSource) {
+            if (liveFalse.style.display = 'block') {
+                liveFalse.style.display = 'none';
+            }
+            //直播回放
+            ajax('/public/live-cast/signinfo/' + thirdpartId,null,function (resp) {
+                a = resp.app_nonce;
+                b = resp.app_key_id;
+                c = resp.app_signature;
+                d = resp.vid;
+                if (!(browser.ios || browser.android)) {
+                    hei = '600';
+                }
+                var backPlayer = new yzbPlayer({
+                    playerid: 'player',
+                    app_nonce: a,
+                    app_key_id: b,
+                    app_signature: c,
+                    vid: d,
+                    setOptions: {
+                        height: hei,
+                        width: wid,
+                        poster: 'images/lives/daizhibo_tubiao.png',
+                        autostart: false
+                    }
+                });
+            });
+            ajax('/public/live-cast/signinfo/' + thirdpartId,null);
+        } else {
+            //假直播回放
+            if (aud.style.display != 'none') {
+                while (aud.hasChildNodes()) {//当存在子节点时，循环继续
+                    aud.removeChild(aud.firstChild);
+                }
+                aud.style.display = 'none';
+            }
+            if (liveFalse.style.display != 'block') {
+                liveFalse.style.display = 'block';
+            }
+            liveFalse.style.width = "100%";
+            liveFalse.style.height = hei;
+            console.dir(liveFalse);
+            liveFalse.src = videoSource;
+        }
+        createBack(id);
+    }
+    //创建回放间
+    function createBack(id) {
+        //头像
+        ajax('/public/live-cast/viewer-list?liveId=' + id + '&start=0&visitSize=200',null,function (resp) {
+            watch.innerHTML = resp.viewerCount;
+            var list = resp.visitList;
+            for (var i = 0; i < list.length; i++) {
+                if (!list[i].photo)continue;
+                var img = document.createElement('img');
+                img.zdy = flag3;
+                img.src = list[i].photo;
+                img.scrollLeft = swiperSlide.offsetWidth;
+                swiperSlide.appendChild(img);
+            }
+        });
+        //评论
+       ajax('/public/live-comment/latest-list?liveId=' + id + '&start=' + start1 +
+           '&messageCount=500',null,function (resp) {
+           var fragment = document.createDocumentFragment();
+           var len = resp.liveCommentList.length;
+           for (var i = 0; i < len; i++) {
+               if (resp.liveCommentList[i].type != 'normal')continue;
+               var li = document.createElement('li');
+               li.className = 'list-item';
+               var str = '';
+               str += '<span class="userName">' + resp.liveCommentList[i].alias + ':</span><span class="userComments">' + resp.liveCommentList[i].content + '</span>';
+               li.innerHTML = str;
+               fragment.appendChild(li);
+           }
+           listItems.appendChild(fragment);
+           fragment = null;
+       })
+
+    }
+    //APP下载跳转
+    function download() {
+        if (browser.ios) {
+            if (browser.weixin) {
+                window.parent.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                window.parent.location.href = 'https://itunes.apple.com/us/app/nuan-xin-li/id983939376';
+            }
+        } else {
+            if (browser.weixin) {
+                window.parent.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                window.parent.location.href = 'http://app.nuanxinli.com/warm/WarmApp.apk';
+            }
+        }
+    }
+    //付费房间样式
+    function feeRoomStyle() {
+        window.scrollTo(0,0);
+        while (aud.hasChildNodes()) {//当存在子节点时，循环继续
+            aud.removeChild(aud.firstChild);
+        }
+        videos.style.display = 'none';
+        liveBox.style.display = 'none';
+        listItems.style.display = 'none';
+        liveFalse.style.display != "none";
+        bottoms.style.display = 'none';
+        feeRoom.style.display = 'none';
+        aud.style.display = 'none';
+        videos.style.display = 'none';
+        feeRooms.style.display = 'inlineBlock';
+        feeRoom.style.display = 'block';
+        feeRoom.style.width = wid + 'px';
+        feeRoom.style.height = hei + 'px';
+        feeRoom.style.lineHeight = hei + 'px';
+    }
+</script>
+</body>
+</html>

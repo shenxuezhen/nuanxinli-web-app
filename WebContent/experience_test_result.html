@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<link rel="stylesheet" href="css/size.css">
+<link rel="stylesheet" href="css/experience_test_result.css">
+</head>
+<body>
+	<div id="result_div">
+		<iframe style="display: none;" id="iframe"></iframe>
+		<img id="result_img" src="images/experience_test_result_bg.png">
+		<div id="score_div">
+			<span id="score"></span>
+			<span id="score_text">分</span>
+		</div>
+		<!-- <div id="explan_div">心理压力指数</div> -->
+		<div id="percent_div"></div>
+		<div id="result_text_div"></div>
+		<div id="bottom_text_div">
+			<div id="bottom_text_line"></div>
+			<img id="bottom_text_img" src="images/test_result_text_img.png"/>
+		</div>
+	</div>
+	<div id="submit_button_div">
+		<button id="submit_button" onclick="submit();">确定</button>
+	</div>
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript">
+		var hei = document.documentElement.clientHeight;// 屏幕高
+		var resultDiv = document.getElementById('result_div');
+		resultDiv.style.minHeight = hei*0.55+'px';
+		// 请求数据 
+		var url = '';
+		var puburl = localStorage.getItem('puburl');
+		var param = '';
+		if(getParam('test') == 0){
+			url = '/'+puburl+'/usermhi/test';
+			param = localStorage.getItem('experienceTestJson');
+		}else{
+			url = '/'+puburl+'/record/new';
+			param = localStorage.getItem('testJson');
+		}
+		var httpRequest;
+		var jsonStr;
+		if (window.XMLHttpRequest) {
+			httpRequest = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			try {
+				httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
+			} catch (e) {
+				try {
+					httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+				} catch (e) {
+				}
+			}
+		}
+		if (!httpRequest) {
+			alert('Giving up L Cannot create an XMLHTTP instance');
+		} else {
+			httpRequest.open('POST', url, false);
+			httpRequest.send(param);
+			/* alert(param);
+			alert(httpRequest.status+'-------'+httpRequest.responseText); */
+			if (httpRequest.readyState == 4) {
+				if (httpRequest.status == 200) {
+					jsonStr = httpRequest.responseText;
+				} else {
+					alert('There was a problem with the request.');
+				}
+			}
+		}
+		var json = eval('['+jsonStr+']');
+		var score = document.getElementById('score');
+		var percentDiv = document.getElementById('percent_div');
+		var resultTextDiv = document.getElementById('result_text_div');
+		if(getParam('test') == 0){
+			resultTextDiv.innerHTML = jsonStr;
+			score.innerHTML = json[0].score;
+			percentDiv.innerHTML = json[0].title;
+			resultTextDiv.innerHTML = json[0].content;
+		}else{
+			score.innerHTML = json[0].usageResult.value;
+			resultTextDiv.innerHTML = json[0].usageResult.content;
+		}
+		function submit(){
+			var iframe = document.getElementById('iframe');
+			if(browser.versions.ios){
+				iframe.src = 'list';
+			}else{
+				if(getParam('test') == 0){
+					window.appInterface.turnToIndexActivity();
+				}else{
+					window.appInterface.finishActivity();
+				}
+			}
+		}
+	</script>
+</body>
+</html>

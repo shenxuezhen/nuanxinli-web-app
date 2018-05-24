@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>预告</title>
+    <script src="js/flexible.js"></script>
+    <link rel="stylesheet" href="css/forecast.css">
+</head>
+<body>
+<div class="loading" style="width:.6rem;height:.6rem;position: absolute;left: 50%;top: 50%;margin-left: -.3rem;margin-top: -.3rem"><img src="images/loading.gif" style="width: 100%;height: 100%"></div>
+<!--Banner详情的分享页面-->
+<div id="body" class="body" style="display: none;">
+    <div class="live_poster">
+        <img v-bind:src="bannerInfo.image">
+    </div>
+    <div class="live_title">
+        <div class="live_name">{{bannerInfo.title}}</div>
+        <span></span>
+        <div class="live_time">
+            <p>开始时间:&nbsp;&nbsp;{{bannerInfo.liveStartTime}}</p>
+        </div>
+    </div>
+    <div class="live_content">
+        <div class="live_introduced">直播介绍 <span></span></div>
+        <div class="live_info">
+            <div class="top">
+                <div class="left">
+                    <img v-bind:src="bannerInfo.photo">
+                    <div>
+                        <p class="p1">
+                            <span>{{bannerInfo.name}}</span>
+                            <span>{{bannerInfo.roleNameDescr}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="descr" class="bottom">
+            </div>
+        </div>
+    </div>
+    <iframe id="c_iframe" height="0" width="0" style="display:none"></iframe>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="js/html5.js"></script>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script>
+    loadEnv(function () {
+        var count=document.getElementById('count');
+        var descr=document.getElementById('descr');
+        var data={
+            bannerInfo:{}
+        };
+        var timer;
+        var vm = new Vue({
+            el: '#body',
+            data: data,
+            created:function () {
+                ajax("/public/live-cast/detail?id=" + getParam('id'),null,function (resp) {
+                    data.bannerInfo=resp;
+                    $(".loading").css("display", "none");
+                    $("#body").css("display", "block");
+                    initShareObj({
+                        title:resp.title,
+                        content:resp.descr,
+                        shareUrl:window.location.href,
+                        iconUrl:window.location.origin+resp.image
+                    });
+                    var des=resp.descr;
+                    des=des.split('\n');
+                    var fragment=document.createDocumentFragment();
+                    for(var i=0;i<des.length;i++){
+                        var p=document.createElement('p');
+                        p.innerHTML=des[i];
+                        fragment.appendChild(p);
+                    }
+                    descr.appendChild(fragment);
+                    //调整二次分享
+                    // parent.wxTitle = resp.title;
+                    // parent.wxDesc = resp.descr;
+                    // parent.setWxImageUrl(resp.image);
+                    // parent.iframeLoadConfig();
+                    fragment=null;
+                    /*var b_height = Math.max(document.body.scrollHeight, document.body.clientHeight);
+                     var c_iframe = document.getElementById("c_iframe");
+                     if(document.referrer.lastIndexOf('www')<0){
+                     c_iframe.src = "https://nuanxinli.com/resource/tools/agent.html#" + b_height;  // 这里通过hash传递b.htm的宽高
+                     }else {
+                     c_iframe.src = "https://www.nuanxinli.com/resource/tools/agent.html#" + b_height;  // 这里通过hash传递b.htm的宽高
+                     }*/
+                    return timer=resp.liveStartTime;
+                });
+            }
+        });
+        pushToHistory(window.location.href);
+    },function () {
+        popToHistory(window.location.href);
+    },null,0);
+
+    //倒计时
+    /*function countdown(timer) {
+        var djs = Math.round(new Date(timer).getTime() / 1000);
+        var b = Math.round(new Date().getTime() / 1000);
+        var cc = djs - b;
+        var d = Math.floor(cc / (3600 * 24));
+        var h = Math.floor((cc - d * 3600 * 24) / 3600);
+        var m = Math.floor(((cc - d * 3600 * 24 - h * 3600)) / 60);
+        var s = Math.floor(cc - d * 3600 * 24 - h * 3600 - m * 60);
+        count.innerHTML=(h<10?'0'+h:h)+':'+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
+        if(count.innerHTML==="00:00:00"){
+            clearInterval(timers);
+        }
+    }
+    var timers=setInterval('countdown(timer)', 1000);*/
+</script>

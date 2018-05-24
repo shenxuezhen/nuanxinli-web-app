@@ -1,0 +1,26 @@
+.pure-menu-item {
+    margin: 0 0.53rem !important;
+    line-height: 1.25rem;
+    list-style-type: none;
+}
+.pure-menu-item-span {
+    display: block;
+    height: .06rem;
+    border-color: #FFFFFF;
+}
+.pure-menu-horizontal,
+.pure-menu-scrollable {
+    overflow-x: hidden !important;
+}
+.pure-menu-horizontal,
+.pure-menu-scrollable,
+.pure-menu-link {
+    padding: 0 !important;
+}
+.pure-menu-link-white{
+    color: #000000;
+    background: #FFFFFF !important;
+}
+.under-line-black {
+    background: #000000 !important;
+}

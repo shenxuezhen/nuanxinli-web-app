@@ -1,0 +1,192 @@
+*{margin: 0;padding: 0;}
+#bbs_revert{
+    width: 100%;
+    margin-bottom: 2rem;
+    font-family: "Helvetica";
+}
+.list{
+    margin-bottom: 1rem;
+}
+.up_div{
+    padding: .53rem .53rem 1.23rem .53rem;
+    background: white;
+}
+.card_title{
+    line-height: .6rem;
+    font-size: .48rem;
+    color: #393732;
+    text-align: center;
+    margin-bottom: .53rem;
+}
+.user_div{
+    width: 100%;
+    margin-bottom: .1rem;
+}
+.user_image{
+    width: 1rem;
+    height: 1rem;
+    border-radius: .5rem;
+}
+.user_info{
+    height: 1rem;
+    display: inline-block;
+}
+.card_name{
+    height: .5rem;
+    line-height: .5rem;
+    font-size: .4rem;
+    color: #3F907E;
+    text-align: left;
+    display: inline-block;
+    padding: 0 .2rem 0 .2rem;
+}
+.card_reply{
+    height: .5rem;
+    line-height: .5rem;
+    font-size: .346rem;
+    color: #B1AFAF;
+    text-align: left;
+    display: inline-block;
+}
+.card_reply_name{
+    margin-left: .133rem;
+    height: .5rem;
+    line-height: .5rem;
+    font-size: .346rem;
+    color: #81807E;
+    text-align: left;
+    display: inline-block;
+}
+.card_time{
+    height: .5rem;
+    line-height: .5rem;
+    font-size: .32rem;
+    color: #B6B5B5;
+    width: 100%;
+    text-align: left;
+    padding: 0 .2rem 0 .2rem;
+}
+.card_content{
+    margin-top: .53rem;
+    line-height: .8rem;
+    font-size: .426rem;
+    color: #393732;
+}
+/*点赞的按钮*/
+.good{
+    height: .693rem;
+    color: #2DCCCE;
+    float: right;
+}
+.good_div{
+    width: 1.4rem;
+    height: .6rem;
+    line-height: .6rem;
+    border-radius: .346rem;
+    text-align: center;
+    float: right;
+}
+.elect_good{
+    border: 1px solid #2DCCCE;
+    color: #2DCCCE;
+}
+.not_elect_good{
+    border: 1px solid #81807e;
+    color: #81807E;
+}
+.good_count_div{
+    float: right;
+    height: .693rem;
+    line-height: .693rem;
+    font-size: .4rem;
+    color: #81807E;
+    margin-left: .2rem;
+}
+.contact_div{
+    /*width: 1.42rem;*/
+    padding: 0 .2rem 0 .2rem;
+    height: .6rem;
+    line-height: .6rem;
+    text-align: center;
+    font-size: .32rem;
+    color: white;
+    border-radius: .3rem;
+}
+.all_reply{
+    height: 1rem;
+    line-height: 1rem;
+    background: #F6F6F6;
+    color: #282828;
+    font-size: .453rem;
+    padding: 0 .53rem 0 .53rem;
+}
+.bottom_div{
+    background: white;
+    padding: .53rem .53rem 0 .53rem;
+}
+.frist_reply_div{
+    line-height: .8rem;
+    color: #393732;
+    font-size: .4rem;
+    padding: 0 0 0 .2rem;
+    margin-left: 1rem;
+}
+.second_reply_div{
+    /*height: 1rem;*/
+    /*background: red;*/
+    margin-left: 1rem;
+}
+.second_reply_content_div{
+    line-height: .8rem;
+    color: #393732;
+    font-size: .4rem;
+    padding: 0 0 0 .2rem;
+}
+.more{
+    width: 100%;
+    height: .4rem;
+    line-height: .4rem;
+    color: #2DCCCE;
+    font-size: .4rem;
+    text-align: center;
+}
+.input_div{
+    width: 100%;
+    height: 1.53rem;
+    background: #2DCCCE;
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+}
+.textarea_text_div{
+    width: 84%;
+    height: 100%;
+    float: left;
+}
+.textarea_text{
+    width: 90%;
+    height: .9rem;
+    line-height: .9rem;
+    margin: .2rem .33rem .2rem .33rem;
+    border-radius: .45rem;
+    border:1px solid white;
+    outline:none;resize:none;
+    font-size: .4rem;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+}
+.textarea_image_div{
+    width: 16%;
+    height: 100%;
+    float: right;
+    position: relative;
+}
+.textarea_image{
+    width: 1rem;
+    height: .64rem;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -.32rem; /* 高度的一半 */
+    margin-left: -.5rem; /* 宽度的一半 */
+}

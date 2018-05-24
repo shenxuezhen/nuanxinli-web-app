@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <title>测评</title>
+    <link rel="stylesheet" type="text/css" href="css/start_interview.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/tools.js"></script>
+</head>
+<body>
+<div id="startInterview">
+    <section class="interview">
+        <section id="inter-company" class="inter-company">
+            <img id="comLogo">
+        </section>
+        <article class="inter-guide">
+            <p>亲爱的应聘者：</p>
+            <p>欢迎来到<span id="companyName">人人车</span>，填写下方信息才可以开始进行测试，请认真作答~</p>
+        </article>
+        <section class="inter-info">
+            <p><span>姓&nbsp;&nbsp;&nbsp;名：</span><input id="username" type="string"></p>
+            <p><span id="warn1" style="display: none">请输入姓名</span></p>
+            <p><span>手机号：</span><input id="tel" type="tel"></p>
+            <p><span id="warn2" style="display: none">请输入正确手机号</span></p>
+            <p onclick="next()">下一步</p>
+            <div class="warm-test" onclick="tested()">已经做过当前测评？</div>
+        </section>
+        <div class="warningBox" style="display: none"></div>
+        <section class="warning1" style="display: none">
+            <p class="tip">啊哦~你不是有效用户哦</p>
+            <div class="tip">可能：</div>
+            <p class="con-tip">1、姓名、手机号填写有误</p>
+            <p class="con-tip">2、没有被录入到应聘者库中</p>
+            <p class="con-tip">3、亲爱的，你已经做过测试了</p>
+            <div class="exitWarn">知道了</div>
+        </section>
+        <div class="warning2" style="display: none">
+            <p>暖心提示</p>
+            <p><a href=""  id="down-warm-app">下载暖心理app</a></p>
+            <p>登录账号：手机号</p>
+            <p>密码：点击“忘记密码”修改密码后登陆</p>
+            <p id="close-down">知道了</p>
+        </div>
+    </section>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var testDId,logo,comLogo,username,tel,companyName;
+    var warn1=document.getElementById("warn1"),
+        warn2=document.getElementById("warn2");
+    var needUserInfo=1;
+    var role;
+    var testIRule='company';
+    testDId=getParam('testDId');
+    logo=getParam('logo');
+    companyName=document.getElementById("companyName");
+    companyName.innerHTML=getParam('companyName');
+    comLogo=document.getElementById("comLogo");
+    comLogo.src=logo;
+    function next() {
+        username=document.getElementById("username").value.trim();
+        tel=document.getElementById("tel").value.trim();
+        var companyId=getParam('companyId');
+        var testDId=getParam('testDId');
+        var reg=/^1[^12690]\d{9}$/g;
+        var testI={};
+        testI.companyId=companyId;
+        testI.user={"cellPhone":tel,"alias":username};
+        if(!username){
+            warn1.style.display='block';
+            setTimeout(function () {
+                warn1.style.display='none';
+            },3000);
+            return;
+        }
+        if(!reg.test(tel)){
+            warn2.style.display='block';
+           setTimeout(function () {
+               warn2.style.display='none';
+           },3000);
+            return;
+        }
+        ajax('/public/company/check',testI,function () {
+            ajax('/public/company/check_commember',{
+                "name":username,
+                "cellPhone":tel,
+                "companyId":companyId,
+                "testDId":testDId
+            },function (resp) {
+                role=resp.role;
+                $("#startInterview").load('start_normal.html');
+            },null,function () {
+                if(XMLHttpRequest.status=='601'){
+                    $(".warningBox").show();
+                    $(".warning1").show();
+                    var windowW=document.documentElement.clientWidth;
+                    var windowH=document.documentElement.clientHeight;
+                    $(".warningBox").css('width',windowW);
+                    $(".warningBox").css('height',windowH);
+                    $(".warningBox").addClass('warningBoxPosition');
+                    $(".exitWarn").on('touchstart',function () {
+                        $(".warningBox").hide();
+                        $(".warning1").hide();
+                        $("#username")[0].value='';
+                        $("#tel")[0].value='';
+                    });
+                }
+            });
+        });
+    }
+    function tested() {
+        $(".warningBox").show();
+        $(".warning2").show();
+        var windowW=document.documentElement.clientWidth;
+        var windowH=document.documentElement.clientHeight;
+        $(".warningBox").css('width',windowW);
+        $(".warningBox").css('height',windowH);
+        $(".warningBox").addClass('warningBoxPosition');
+        $("#down-warm-app").on('touchstart',function () {
+            var downA=document.getElementById('down-warm-app');
+            if (browser.ios) {
+                if (browser.weixin) {
+                    downA.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+                } else {
+                    downA.href = 'https://itunes.apple.com/us/app/nuan-xin-li/id983939376';
+                }
+            } else {
+                if (browser.weixin) {
+                    downA.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+                } else {
+                    downA.href = 'http://app.nuanxinli.com/warm/WarmApp.apk';
+                }
+            }
+        });
+        $("#close-down").on('touchstart',function () {
+            $(".warningBox").hide();
+            $(".warning2").hide();
+        })
+    }
+</script>

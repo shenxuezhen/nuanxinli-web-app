@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: white !important;
+}
+li {
+    list-style-type: none;
+}
+img {
+    width: 100%;
+    height: 100%;
+}
+/* 超出部分显示省略号 */
+.ellipsis {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 控制显示的行数 */
+}
+.loading, #pullUp {
+    background: #FFFFFF !important;
+}
+.flip {
+    background: #FFFFFF !important;
+}
+.course-list-head {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 3rem;
+    box-shadow: 0px 4px 10.9px #DDDDDD;
+    background: #fff
+}
+.course-list-h1, .course-list-h2, .course-list-h3 {
+    text-align: center;
+}
+.course-list-h1 {
+    padding-top: 0.53rem;
+    font-size: 0.5rem;
+    font-weight: bold;
+    color: #393932;
+}
+.course-list-h2 {
+    padding-top: 0.21rem;
+    color: #393932;
+}
+.course-list-h3 {
+   padding-top: 0.31rem;
+   padding-bottom: 0.56rem; 
+   color: #81807E;
+}
+.wrapper-list {
+    margin-top: 3.3rem !important;
+    background: #FFFFFF !important;
+}
+.wrapper-my-list {
+    top: 0 !important;
+    background: #FFFFFF !important;
+}
+.course-card {
+    padding: 0.57rem 0.61rem 0 0.43rem;
+    height: 4.04rem;
+    border-bottom: 1px solid rgba(239,239,238,1);
+}
+.course-card:nth-last-of-type(1) {
+    border-bottom: none;
+}
+.course-card-top {
+    display: inline-flex;
+    height: 2.13rem;
+}
+.course-card-top-left {
+    display: inline-block;
+    position: relative;
+    width: 2.8rem;
+    height: 2.13rem;
+}
+.course-cover {
+    width: 2.8rem;
+    height: 2.13rem;
+}
+.hasBuy {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 1.79rem;
+    height: 0.67rem;
+    line-height: 0.67rem;
+    background: #000000;
+    opacity: 0.44;
+    border-radius: 0 25px 25px 0;
+    text-align: center;
+    color: #FFFFFF;
+}
+.play-img {
+    position: absolute;
+    left: 1.06rem;
+    top: 0.82rem;
+    z-index: 2;
+    width: 0.64rem;
+    height: 0.64rem;
+}
+.course-card-top-right {
+    display: inline-block;
+    margin-left: 0.35rem;
+    width: 5.81rem;
+    height: 2.13rem;
+}
+.course-name {
+    margin-top: 0.29rem;
+    font-size: 0.45rem;
+    font-weight: bold;
+    color: #393932;
+}
+sup {
+    position: relative;
+    top: -0.13rem;
+}
+sup>img {
+    width: 0.59rem;
+    height: 0.32rem;
+}
+.course-description {
+    margin-top: 0.35rem;
+    max-height: 0.96rem;
+    line-height: 0.48rem;
+    color: #81807E;
+}
+.course-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 1.32rem;
+}
+.course-card-bottom > span:nth-of-type(2) {
+    display: flex;
+    align-items: center;
+}
+.course-card-bottom-duration {
+    color: #B1AFAE;
+}
+.course-card-bottom-days {
+    color: #B1AFAE;
+}
+.img-days {
+    width: 0.48rem;
+    height: 0.48rem;
+}
+.course-card-bottom-price {
+    margin-left: 0.56rem;
+    font-size: 0.45rem;
+    color: #EF7E38;
+}

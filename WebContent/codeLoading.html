@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>红包</title>
+    <script type="text/javascript" src="js/flexible.js"></script>
+    <link rel="stylesheet" href="css/code.css">
+</head>
+<body>
+<section>
+    <section class="redEnvelope_a">
+        <p class="info">
+            <span>来暖心理</span><br>
+            <span>轻咨询、解梦、直播送礼</span>
+        </p>
+        <input id="tel" placeholder="请输入手机号码" type="tel"/>
+        <p id="tip1" class="tip1">请输入手机号</p>
+        <div id="button">强拆</div>
+    </section>
+    <section class="redEnvelope_b">
+        <p>高冷如我</p>
+        <p>只想下载暖心理</p>
+        <p>点击下方跳转下载呦~~</p>
+    </section>
+    <section class="openEnvelope_c">
+        <div onclick="download()">下载暖心理APP</div>
+    </section>
+</section>
+</body>
+</html>
+<script type="text/javascript" src="js/html5.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script>
+    var tip1=document.getElementById('tip1');
+    var tel=document.getElementById('tel');
+    var button=document.getElementById('button');
+    var url=window.location.href;
+    var userName=url.split(/username=/)[1];
+    button.onclick=function(){
+        var str=tel.value;
+        if (str == '') {
+            tip1.style.display='block';
+            var timer=setTimeout(function(){
+                tip1.style.display='none';
+            },2000);
+        } else {
+            var reg = /^1[^12690]\d{9}$/;
+            if (reg.test(str)) {
+                wait(this);
+                ajax("/public/live/bigcast?cellPhone="+str+"&expertChannel="+userName,null,function (resp) {
+                    if(resp=="您已经领过红包了"){
+                        location.href = "openEnvelope.html?"+"cellPhone="+encodeURI(str)+'&expertChannel='+userName+'&content='+1;
+                    }else {
+                        location.href = "openEnvelope.html?"+"cellPhone="+encodeURI(str)+'&expertChannel='+userName;
+                    }
+                });
+            } else {
+                tip1.style.display='block';
+                var timer=setTimeout(function(){
+                    tip1.innerHTML='手机号错误，请重新输入';
+                    tip1.style.display='none';
+                },2000);
+            }
+        }
+    }
+    function download() {
+        if (browser.ios) {
+            if (browser.weixin) {
+                location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                location.href = 'https://itunes.apple.com/us/app/nuan-xin-li/id983939376';
+            }
+        } else {
+            if (browser.weixin) {
+                location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                location.href = 'http://app.nuanxinli.com/warm/WarmApp.apk';
+            }
+        }
+    }
+</script>

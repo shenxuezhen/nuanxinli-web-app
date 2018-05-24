@@ -1,0 +1,81 @@
+body{
+	width: 100%;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	font-family: "Arial";
+}
+/*标题div*/
+#title_div{
+	width: 100%;
+	height: 4rem;
+	background-color: #f3f3f3;
+	font-size: 1.5rem;
+	color: #5B5B5D;
+	text-align: center;
+	position: relative;
+	line-height: 4rem;
+}
+/*内容条目div*/
+.body_item_div{
+	width: 100%;
+	height: 3.5rem;
+	line-height: 3.5rem;
+}
+/*内容字体div*/
+.body_font_div{
+	width: 75%;
+	font-size: 1.2rem;
+	color: #686868;
+	padding-left: 2rem;
+	float: left;
+}
+/*线*/
+.body_line{
+	width: 100%;
+	height: 1px;
+	background-color: #efefef;
+}
+/*选择框div*/
+.body_check_box_div{
+	width: 10%;
+	height: 3.5rem;
+	float: left;
+	line-height: 3.5rem;
+}
+/*蓝色复选框*/
+.checkbox {
+	display: none;
+}
+.checkbox + label {
+	width: 2rem;
+	height: 2rem;
+	background: url("../images/no_checked.png") center no-repeat;
+	background-size: contain;
+	display: inline-block;
+	margin-top: 0.75rem;
+}
+.checkbox:checked + label {
+	background: url("../images/checked.png") center no-repeat;
+	background-size: contain;
+	margin-top: 0.75rem;
+}
+/*提交按钮div*/
+#submit_button_div{
+	width: 100%;
+	height: 7rem;
+	line-height: 7rem;
+	text-align: center;
+}
+/*提交按钮*/
+#submit_button{
+	width: 10rem;
+	height: 3rem;;
+	border-radius: 5px;
+	background-color: #fd5d0e;
+	border: none;
+	outline: none;
+	font-size: 1.5rem;
+	color: #fff;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>我的测评</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="css/test_person_history.css">
+    <link rel="stylesheet" href="css/font_size.css">
+    <link rel="stylesheet" href="../css/myScroll.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/alertView.js"></script>
+</head>
+<body style="background: #f6f6f6">
+<div class="loading"><img src="../images/loading.gif"></div>
+<div id="thelist" class="native-scroll" style="display: none">
+    <div class="card" v-for="myTest in testHistory">
+        <div class="card-content" @click="getTestResult(myTest)">
+            <p style="font-family: Helvetica">{{deleteTime(myTest.endTime)}}</p>
+            <!--<div class="pay-status" v-if="myTest.isValid==0" style="background: #FF6600;color: #FFFFFF;border: none;">待支付</div>
+            <div class="pay-status" v-if="myTest.isValid==1" style="background: #3F907E;color: #FFFFFF;border: none;">已购买</div>-->
+            <div class="pay-status" v-if="myTest.isValid==0" style="color: #FF6600;border: none;">待支付</div>
+            <div class="pay-status" v-if="myTest.isValid==1" style="color: #3F907E;border: none;">已购买</div>
+            <div class="warm-test-info">
+                <div>
+                    <img :src="myTest.testD.img">
+                </div>
+                <div>
+                    <p>{{myTest.testD.title}}</p>
+                    <p>{{myTest.testD.simpleDescr}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="result-tip" v-if="myTest.testD.vaildDateEnd">
+                <!--<div v-if="myTest.isValid==0" style="background: #FF6600;color: #FFFFFF;border: none;">待支付</div>
+                <div v-if="myTest.isValid==1" style="background: #3F907E;color: #FFFFFF;border: none;">已购买</div>-->
+                <p v-if="myTest.testD.vaildDateEnd" style="font-family: Helvetica">您购买的测评已于{{myTest.testD.vaildDateEnd.substring(0,10)}}过期</p>
+                <!--myTest.testD.vaildDateEnd.indexof(' ')-->
+            </div>
+            <div class="result-operation">
+                <div class="delete" @click="deleteTest(myTest.id)">删除</div>
+                <div v-if="myTest.testD.payState==1 && myTest.isValid==1" @click="reTest(myTest.testD.id)"
+                     style="border: 1px solid #3F907E; color: #3F907E; width: 2rem;">再测一次
+                </div>
+                <div v-if="myTest.testD.payState==0 && myTest.isValid==1" @click="rePay(myTest)"
+                     style="border: 1px solid #3F907E; color: #3F907E; width: 2rem;">再次购买
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="js/test_person_history.js"></script>

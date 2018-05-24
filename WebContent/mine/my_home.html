@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="../lib/pure/base-min.css"/>
+    <link rel="stylesheet" href="../lib/pure/grids-min.css"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="css/my_home.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+</head>
+<body>
+<div class="loading" style="display: block"><img src="../images/loading.gif"></div>
+<div id="mine">
+    <nav class="test-person-header">
+        <div>
+            <img id="userPhoto" src="../images/default_photo.png">
+            <p id="userName"></p>
+        </div>
+    </nav>
+</div>
+<div class="navigationView">
+    <div class="pure-u-1-1" id="logoArea">
+        <div id="logoAll">
+            <div>
+                <div class="smallImage" onclick="myTestClick()">
+                    <img src="../images/navigation/my/myassessment.png" alt="我的测评"/>
+                    <div>我的测评</div>
+                </div>
+                <div class="smallImage" onclick="myCoursesClick()">
+                    <img src="../images/navigation/my/mycourses.png" alt="我的课程"/>
+                    <div>我的课程</div>
+                </div>
+                <div class="smallImage" onclick="myHeartClick()">
+                    <img src="../images/navigation/my/myheart.png" alt="我的心事"/>
+                    <div>我的心事</div>
+                </div>
+                <div class="smallImage" onclick="myCollectClick()">
+                    <img src="../images/navigation/my/mycollection.png" alt="我的收藏"/>
+                    <div>我的收藏</div>
+                </div>
+            </div>
+            <div>
+                <div class="smallImage" onclick="myCouponClick()">
+                    <img src="../images/navigation/my/mycoupon.jpg" alt="我的优惠券"/>
+                    <div>我的优惠券</div>
+                </div>
+                <div class="smallImage">
+                    <img src="../images/navigation/my/advisoryrecords.png" alt="咨询记录"/>
+                    <div>咨询记录</div>
+                </div>
+                <div class="smallImage">
+                    <img src="../images/navigation/my/dreamrecord.png" alt="解梦记录"/>
+                    <div>解梦记录</div>
+                </div>
+                <div class="smallImage">
+                    <img src="../images/navigation/my/attention_consultant.png" alt="关注的老师"/>
+                    <div>关注的老师</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="info">本APP心理服务由暖心理独家提供</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="js/my_home.js"></script>

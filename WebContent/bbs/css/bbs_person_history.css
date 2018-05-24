@@ -1,0 +1,112 @@
+.main{
+    width: 100%;
+    height: 100%;
+}
+.listSelect{
+    width: 100%;
+    height: 1.12rem;
+}
+.listSelect .submit{
+    height: 1.12rem;
+    width: 50%;
+    float: left;
+    border-right: .5px solid #D9D8D8;
+    font-size: .453rem;
+    line-height: 1.12rem;
+    text-align: center;
+    background: white;
+}
+.listSelect .revert{
+    height: 1.12rem;
+    width: 49%;
+    float: left;
+    border-left: .5px solid #D9D8D8;
+    font-size: .453rem;
+    line-height: 1.12rem;
+    text-align: center;
+    background: white;
+}
+.bottomSelect{
+    border-bottom: 2px solid #2DCCCE;
+    color: #2DCCCE;
+}
+.bottomNotSelect{
+    border-bottom: 2px solid #D9D8D8;
+    color: #444343;
+}
+.cell{
+    border-bottom: 1px solid #efefee;
+    padding: .5rem;
+    background: white;
+}
+.title{
+    clear: both;
+    width: 100%;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .55rem;
+    color: #393932;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    font-family: "Helvetica";
+}
+.content{
+    width: 100%;
+    max-height: 1.2rem;
+    line-height: .6rem;
+    font-size: .37rem;
+    color: #393932;
+    margin-bottom: .5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-family: "Helvetica";
+}
+.bottom{
+    width: 100%;
+    height: .34rem;
+}
+.showimg{
+    float: left;
+    height: .34rem;
+    width: .34rem;
+    font-size: .34rem;
+}
+.time{
+    height: .34rem;
+    line-height: .34rem;
+    font-size: .34rem;
+    margin-left: .2rem;
+    color: #B1AFAE;
+    float: left;
+    font-family: "Helvetica";
+}
+.rank{
+    height: .34rem;
+    font-size: .34rem;
+    float: right;
+    display: inline-flex;
+}
+.rank .rankimge{
+    height: .34rem;
+    width: .45rem;
+    margin-left: .4rem;
+}
+.rank .ranktext{
+    height: .34rem;
+    font-size: .34rem;
+    line-height: .34rem;
+    color: #C7C7C7 ;
+    margin-left: .1rem;
+    font-family: "Helvetica";
+}
+.delete_gray_img{
+    height: .34rem;
+    width: .3rem;
+    margin-left: .4rem;
+}

@@ -1,0 +1,31 @@
+.ios-pay{
+    margin: .3906rem .4375rem;
+}
+.ios-pay-tip{
+    line-height: .5625rem;
+}
+.ios-pay-step p{
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+.ios-pay-step p:nth-of-type(1){
+    text-align: center;
+    justify-content: center;
+}
+/*.ios-pay-step p:nth-of-type(1){
+    color: #EF7E38;
+    margin: 0 .2565rem;
+}*/
+.ios-pay-step p img{
+    margin-right: .2969rem;
+}
+.ios-pay-QRcode{
+    text-align: center;
+    margin-bottom: .8438rem;
+}
+.ios-pay-QRcode img{
+    width: 4.0469rem;
+    height: 4.0469rem;
+    margin: 0 auto;
+}

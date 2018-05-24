@@ -1,0 +1,6 @@
+*{margin: 0;padding: 0}
+.cell{
+    width: 100%;
+    text-align: center;
+    /*height: 10rem;*/
+}

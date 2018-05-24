@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../course/css/course_order.css">
+    <link rel="stylesheet" href="../lib/pure/pure-min.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+    <script type="text/javascript" src="../test/js/common_methods.js"></script>
+</head>
+<body>
+
+<div id="course-order" class="course-order" style="display: none">
+
+    <div class="order-info-head">
+        <div class="order-info-head-left">
+            <img src="../images/test/nuan.png" alt="">
+            <span class="order-info-head-left-span">{{userInfo.name}}购买的课程服务</span>
+        </div>
+    </div>
+
+    <div class="blank-0-44"></div>
+
+    <div class="order-info-content">
+        <p class="order-info-detail">订单明细</p>
+        <ul>
+            <li><p><span class="o-i-d-t">课程类型：</span><span class="o-i-d-t">{{isSeriesStr}}</span></p></li>
+
+            <li><p><span class="o-i-d-t">课程名称：</span><span class="o-i-d-t">{{name}}</span></p></li>
+
+            <li><p><span class="o-i-d-t">有效期：</span><span class="o-i-d-t">{{priceUnit}}</span></p></li>
+
+            <li><p><span class="o-i-d-t">实付金额：</span><span class="price-color" style="font-family: Helvetica">{{price(orderTotalPrice)}}</span></p></li>
+        </ul>
+    </div>
+
+    <div class="blank-2-2"></div>
+
+
+    <div id="order-btn" class="order-button" @touchstart="pay">提交订单</div>
+
+</div>
+
+<iframe id="alipayWap" src="" frameborder="0" style="display: none"></iframe>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../js/Decimal.js"></script>
+<script type="text/javascript" src="../js/payment/payment.js"></script>
+<script type="text/javascript" src="../course/js/course_order.js"></script>

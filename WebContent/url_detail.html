@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="css/size.css">
+    <link rel="stylesheet" href="css/url_detail.css">
+</head>
+
+<body>
+<!--杂志详情的分享页面-->
+<div style="display: none;">
+    <img id="share_img" src="images/icon.png">
+</div>
+<iframe id="iframe"></iframe>
+<!--普通页面分享落地页-->
+<div id="down_div">
+    <div id="down_content">
+        <a id='down_a' onclick="jumpDown()">
+            <img id="down_img" src="images/down_img.png">
+            <div id="down_text">
+                <div id="down_text_up">
+                    <div id="down_text_up_right"><span id="down_text_up_left">下载</span> 暖心理</div>
+                </div>
+                <div id="down_line"></div>
+                <div id="down_text_down">尽享warm&sexy的心理学</div>
+            </div>
+        </a>
+    </div>
+    <img id="close_img" src="images/close_img.png" onclick="closeDownDiv();">
+</div>
+<!--付费分享落地页-->
+<div id="pay_down_div" style="display: none">
+    <div id="pay_down_content">
+        <a id='pay_down_a' onclick="jumpPayDown()">
+            <img id="pay_down_img" src="images/pay_down_img.png">
+            <div id="pay_down_text">
+                <div id="pay_down_text_up">
+                    <div id="pay_down_text_up_right"><span id="pay_down_text_up_left">暖心理</span></div>
+                </div>
+                <div id="pay_down_text_down">最性感的心理学平台</div>
+            </div>
+            <div id="down_button">立刻下载</div>
+        </a>
+    </div>
+</div>
+<script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript">
+    var isParent=1;
+    var wid = document.documentElement.clientWidth; // 屏幕宽
+    var hei = document.documentElement.clientHeight; // 屏幕高
+    var iframe = document.getElementById('iframe');
+    iframe.style.height = hei - 3 + 'px';
+    //分享图片
+    //var shareImage = document.getElementById('share_img');
+    var url = decodeURIComponent(getParam('url'));
+    //有id 并且url里面没有'?id'这个字符串
+    if(url.indexOf('start_employee')>-1){
+        window.location.href=url;
+    }
+    if (getParam('id') && url.indexOf("?id=") == -1) {
+        url = url + '?id=' + getParam('id');
+    }
+    if (getParam('isShare')) {
+        url = url + '&isShare=' + getParam('isShare');
+    } 
+    iframe.src = url;
+    /*页面跳转判断*/
+    function jumpDown() {
+        if (browser.ios) {
+            if (browser.weixin) {
+                window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                window.location.href = 'https://itunes.apple.com/us/app/nuan-xin-li/id983939376';
+            }
+        } else {
+            if (browser.weixin) {
+                window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                window.location.href = 'http://app.nuanxinli.com/warm/WarmApp.apk';
+            }
+        }
+    }
+    function jumpPayDown() {
+        if (browser.ios) {
+            if (browser.weixin) {
+                window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                window.location.href = 'https://itunes.apple.com/us/app/nuan-xin-li/id983939376';
+            }
+        } else {
+            if (browser.weixin) {
+                window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                window.location.href = 'http://app.nuanxinli.com/warm/WarmApp.apk';
+            }
+        }
+    }
+    var downDiv = document.getElementById('down_div');
+    var payDownDiv = document.getElementById('pay_down_div');
+    var downDivHeight = downDiv.offsetHeight;
+    var payDownDivHeight = payDownDiv.offsetHeight;
+    /*计算不同浏览器样式*/
+    if (browser.ios) {
+        downDiv.style.top = hei - downDivHeight + 'px';
+        payDownDiv.style.top = hei - payDownDivHeight + 'px';
+    } else {
+        downDiv.style.bottom = 0 + 'px';
+        payDownDiv.style.bottom = 0 + 'px';
+    }
+    /*关闭分享落地页*/
+    function closeDownDiv() {
+        downDiv.style.display = 'none';
+    }
+    /*iframe加载页面title*/
+    iframe.onload = function () {
+        console.log("iframe load!");
+        document.title = iframe.contentWindow.document.title;
+    };
+    /*判断页面分享样式*/
+    if(getParam('type')==0){
+        downDiv.style.display='block';
+        payDownDiv.style.display='none';
+    }else if(getParam('type')==1){
+        downDiv.style.display='none';
+        payDownDiv.style.display='block';
+    }
+</script>
+</body>
+</html>

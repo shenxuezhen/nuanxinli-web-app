@@ -1,0 +1,31 @@
+# java bin
+*.class
+/build/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Eclipse 
+.project
+.settings
+.classpath
+.externalToolBuilders
+
+# maven
+target/
+
+
+# log
+*.log
+.idea/workspace.xml
+.bin
+node_modules
+gulpfile.js
+package.json
+
+WebContent/.idea/workspace.xml
+.vscode/launch.json
+
+.vscode/settings.json

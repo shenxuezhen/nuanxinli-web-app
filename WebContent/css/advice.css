@@ -1,0 +1,322 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    background: #f9f9f9;
+    font-family: "微软雅黑";
+}
+
+@media only screen and (min-width: 365px) {
+    html {
+        font-size: 14px !important;
+    }
+}
+
+@media only screen and (min-width: 401px) {
+    html {
+        font-size: 15px !important;
+    }
+}
+
+@media only screen and (min-width: 428px) {
+    html {
+        font-size: 16.75px !important;
+    }
+}
+
+@media only screen and (min-width: 481px) {
+    html {
+        font-size: 21px !important;
+    }
+}
+
+@media only screen and (min-width: 569px) {
+    html {
+        font-size: 26px !important;
+    }
+}
+
+@media only screen and (min-width: 641px) {
+    html {
+        font-size: 31px !important;
+    }
+}
+
+.table-view-cell .media {
+    clear: both;
+    background: #ffffff;
+}
+
+#table_flag {
+    margin-top: 0;
+}
+
+#table_flag .div, #nxl-server .div, #play_history .div {
+    width: 100%;
+    height: 1rem;
+    background: #F6F6F6;
+}
+
+#consultant_info {
+    width: 100%;
+    height: 10rem;
+    overflow: hidden;
+    padding: 0;
+}
+
+.blur {
+    -webkit-filter: blur(10px); /* Chrome, Opera */
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    width: 100%;
+    height: 100%;
+}
+
+.media-object-header {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 1rem auto 0;
+    display: inherit;
+    border-radius: 50%;
+}
+
+#consultant_info .alias, #consultant_info .consultant_alias, #consultant_info .consultant_level {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    margin: 0.3rem 0 0.5rem;
+    /* position: absolute; */
+    top: 8rem;
+    left: 5rem;
+}
+
+#consultant_info .consultant_level {
+    font-size: 1rem;
+    bottom: 8%;
+}
+
+.consultant_levelLabel_all{
+    width: 80%;
+    position: absolute;
+    top: 15rem;
+    left: 3rem;
+    background: #ffffff;
+    height: 8rem;
+    padding: 1rem 2rem;
+}
+
+#consultant_info .consultant_level span{
+    padding: 0 .8rem;
+    margin: 0 0.5rem;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#consultant_info .consultant_level .levelTitle{
+    background: #F4E039;
+    color: #8A6904;
+}
+
+.consultant_levelLabel_all span{
+    padding: 0.2rem .5rem;
+    margin: 0 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.1rem;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 4.5rem;
+    margin-top: .3rem;
+    color: #FFFFFF;
+}
+
+.consultant_levelLabel_all p{
+    width: 5rem;
+    margin: 0.5rem auto 0;
+    background: #fcab55;
+    color: #ffffff;
+    text-align: center;
+    padding: 0.3rem;
+    border-radius: 1rem;
+}
+
+#consultant_info .consultant_level .last {
+    position: absolute;
+    float: right;
+    font-size: 2rem;
+    margin-right: 1rem;
+    color: #cccccc;
+}
+
+#consultant_info1 {
+    width: 100%;
+    padding: 11px 15px 11px 15px;
+}
+
+#consultant_info1 .user-title {
+    width: 12rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    margin-left: 6rem;
+    border-radius: 10px;
+    background: #FCAB55;
+    font-size: 1rem;
+    color: #FFFFFF;
+}
+
+#consultant_info1 .organization {
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+#consultant_info1 .principle {
+    font-size: 1rem;
+    color: #000000;
+    margin-top: 2rem;
+}
+
+.live_back {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+}
+
+.live_back li {
+    list-style: none;
+    float: left;
+    width: 95%;
+    margin: 0 2.5%;
+    text-align: center;
+}
+
+.live_back li img {
+    width: 100%;
+    height: 100%;
+}
+
+.img2{
+    position: absolute;
+    top: 7rem;
+    left: 4%;
+}
+
+.live_back li p {
+    font-size: 0.785rem;
+    color: #393732;
+}
+
+.table-view-cell.media .nxl-server {
+    width: 5.6rem;
+    height: 1.4rem;
+    text-align: center;
+    line-height: 1.4rem;
+    background: #fee2c5;
+    color: #fcab55;
+    font-size: 1rem;
+    clear: both;
+}
+
+.store-watch {
+    width: 6rem;
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    background: #EE7F38;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 1.3rem;
+    position: absolute;
+    right: 15%;
+    bottom: 35%;
+}
+
+.table-view-cell.media .nxl-server span {
+    display: block;
+    width: 70rem;
+    border-bottom: 1px solid #fee2c5;
+    margin-top: -0.7rem;
+}
+
+#table_video {
+    width: 100%;
+    height: 15rem;
+}
+
+.media-body > div {
+    line-height: 1;
+}
+
+.media-body > div:nth-of-type(1) {
+    font-size: 1.3rem;
+    color: #393932;
+}
+
+.media-body > p:nth-of-type(1) {
+    font-size: 1rem;
+    color: #81807e;
+}
+
+.media-body > p:nth-of-type(2) {
+    font-size: 0.9rem;
+    color: #aaaaaa;
+}
+
+#nxl-server > .table-view-cell > div {
+    border: 1px solid #efefee;
+}
+
+#price p {
+    margin-right: 1rem;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+#price > .original_price, #price > .site {
+    color: #b1afae;
+}
+
+#price > .today_price, #price > .price {
+    color: #fcab55;
+}
+
+.table-view:nth-of-type(2) li {
+    border-bottom: 1px dotted #ececec;
+}
+
+.table-view:nth-of-type(2) li:nth-last-child(1) {
+    border-bottom: 0;
+}
+
+.table-view:nth-of-type(2) p:nth-of-type(1) {
+    font-size: 1.2rem;
+    color: #282828;
+}
+
+.table-view-cell {
+    list-style: none;
+}
+
+.table-view-cell > a:not(.btn):nth-of-type(1) {
+    border: none;
+}
+
+#profile li p:nth-of-type(2) {
+    list-style: none;
+    padding: 1rem 0;
+    line-height: 1.5rem;
+    font-size: 1rem;
+    color: #81807e;
+}
+
+.trump-control-module {
+    display: none;
+}

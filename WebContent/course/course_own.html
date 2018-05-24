@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="css/course_own.css">
+    <link rel="stylesheet" href="../recommendation/css/recommendation.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/Decimal.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+</head>
+<body>
+
+<div id="wrapper" class="wrapper">
+
+    <div class="course-cover">
+        <img class="course-cover-img" :src="course.cover">
+    </div>
+    <div class="course-name-lecturer">
+        <p class="blank-0-32"></p>
+        <p class="course-name">{{course.name}}</p>
+        <p class="blank-0-32"></p>
+        <p class="course-lecturer">讲师：{{course.lecturer}}</p>
+    </div>
+
+    <div class="course-description">
+        <p class="course-description-h">课程简介：</p>
+        <p class="course-description-c ellipsis"><span v-html="course.description"></span></p>
+        <p class="blank-0-2"></p>
+        <p class="view-all" v-on:click="viewAll()">查看全部</p>
+    </div>
+
+    <div class="course-lecturer-description">
+        <p class="course-description-h">讲师简介：</p>
+        <p class="course-description-c"><span v-html="course.lecturerDescr"></span></p>
+    </div>
+
+    <div class="course-items">
+        <p class="course-items-amount">已拥有课程：</p>
+        <ul>
+            <li class="course-items-item" v-for="item in course.items" v-on:click="coursePlayClick(course, item)">
+                <p class="course-items-item-h">{{item.name}}</p>
+                <p class="course-items-item-t">课程时长：{{item.durationStr}}</p>
+            </li>
+        </ul>
+    </div>
+
+    <recommendation-component v-if="serviceRecommend.relationList.length>0" :item="serviceRecommend"></recommendation-component>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="js/course_detail.js"></script>

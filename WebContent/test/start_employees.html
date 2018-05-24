@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no"/>
+    <title>测评</title>
+    <link rel="stylesheet" type="text/css" href="css/start_employee.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/tools.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/vue/2.2.4/vue.js"></script>
+    <script type="text/javascript" src="js/common_methods.js"></script>
+    <!-- <script src="../js/wxShare.js"></script> -->
+</head>
+<body>
+<div class="loading" style="display:none;"></div>
+<div id="start-employee">
+    <section class="employee">
+        <section id="inter-test" class="inter-test">
+            <div class="test-img"><img id="comLogo" v-bind:src="img"></div>
+            <div class="test-title">{{title}}</div>
+        </section>
+        <section class="inter">
+            <div class="test-tip">
+                亲爱的：<br>
+                请填写以下信息，然后开始测评，<br>
+                认真作答有助于得到准确的测评结果哦~
+            </div>
+            <div class="user-info">
+                <p>
+                    <span class="user-tip">手机号：</span><input type="tel" id="cellphone">
+                </p>
+                <p id="warn1" style="display: none">请输入正确手机号</p>
+                <p>
+                    <span class="user-tip">验证码：</span><input type="number" id="seccode"><span class="captcha" @click="getCaptcha">验证码</span>
+                </p>
+                <p id="warn2" style="display: none">请输入正确且有效验证码</p>
+            </div>
+            <div class="next" @click="nextClick">下一步</div>
+        </section>
+    </section>
+</div>
+</body>
+<script type="text/javascript">
+    var code=getParam('code');
+    var appid='wxef07d81749400b98';
+    if(!browser.versions.weixin){
+        getTestDId();
+    }else {
+        if(!code){
+            if(window.location.host.indexOf('apptest')> -1){
+                getTestDId();
+            }else {
+                window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri='+encodeURIComponent(window.location.origin)+encodeURIComponent('/warm/test/start_employees.html?testDId='+getParam('testDId')+'&testIRule=app&isShare=0')+'&response_type=code&scope=snsapi_userinfo&state=park#wechat_redirect';
+            }
+        }else {
+            getOpenId();
+        }
+    }
+    function getTestDId() {
+        $.ajax({
+            url: '/public/test-d/' + getParam('testDId'),
+            type: "GET",
+            dataType: "json",
+            async: true,
+            success: function (testDJsonStr) {
+                var vm = new Vue({
+                    el: "#start-employee",
+                    data: testDJsonStr,
+                    created: function () {
+                        $(".loading").css("display", "none");
+                        $("#start_normal").css("display", "block");
+                    },
+                    computed: {},
+                    methods: {
+                        getCaptcha: function () {
+                            var cellData={
+                                "cellPhone":$("#cellphone")[0].value
+                            };
+                            $.ajax({
+                                url: '/public/user/verification/web-check',
+                                type: "POST",
+                                dataType: "json",
+                                contentType:"application/json",
+                                async: true,
+                                data:JSON.stringify(cellData),
+                                success: function () {
+                                    var captcha=$(".captcha");
+                                    captcha.css('borderColor','#dcdcdc');
+                                    captcha.css('color','#81807E');
+                                    var num=60;
+                                    captcha.text(num+'s');
+                                    var timer1=setInterval(function () {
+                                        $(".captcha").unbind(this.getCaptcha);
+                                        num--;
+                                        captcha.text(num+'s');
+                                        if(num < 1){
+                                            captcha.css('borderColor','#FCAB55');
+                                            captcha.css('color','#FCAB55');
+                                            captcha.text('验证码');
+                                            clearInterval(timer1);
+                                        }
+                                    },1000);
+                                },
+                                error: function (XMLHttpRequest) {
+                                    $("#warn1").show().html(XMLHttpRequest.text);
+                                    setTimeout(function () {
+                                        $("#warn1").hide();
+                                    },1000);
+                                }
+                            })
+                        },
+                        nextClick:function () {
+                            $.ajax({
+                                url: '/public/user/verification/check-user',
+                                type: "POST",
+                                dataType: "json",
+                                contentType:"application/json",
+                                async: true,
+                                data: JSON.stringify({
+                                    "cellPhone":$("#cellphone")[0].value,
+                                    "content":$("#seccode")[0].value
+                                }),
+                                success: function () {
+                                    $("#start-employee").load('start_normal.html');
+                                },
+                                error: function (XMLHttpRequest) {
+                                    $("#warn2").show().html(XMLHttpRequest.text);
+                                    setTimeout(function () {
+                                        $("#warn2").hide();
+                                    },2000);
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        });
+    }
+</script>
+</html>

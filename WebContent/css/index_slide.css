@@ -1,0 +1,345 @@
+body, figure{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background: url(../images/miss_bg.jpg) center no-repeat; 
+	font-family: "Arial";
+}
+
+#cancel_collect_font_div{
+	width: 2.4375rem;
+	height: 0.8125rem;
+	line-height: 0.8125rem;
+	text-align: center;
+	background-color: rgba(51, 51, 51, 0.5);
+	color: #fff;
+	font-size: 0.4063rem;
+	position: absolute;
+	z-index: 3;
+	visibility: hidden;
+}
+
+#xin{
+	width: 2.4375rem;
+	height: 2.4375rem;
+	background: url(../images/xin.png) center no-repeat;
+	background-size: contain;
+	position: absolute;
+	z-index: 3;
+	visibility: hidden;
+}
+
+.xin1{
+	-webkit-transform: scale(2);
+	-webkit-transition-duration: 1s;
+} 
+
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-text-size-adjust: none;
+	-webkit-touch-callout: none
+}
+
+#slider figure div.wrap {
+	max-width: 640px;
+	height: 100%;
+	display: block;
+	position: relative
+}
+
+@media only screen and (max-width: 767px) {
+	.page-swipe #slider figure div.wrap {
+		max-width: 480px;
+		height: 240px;
+		margin-bottom: 5px
+	}
+}
+a{
+	text-decoration:none;
+}
+.swipe {
+	overflow: hidden;
+	visibility: hidden;
+	position: relative;
+}
+
+.swipe-wrap {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.swipe-wrap>figure {
+	width: 100%;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+
+nav {
+	width: 100%;
+	position: absolute;
+	max-width: 680px;
+	margin: 7px auto 0;
+	bottom: 20px;
+}
+
+nav #position {
+	text-align: center;
+	list-style: none;
+	margin: auto;
+	padding: 0
+}
+
+nav #position li {
+	display: inline-block;
+	width: 0.1625rem;
+	height: 0.1625rem;
+	border-radius: 0.1625rem;
+	background: #ddd;
+	margin: 0 2px;
+}
+
+nav #position li.on {
+	background-color: #FA9D08;
+	/* background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1293dc),
+		color-stop(100%, #656565));
+	background-image: -webkit-linear-gradient(top, #1293dc, #656565);
+	background-image: -moz-linear-gradient(top, #1293dc, #656565);
+	background-image: -ms-linear-gradient(top, #1293dc, #656565);
+	background-image: -o-linear-gradient(top, #1293dc, #656565);
+	background-image: linear-gradient(top, #1293dc, #656565) */
+}
+@-webkit-keyframes myfirst{
+	from {top:0px;}
+	to {top:500px;}
+}
+
+.slider_body{
+	width: 100%;
+	height: 100%;
+	padding-bottom: 20px;
+	position: relative;
+	background-color: #fff;
+}
+
+/*类型字体*/
+.slider_type{
+	width: 100%;
+	font-size: 0.34688rem;
+	color: #a8a8a8;
+	padding-top: 0.4063rem;
+	padding-left: 0.20313rem;
+}
+/*类型下面的线*/
+.slider_line{
+	width: 100%;
+	height: 1px;
+	background-color: #e8e8e8;
+}
+/*图片*/
+.slider_image{
+	width: 100%;
+	height: 45%;
+	background-size: cover;
+	margin-top: 0.20313rem;
+	margin-bottom: 15px;
+	position: relative;
+}
+/*收藏图片div*/
+.collect_img_div{
+	width: 2.03125rem;
+	height: 2.03125rem;
+	position: absolute;
+	bottom: -1.0156rem;
+	right: 0.4063rem;
+	z-index: 1;
+}
+
+/*收藏图片没选中*/
+.no_collect_img{
+	width: 1.42188rem;
+	height: 1.44219rem;
+	background: url(../images/collect_img.png) no-repeat ;
+	background-size: 100%;
+	margin: auto;
+	margin-top: 0.30469rem;
+}
+/*收藏图片选中*/
+.collect_img{
+	width: 1.42188rem;
+	height: 1.44219rem;
+	background: url(../images/collect_img.png) no-repeat 0 100%;
+	background-size: 100%;
+	margin: auto;
+	margin-top: 0.30469rem;
+}
+/*内容div*/
+.slider_content_div{
+	width: 100%;
+	height: 35%;
+	position: relative;
+}
+/*标题*/
+.slider_title{
+	width: 50%;
+	margin: auto;
+	text-align: center;
+	color: #191919;
+	font-size: 0.4681rem;
+	margin-bottom: 0.20313rem;
+	/* text-overflow: ellipsis; */
+	/* white-space:nowrap; */
+	/* overflow:hidden; */
+}
+/*日期*/
+.date_div{
+	width: 25%;
+	float: left;
+	text-align: center;
+	position: relative;
+	margin-top: 0.4063rem;
+}
+/*日期线条*/
+#data_line{
+	width: 1px;
+	height: 95%;
+	background-color: #fcab55;
+	position: absolute;
+	right: 0.20313rem;
+	top: 0;
+}
+/*天*/
+.day_div{
+	width: 100%;
+	color: #fcab55;
+	font-size: 1.21875rem;
+}
+/*月.年*/
+.month_div{
+	width: 100%;
+	color: #ccc;
+	font-size: 0.4063rem;
+}
+/*图片内容div*/
+#picture_slider_content_div{
+	width: 70%;
+	height: 100%;
+	float: left;
+	margin-top: 0.20313rem;
+}
+/*图片内容*/
+.picture_slider_content{
+	width: 100%;
+	height: 100%;
+	color: #717171;
+	font-size: 0.40688rem;
+	line-height: 0.8125rem;
+	overflow-y: scroll;
+	/* outline: none;
+	border: none;
+	border-style: none;
+	resize: none; */
+	background-color: #fff;
+	padding-left: 0.20313rem;
+	padding-right: 0.4063rem;
+	scrollbar: none;
+}
+div::-webkit-scrollbar {
+     width: 0px;
+}
+
+/*通用内容*/
+.slider_content{
+	width: 100%;
+	height: 80%;
+	color: #717171;
+	font-size: 0.40688rem;
+	line-height: 0.8125rem;
+	overflow-y: scroll;
+	/* border: none;
+	border-style: none;
+	outline: none;
+	resize: none; */
+	background-color: #fff;
+	padding-left: 1.21875rem;
+	padding-right: 0.4063rem;
+}
+/*页数图片*/
+.slider_page{
+	width: 1.42188rem;
+	height: 1.42188rem;
+	position: absolute;
+	top: 0.20313rem;
+	left: 0.20313rem;
+}
+/*播放图片*/
+.play_img{
+	width: 1.42188rem;
+	height: 1.42188rem;
+	position: absolute;
+	background: url(../images/play.png) center no-repeat;
+	background-size: cover;
+}
+/*播放进度div*/
+.play_progress{
+	width: 100%;
+	height: 60px;
+	background: rgba(40, 40, 40, 0.5);
+	position: absolute;
+	bottom: 0;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+/*播放时间div*/
+.time_div{
+	font-size: 0.4063rem;
+	color: #fcab55;
+	float: left;
+	line-height: 60px;
+}
+/*进度条div*/
+.progress_div{
+	width: 60%;
+	height: 100%;
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+/*总进度条*/
+.progress{
+	width: 100%;
+	height: 4px;
+	background-color: #fff;
+	margin-top: 29px;
+}
+/*播放进度条*/
+.second_progress{
+	width: 0;
+	height: 4px;
+	background-color: #fcab55;
+}
+/*错过提示div*/
+.miss_text_div{
+	display: none;
+	padding-right: -50px;
+	height: 100%;
+	font-size: 0.4063rem;
+}
+/*错过文字*/
+.miss_text{
+	width: 1.5em;
+	float: right;
+	margin-top: 30%;
+	color: #fff;
+}
+/*收藏动画*/
+@-webkit-keyframes myfirst{
+	from {top:0px;}
+	to {top:500px;}
+}
+

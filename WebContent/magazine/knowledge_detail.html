@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>心理杂志</title>
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="../css/index_slide.css">
+    <link rel="stylesheet" href="/warm/magazine/css/decoration.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/tools.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+</head>
+<body>
+<div id="share_img_url" style="display: none;"></div>
+<div id="slider_body" class="slider_body">
+    <div id="slider_image" class="slider_image"></div>
+    <div id="slider_content_div" class="slider_content_div">
+        <div id="slider_title" class="slider_title"></div>
+        <div id="slider_content" class="slider_content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var wid = document.documentElement.clientWidth;// 屏幕宽
+    var hei = document.documentElement.clientHeight;// 屏幕高
+    var bodyDiv = document.getElementById('slider_body');
+    bodyDiv.style.height = hei + 'px';
+    //动态设置contentdiv高度
+    var sliderContentDiv = document.getElementById('slider_content_div');
+    sliderContentDiv.style.height = '40%';
+    // 请求数据
+    var httpRequest;
+    loadEnv(function () {
+        pushToHistory(window.location.href);
+        var url = '/public/sift/' + getParam('id');
+        ajax(url, null, function (resp) {
+            initShareObj({
+                title:resp.title,
+                content: resp.descr, // 分享描述
+                shareUrl: window.location.href,
+                iconUrl:window.location.origin+resp.image
+            });
+            //添加标题
+            document.title = resp.title;
+            var imageDiv = document.getElementById('slider_image');// 图片
+            var titleDiv = document.getElementById('slider_title');// 标题
+            var contentDiv = document.getElementById('slider_content');// 内容
+            var shareImageUrlDiv = document.getElementById('share_img_url');
+            shareImageUrlDiv.innerHTML = resp.image;
+            //调整详情页样式
+            contentDiv.style.paddingLeft = '.5733rem';
+            contentDiv.style.paddingRight = '.5733rem';
+            titleDiv.style.fontSize = '.5733rem';
+            contentDiv.style.fontSize = '.44rem';
+            contentDiv.style.lineHeight = '.8rem';
+            imageDiv.style.marginTop = '0px';
+            imageDiv.style.background = 'url(' + resp.image
+                + ') center no-repeat';
+            titleDiv.innerHTML = resp.title;
+            contentDiv.innerHTML = resp.descr;
+        });
+    },function () {
+        popToHistory(window.location.href)
+    },null,0);
+
+</script>
+</body>
+<script type="text/javascript" src="/warm/magazine/js/decoration.js"></script>
+</html>

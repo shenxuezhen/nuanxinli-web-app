@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+body{
+    margin: 0 auto;
+    font-size: 10px;
+}
+.img{
+    width: 100%;
+}
+.top {
+    position: relative;
+    width: 84%;
+    background: #FFFFFF;
+    padding: 0.3rem;
+    margin-top: -2.9rem;
+    border-radius: 7px;
+    box-shadow: 0 10px 10px #dddddd;
+}
+.result-total,.trait,.dimension{
+    margin: 0.5rem auto;
+}
+.result-total canvas{
+    width: 4.578125rem;
+    height: 4.578125rem;
+    margin:10% 20% 5% 20%;
+}
+.result-total .h1{
+    text-align: left;
+    font-size: 0.5rem;
+}
+.result-total .h2{
+    text-align: center;
+}
+.result-total .isEarnest{
+    margin-left: 5rem;
+}
+.result-total #container{
+    min-width: 6rem;
+    height: 5.3rem
+}
+.trait .p1{
+    font-size: 0.5rem;
+    color: #EF7E38;
+    text-align: left;
+}
+.trait .p2{
+    font-size: 0.375rem;
+    color: #81807E;
+    line-height: 1.6;
+    text-align: left;
+}
+.trait .work{
+    padding-bottom: 0.5rem;
+}
+.dimension div{
+    margin-bottom: 0.5rem;
+    padding: 0.3125rem;
+    font-size: 0.375rem;
+    text-align: left;
+}
+.dimension div .p3{
+    display: inline-block;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    padding: 0 0.15rem;
+    border-radius: 2px;
+    background: #FFFFFF;
+    font-size: 0.3rem;
+}
+.dimension div .p4{
+    line-height: 0.75rem;
+    margin: 0.1rem;
+}
+.bottom .isAccurate .yes {
+    float: left;
+    width: 1.9rem;
+    height: 1.9rem;
+    text-align: center;
+    padding-top: 0.3rem;
+    border-radius: 50%;
+}
+.bottom .isAccurate .no {
+    float: right;
+    width: 1.9rem;
+    height: 1.9rem;
+    text-align: center;
+    padding-top: 0.3rem;
+    border-radius: 50%;
+    border: 1px solid #A4A4A4;
+}

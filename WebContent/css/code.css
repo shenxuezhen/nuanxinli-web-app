@@ -1,0 +1,152 @@
+*{
+    margin: 0;
+    border: 0;
+    list-style: none;
+    font-family: "微软雅黑", Arail, Tabhoma;
+}
+body{
+    width: 100%;
+    height: 100%;
+    font-size: 10px;
+}
+.redEnvelope_a{
+    width: 7rem;
+    height: 9.71825rem;
+    margin: 1.953125rem auto 1.1875rem;
+    position: relative;
+    background: url("../images/lives/hongbao.png") center;
+    background-size: cover;
+}
+.redEnvelope_a .info{
+    width: 6rem;
+    line-height: 0.625rem;
+    text-align: center;
+    font-size: 0.46875rem;
+    color: #FEF2AA;
+    position: absolute;
+    margin: 2rem 0.5rem;
+}
+.redEnvelope_a img{
+    width: 7rem;
+    height: 9.71825rem;
+}
+.redEnvelope_a input{
+    width: 75%;
+    height: 1.078125rem;
+    line-height: 1.078125rem;
+    background: #EFEFEF;
+    font-size: 0.40625rem;
+    color: #A4A9AF;
+    padding:0 0.2rem;
+    border-radius: 7px;
+    margin-left: 0.7rem;
+    margin-top: 4rem;
+}
+.redEnvelope_a .tip1{
+    position: absolute;
+    color: #FFFFFF;
+    display: none;
+    margin-left: 0.7rem;
+}
+.redEnvelope_a div{
+    text-align: center;
+    font-size: 0.5rem;
+    color: #FFFFFF;
+    margin-top: 1.9rem;
+    cursor: pointer;
+}
+.redEnvelope_a input:focus{
+    border: 1px solid #3F907E;
+}
+.openEnvelope_a{
+    width: 9.6875rem;
+    height: 11.875rem;
+    margin: 0.5625rem auto 0.609375rem;
+    position: relative;
+}
+.openEnvelope_a .img1{
+    width: 9.6875rem;
+    height: 3.71875rem;
+    position: absolute;
+}
+.openEnvelope_a .img2{
+    width: 6.40625rem;
+    height: 10.9375rem;
+    position: absolute;
+    margin: -0.0625rem 1.640625rem;
+}
+.openEnvelope_a .a_p1{
+    line-height: 0.625rem;
+    text-align: center;
+    font-size: 0.46875rem;
+    color: #FEF2AA;
+    position: relative;
+    top: 70%;
+    z-index: 1;
+}
+.openEnvelope_a .a_p2{
+    position: absolute;
+    z-index: 1;
+    font-size: 1.6875rem;
+    color: #D3533F;
+    top: 30%;
+    left: 30%;
+}
+.openEnvelope_a .a_p3{
+    position: absolute;
+    z-index: 1;
+    font-size: 0.4rem;
+    font-weight: bold;
+    color: #D3533F;
+    top: 34%;
+    left: 42%;
+}
+.openEnvelope_a .a_p4{
+    position: absolute;
+    z-index: 1;
+    font-size: 0.4rem;
+    font-weight: bold;
+    color: #D3533F;
+    top: 39%;
+    left: 29%;
+}
+.redEnvelope_b{
+    width: 100%;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 0.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+.openEnvelope_b{
+    width: 6.40625rem;
+    height: 1.25rem;
+    text-align: center;
+    margin: 0 auto 0.53125rem;
+}
+.openEnvelope_b .p1{
+    font-size: 0.5rem;
+    font-weight: bold;
+    color: #393932;
+}
+.openEnvelope_b .p2{
+    font-size: 0.34375rem;
+    color: #393932;
+}
+.openEnvelope_c{
+    width: 6.25rem;
+    height: 1.078125rem;
+    margin: 0 auto;
+}
+.openEnvelope_c div{
+    width: 6.25rem;
+    height: 1.078125rem;
+    line-height: 1.078125rem;
+    border-radius: 30px;
+    background: #FCAB55;
+    text-align: center;
+    font-size: 0.46875rem;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../recommendation/css/recommendation.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../test/js/iscroll.js"></script>
+    <script type="text/javascript" src="../js/Decimal.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+    <!--<link rel="stylesheet" href="../css/index_slide.css">-->
+    <link rel="stylesheet" href="css/audio_detail.css">
+</head>
+<body>
+<!--减压音频的分享页面-->
+    <div id="slider_body" class="slider_body">
+        <div id="slider_image" class="slider_image">
+            <img id="slider_img" :src="audioData.objData.image" alt="">
+            <img id="play_img" src="../images/audio/pausebutton_small.png" class="play_img" onClick="play()"></img>
+            <div id="play_progress" class="play_progress">
+                <audio id="play_audio" ontimeupdate="myData()"></audio>
+                <div id="current_time" class="time_div">--:--</div>
+                <div id="progress_div" class="progress_div">
+                    <div id="progress" class="progress">
+                        <div id="second_progress" class="second_progress"></div>
+                    </div>
+                </div>
+                <div id="duration_time" class="time_div">--:--</div>
+            </div>
+        </div>
+        <div id="slider_button_div">
+            <img src="../images/audio/audiodownload.png" onclick="download()">
+        </div>
+        <div id="slider_content_div" class="slider_content_div">{{audioData.objData.summary}}</div>
+        <recommendation-component v-if="serviceRecommend.relationList.length>0" :item="serviceRecommend"></recommendation-component>
+    </div>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="js/audio_detail.js"></script>
+</body>
+</html>

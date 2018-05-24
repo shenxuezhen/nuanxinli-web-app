@@ -1,0 +1,292 @@
+*{margin: 0;padding: 0;}
+#release_talk{
+    width: 100%;
+    height: 100%;
+}
+.type{
+    width: 90%;
+    margin: .466rem auto;
+    height: .986rem;
+    border: 1px solid #B1B0AE;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+.type .div1{
+    width: .986rem;
+    height: .986rem;
+    border-right: 1px solid #B1B0AE;
+    float: left;
+    position: relative;
+
+}
+.type .div1 .img1{
+    width: .48rem;
+    height: .48rem;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -.24rem; /* 高度的一半 */
+    margin-left: -.24rem; /* 宽度的一半 */
+}
+.typeTitle{
+    color: #393932;
+    font-size: .426rem;
+    line-height: .986rem ;
+}
+.type .div2{
+    width: .986rem;
+    height: .986rem;
+    float: right;
+    position: relative;
+}
+.type .div2 .img2{
+    width: .466rem;
+    height: .306rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -.153rem; /* 高度的一半 */
+    margin-left: -.233rem; /* 宽度的一半 */
+}
+.title{
+    width: 90%;
+    margin: .466rem auto 0;
+    border-bottom: 1px solid #EFEFEE;
+    height: 1.199rem;
+    line-height: 1.199rem;
+}
+.title div{
+    font-size: .5333rem;
+    color: #9D9D9D;
+    text-align: left;
+    float: left;
+}
+.title input{
+    width: 80%;
+    margin-left: .3rem;
+    height: 1.199rem;
+    font-size: .333rem;
+}
+.content{
+    width: 90%;
+    margin: .1rem auto;
+    height: 11rem;
+}
+.content .t{
+    width: 100%;
+    height: 1.199rem;
+    line-height: 1.199rem;
+}
+.content .t .div1{
+    font-size: .5333rem;
+    color: #9D9D9D;
+    text-align: left;
+    float: left;
+}
+.content .t .div2{
+    font-size: .333rem;
+    color: #9D9D9D;
+    text-align: left;
+    float: left;
+}
+.content textarea{
+    width: 100%;
+    margin: -.1rem auto;
+    height: 7rem;
+    line-height: .8rem;
+    font-size: .333rem;
+}
+.bottom{
+    width: 100%;
+    height: 1.213rem;
+    border-top: 1px solid #B1B0AE;
+    position: fixed;
+    bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    position:fixed;
+    background: #fff;
+    z-index:9999
+}
+.bottom .b-left{
+    width: 40%;.content textarea
+    float: left;
+    position: relative;
+}
+.bottom .b-right{
+    width: 56%;
+    height: 1.213rem;
+    float: left;
+    position: relative;
+}
+.bottomdiv1{
+    width: 1rem;
+    height: 1.1rem;
+    float: left;
+    position: relative;
+}
+.bottomdiv1 .img1{
+    width: .45rem;
+    height: .48rem;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -.24rem; /* 高度的一半 */
+    margin-left: -.225rem; /* 宽度的一半 */
+}
+.bottom .b-left .div1{
+    color: #393932;
+    font-size: .426rem;
+    line-height: 1.213rem;
+    text-align: left;
+}
+.bottom .b-right .div2{
+    color: #9D9D9D;
+    font-size: .426rem;
+    line-height: 1.213rem;
+    text-align: left;
+    display: inline-block;
+    float: left;
+}
+.bottom .b-right .div3{
+    color: #393932;
+    font-size: .426rem;
+    line-height: 1.213rem;
+    text-align: right;
+    display: inline-block;
+    padding: 0 .5rem;
+    float: right;
+    border-left: 1px solid #B1B0AE;
+}
+.bottomdiv2{
+    width: 1rem;
+    height: 1.213rem;
+    position: relative;
+    float: left;
+}
+.bottomdiv2 .img2{
+    width: .3rem;
+    height: .466rem;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -.233rem; /* 高度的一半 */
+    margin-left: -.15rem; /* 宽度的一半 */
+}
+
+.warm-shade{
+    background: #000000;
+    opacity: .5;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.warm-type-tip{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    z-index: 100;
+    /*border-radius: .1rem;*/
+}
+.wantspeak{
+    font-size: .5rem;
+    text-align: left;
+    padding: .5267rem .8rem 0 .8rem;
+}
+#logoAll{
+    width: 9.5rem;
+    margin: auto;
+    margin-bottom: .5267rem;
+}
+span{
+    display: inline-block;
+    text-align: center;
+}
+
+.smallImage {
+    height: 1.6rem;
+    width: 23.5%;
+    margin: .37rem auto 0;
+    display: inline-block;
+}
+.imageDiv{
+    margin: 10px;
+    position: relative;
+    text-align: center;
+}
+.myimg{
+    width: 60%;
+}
+.smallTitleDiv{
+    margin: .1rem auto;
+    color: #393732;
+    font-size: .28rem;
+    text-align: center;
+}
+.typeShade{
+    background: black;
+    opacity: .4;
+    bottom: 0;
+    position: absolute;
+}
+.typeCheck{
+    width: .75rem;
+    height: .75rem;
+    position: absolute;
+    left:50%; top: 50%;
+    margin-left: -.375rem;margin-top: -.375rem;
+}
+.permissionCheck{
+    width: .546rem;
+    height: .386rem;
+    margin-top: 1rem;
+    margin-left: .7rem;
+}
+.warm-permissions-tip{
+    width: 100%;
+    height: 4.3rem;
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    z-index: 100;
+}
+.showAll{
+    width: 100%;
+    height: 2.15rem;
+    border-bottom: 1px solid #efefee;
+}
+.showdiv{
+    width: 8.5rem;
+    height: 1rem;
+    line-height: 1rem;
+    float: right;
+    margin-top: .2rem;
+}
+.showimage{
+    margin-top: .4rem;
+    height: .426rem;
+    float: left;
+}
+.showtitle{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .426rem;
+    color: #393932;
+    text-align: left;
+    margin-left: .5rem;
+}
+.showcontent{
+    width: 8.5rem;
+    height: .7rem;
+    line-height: .7rem;
+    font-size: .346rem;
+    color: #81807E;
+    float: right;
+    text-align: left;
+
+}

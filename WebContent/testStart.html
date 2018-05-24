@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--用于公测scl90题目的认真不认真，该文件是在青岛服务器上有。
+    网址为：http://apptest.nuanxinli.com/warm/testStart.html?testDId=70
+-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <title>心理测评</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/size.css">
+    <link rel="stylesheet" type="text/css" href="css/evaluationStart.css"/>
+</head>
+<body>
+<div class="loading">
+    <img src="images/loading.gif">
+</div>
+<div id="body_div" class="body_div" style="display: none">
+    <img v-bind:src="img">
+    <h1 id="title">{{title}}</h1>
+    <p class="evaluationMassage">
+        <span id="count">{{testCount}}人测试过</span>
+        <span id="type">{{type}}</span>
+    </p>
+    <p id="desc">{{descr}}</p>
+    <div class="evaluationStart"><span onclick="begin();">开始测评</span></div>
+    <p>您已购买过这个测评题哦~</p>
+    <iframe style="display: none;" id="iosIfram"></iframe>
+</div>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript">
+    var userInfo = {"username":"13131702346","password":"123456789"};
+    $.ajax({
+        url: '/public/user/login',
+        type: "POST",
+        dataType: "json",
+        data:JSON.stringify(userInfo),
+        async: false,
+        success: function (result,status,xhr) {
+            console.log("登录成功了！！！！");
+            console.log(result);
+            console.log(status);
+            console.log(xhr);
+        },
+        error:function(error){
+            console.log("登录失败了！！！！");
+        }
+    });
+
+    var url = window.location.href;
+    setCookie('sid', getParam('sid'));
+    console.log(url);
+    var sid = getParam('sid');
+    var testDJsonStr = '';
+    $.ajax({
+        url: '/public/test-d/' + getParam('testDId'),
+        type: "GET",
+        dataType: "json",
+        async: true,
+        success: function (testDJsonStr) {
+            var vm = new Vue({
+                el: "#body_div",
+                data: testDJsonStr,
+                ready: function () {
+                    $('.loading').hide();
+                    $('.body_div').show();
+                }
+            })
+        },
+        headers: {
+            sid: sid
+        }
+    });
+
+    var testJson = testDJsonStr;
+    var beginButton = document.getElementById('begin_button');
+    var iosIfram = document.getElementById("iosIfram");
+    function begin() {
+        if (browser.versions.ios) {
+            iosIfram.src = 'beginTest';
+        } else {
+            if (window.appInterface) {
+                window.appInterface.beginTest();
+            }
+        }
+        window.location.href = "testTopic.html?testDId=" + getParam('testDId') + "&sid=" + getParam("sid");
+    }
+</script>
+</body>
+</html>
+<script src="js/zepto.min.js"></script>

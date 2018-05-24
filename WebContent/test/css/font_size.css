@@ -1,0 +1,67 @@
+.fs-4-640{
+    font-size: .25rem;
+    color: #282828;
+}
+.fs-2-640{
+    font-size: .3438rem;
+    color: #81807E;
+}
+.fs-2-750{
+    font-size: .2933rem;
+    color: #81807E;
+}
+.fs-3-640{
+    font-size: .35rem;
+    color: #282828;
+}
+.fs-3-750{
+    font-size: .32rem;
+    color: #282828;
+}
+.fs-1-640{
+    font-size: .4rem;
+    color: #393932;
+}
+.fs-6-640{
+    font-size: .4375rem;
+}
+.fs-7-640{
+    font-size: .5rem;
+    color: #393932;
+}
+fs-8-640{
+    font-size: .4688rem;
+}
+.fs-7-750{
+    font-size: .4267rem;
+    color: #393932;
+}
+.fs-5-640{
+    font-size: .5625rem;
+}
+.fs-color-E38{
+    color: #EF7E38;
+}
+.warm-shade{
+    background: #000000;
+    opacity: .5;
+    z-index: 1;
+}
+.order-btn div,.ios-pay-btn{
+    background: #FCAB55;
+    text-align: center;
+    width: 6.56rem;
+    height: 1.07rem;
+    font-size: 0.53rem;
+    color: #FFFFFF;
+    line-height: 1.07rem;
+    border-radius: 0.11rem;
+    margin: 0 auto .5625rem;
+}
+.loading img {
+    width: 0.4rem;
+    height: 0.4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}

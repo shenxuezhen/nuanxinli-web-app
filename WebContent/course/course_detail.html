@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache" />
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="css/course_detail.css">
+    <link rel="stylesheet" href="../recommendation/css/recommendation.css">
+    <link rel="stylesheet" href="../lib/video-js/video-js.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/Decimal.js"></script>
+</head>
+
+<body>
+    <div class="loading">
+        <img src="../images/loading.gif">
+    </div>
+    <div id="wrapper" class="wrapper" style="display:none">
+        <div class="course-cover">
+            <img class="course-cover-img" :src="course.cover">
+        </div>
+        <div class="course-name-lecturer">
+            <p class="blank-0-32"></p>
+            <p class="course-name">{{course.name}}</p>
+            <p class="blank-0-32"></p>
+            <p class="course-lecturer">讲师：{{course.lecturer}}</p>
+        </div>
+        <div class="course-description">
+            <p class="course-description-h">课程简介：</p>
+            <p class="course-description-c"><span v-html="course.description"></span></p>
+        </div>
+        <div class="course-lecturer-description">
+            <p class="course-description-h">讲师简介：</p>
+            <p class="course-description-c"><span v-html="course.lecturerDescr"></span></p>
+        </div>
+        <div class="course-items" v-if="course.isSeries===1">
+            <p class="course-items-amount">课程包含：（共{{course.itemAmount}}节）</p>
+            <ul>
+                <li class="course-items-item" v-for="item in course.items" v-on:click="coursePlayClick(course, item)">
+                    <p class="course-items-item-h">{{item.name}}</p>
+                    <p class="course-items-item-t">
+                        <span>课程时长：{{item.durationStr}}</span>
+                        <span v-if="item.canListen === 1" style="margin-left:0.3rem;color:#009688;">免费试听</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <recommendation-component v-if="serviceRecommend.relationList.length>0" :item="serviceRecommend"></recommendation-component>
+        <div class="blank-1-31"></div>
+        <div class="course-buy-one-button" v-if="course.isFee===1 && course.isSeries===0">
+            <div class="course-buy-one-button-left">
+                <span class="course-buy-one-button-left-price">{{price(course.price)}}/{{course.priceUnit}}</span>
+                <sapn class="course-buy-one-button-left-saleprice">{{price(course.salePrice)}}/{{course.priceUnit}}</sapn>
+            </div>
+            <div class="course-buy-one-button-right" v-on:click="courseBuyClick(course)">购买</div>
+        </div>
+        <div class="course-buy-more-button" v-if="course.isFee===1 && course.isSeries===1" v-on:click="courseBuyClick(course)">
+            {{price(course.salePrice)}}/{{course.priceUnit}} 购买
+        </div>
+    </div>
+
+    <video id="hls-audio" style="display:none;" class="video-js" controls>
+        <source id="hls-source" src="" type="application/x-mpegURL">
+    </video>
+
+</body>
+
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="js/course_detail.js"></script>

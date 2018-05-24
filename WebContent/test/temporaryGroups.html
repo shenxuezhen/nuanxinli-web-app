@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <title>测评</title>
+    <link rel="stylesheet" type="text/css" href="css/start_team.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/tools.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/vue/2.2.4/vue.js"></script>
+</head>
+<body>
+<div id="startTeam">
+    <section class="interview">
+        <section id="inter-company" class="inter-company">
+        </section>
+        <article class="inter-guide">
+            <p>认识自己是最重要的功课<br>——苏格拉底</p>
+        </article>
+        <section class="inter-info">
+            <p><input placeholder="姓名" id="name" type="string"></p>
+            <p><span id="warn1" style="display: none">请输入正确姓名</span></p>
+            <p><input placeholder="手机号" id="tel" type="number"></p>
+            <p><span id="warn2" style="display: none">请输入正确手机号</span></p>
+            <p onclick="next()">下一步</p>
+        </section>
+        <section class="inter-invalid" style="display: none">
+            <p>好可惜~</p>
+            <p>此测评题已过期</p>
+            <p>更多精彩测评下载暖心理</p>
+            <a class="download">点击去下载</a>
+        </section>
+        <div class="warningBox" style="display: none"></div>
+        <section class="warning" style="display: none">
+            <p class="tip">啊哦~你不是有效用户哦</p>
+            <div class="tip">可能：</div>
+            <p class="con-tip">1、姓名、手机号填写有误</p>
+            <p class="con-tip">2、没有被录入到应聘者库中</p>
+            <p class="con-tip">3、亲爱的，你已经做过测试了</p>
+            <div class="exitWarn">知道了</div>
+        </section>
+    </section>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var testDId, tel, username, companyId;
+    var warn2 = document.getElementById("warn2");
+    var logo = getParam('logo');
+    /*var testIRule='team';*/
+    var testIRule=getParam('testIRule');
+    var teamName = getParam('name');
+    companyId = getParam('companyId');
+    testDId = getParam('testDId');
+    if(companyId=='31')$(".special").hide();
+    var needUserInfo=1;
+    if (logo) {
+        $("#comLogo").attr('src', logo);
+    }
+    $(".teamName").text(teamName);
+    var role;
+    $.ajax({
+        url: '/public/company/check_company_test',
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        async: true,
+        data: JSON.stringify({
+            "companyId": companyId,
+            "testDId": testDId
+        }),
+        success: function (data) {
+            if (data == 'true') {
+                $('.inter-info').show();
+                $('.inter-invalid').hide();
+            }
+        },
+        error: function (XMLHttpRequest, textStatus) {
+            $('.inter-info').hide();
+            $('.inter-invalid').show();
+        }
+    });
+    if (browser.versions.ios) {
+        if (browser.versions.weixin) {
+            $('.download')[0].href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+        } else {
+            $('.download')[0].href = 'https://itunes.apple.com/us/app/nuan-xin-li/id983939376';
+        }
+    } else {
+        if (browser.versions.weixin) {
+            $('.download')[0].href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+        } else {
+            $('.download')[0].href = 'http://app.nuanxinli.com/warm/WarmApp.apk';
+        }
+    }
+    function next() {
+        var reg1 = /[0-9|\*|\.|\ |\_]/img;
+        var reg2 = /^1[^12690]\d{9}$/g;
+        tel = document.getElementById("tel").value.trim();
+        username = document.getElementById('name').value;
+        if (reg1.test(username) || username == '') {
+            warn1.style.display = 'block';
+            setTimeout(function () {
+                warn1.style.display = 'none';
+            }, 3000);
+            return;
+        }
+        if (!reg2.test(tel)) {
+            warn2.style.display = 'block';
+            setTimeout(function () {
+                warn2.style.display = 'none';
+            }, 3000);
+            return;
+        }
+        var testi = {"companyId": companyId, "cellPhone": tel, "testDId": testDId, "alias": username.trim()};
+        $.ajax({
+            url: '/public/company/add_team_member',
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            async: true,
+            data: JSON.stringify(testi),
+            success: function (testDJsonStr) {
+                role = testDJsonStr.role;
+                $("#startTeam").load('start_normal.html');
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert(XMLHttpRequest.responseText);
+            }
+        });
+    }
+</script>

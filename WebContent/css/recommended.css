@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+body{
+    font-size: 10px;
+}
+.nxl_a .picture{
+    width: 9.5625rem;
+    height: 6.921875rem;
+    margin: 0.27rem auto 0.453125rem;
+}
+.nxl_a .picture img{
+    width: 9.5625rem;
+    height: 6.921875rem;
+}
+.nxl_b{
+    width: 8.515625rem;
+    margin: 0 auto 1.015625rem;
+}
+.nxl_b ul li{
+    text-align: center;
+    font-size: 0.40625rem;
+    line-height: 0.78125rem;
+    color: #FEB05E;
+    margin: 0.1rem 0;
+}
+.nxl_b ul li.style1{
+    color: #000000;
+}
+.nxl_b ul li.style2{
+    color: #FFFFFF;
+    background: #FEB05E;
+    padding: 0 0.1rem;
+    display: inline-block;
+    line-height: 0.5rem;
+}
+.nxl_c{
+    width: 4.03125rem;
+    height: 3.484375rem;
+    margin: 0 auto 0.46875rem;
+}
+.nxl_c img{
+    width: 4.03125rem;
+    height: 3.484375rem;
+}

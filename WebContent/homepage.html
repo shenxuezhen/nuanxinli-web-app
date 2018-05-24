@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+	<meta name="cache-control" content="no-cache"/>
+<link rel="stylesheet" href="css/size.css">
+<link rel="stylesheet" href="css/homepage.css">
+<link rel="stylesheet" href="css/forum.css">
+<link rel="stylesheet" href="css/forum_detele.css">
+<link rel="stylesheet" href="css/more.css">
+</head>
+<body>
+	<div id="body_div">
+		<div id="user_div">
+			<div id="user_img_home"></div>
+			<div id="user_name_div">
+				<div id="sex_img"></div>
+				<div id="user_name_home"></div>
+			</div>
+		</div>
+		<div id="button_div">
+			<div id="reply_button" onclick="replyList();">回帖</div>
+			<div id="send_button" onclick="sendList();">发帖</div>
+		</div>
+		<div id="thelist">
+			<!-- <div class="item_div">
+				<a id="forumA">
+					<div id="title" class="title">为什么有人喜欢虐待？为什么有人喜欢虐待？</div>
+					<div id="content" class="content_div">
+						为什么有人喜欢虐待？为什么有人喜欢虐待？为什么有人喜欢虐待？
+					</div>
+				</a>
+				<div class="operate_div">
+					<div class="operate">
+						<div class="view_img"></div>
+						<div id="hotrank" class="view_reply_text">10000</div>
+						<div class="reply_img"></div>
+						<div id="reply_count" class="view_reply_text">200</div>
+						<div id="delete_img_div" class="delete_img_div">
+							<img id="delete_img" class="delete_img" src="images/delete_img.png">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="line"></div>
+			<div class="item_div">
+				<a id="forumA">
+					<div id="title" class="title">为什么有人喜欢虐待？为什么有人喜欢虐待？</div>
+					<div id="content" class="content_div">
+						为什么有人喜欢虐待？为什么有人喜欢虐待？为什么有人喜欢虐待？
+					</div>
+				</a>
+				<div class="operate_div">
+					<div class="operate">
+						<div class="view_img"></div>
+						<div id="hotrank" class="view_reply_text">10000</div>
+						<div class="reply_img"></div>
+						<div id="reply_count" class="view_reply_text">200</div>
+					</div>
+				</div>
+			</div>
+			<div class="line"></div> -->
+			<div id="no_data" class="no_data">没有数据</div> 
+		</div>
+		<div id="delete_dialog" class="dialog_bg">
+			<div id="delete_div" class="delete_div">
+				<div id="delete_content">确定要删除么</div>
+				<div class="delete_line"></div>
+				<div id="delete_operate">
+					<div id="cancel_button" class="cancel_button">取消</div>
+					<div id="ok_button" class="ok_button">确定</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript">
+		var wid = document.documentElement.clientWidth;// 屏幕宽
+		var hei = document.documentElement.clientHeight;//屏幕高
+		var bodyDiv = document.getElementById('body_div');
+		bodyDiv.style.width = wid + 'px';
+		bodyDiv.style.height = hei + 'px';
+		//设置cookie
+		if(getParam('sid')){
+			setCookie('sid',getParam('sid'));
+		}
+		var replyButton = document.getElementById('reply_button');//回帖按钮
+		var sendButton = document.getElementById('send_button');//发帖按钮
+		var list = document.getElementById('thelist');
+
+		var item;
+		var postStr = 'reply';
+		if(getParam('userName') == getParam('user')){
+			//带删除item
+			item = '<a id="forumA"><div id="title" class="title"></div><div id="content" class="content_div"></div></a><div class="operate_div"><div class="operate"><div class="view_img"></div><div id="hotrank" class="view_reply_text">10000</div><div class="reply_img"></div><div id="reply_count" class="view_reply_text">200</div><div id="delete_img_div" class="delete_img_div"><img id="delete_img" class="delete_img" src="images/delete_img.png"></div></div></div>';
+		}else{
+			//不带删除item
+			item = '<a id="forumA"><div id="title" class="title"></div><div id="content" class="content_div"></div></a><div class="operate_div"><div class="operate"><div class="view_img"></div><div id="hotrank" class="view_reply_text"></div><div class="reply_img"></div><div id="reply_count" class="view_reply_text"></div></div></div>';
+		}
+		
+		//删除帖子点击
+		function deleteReply(replyid){
+			return function(){
+				var deleteDialog = document.getElementById('delete_dialog');//删除dialog
+				var deleteDiv = document.getElementById('delete_div');//删除框区域
+				var deleteContent = document.getElementById('delete_content');//删除内容
+				var deleteOperate = document.getElementById('delete_operate');//按钮区域
+				var okButton = document.getElementById('ok_button');//确定按钮
+				var cancelButton = document.getElementById('cancel_button');//取消按钮
+				deleteDialog.style.display = 'block';
+				deleteDialog.style.width = wid+'px';
+				deleteDialog.style.height = hei+'px';
+				deleteDiv.style.width = wid*0.7+'px';
+				deleteDiv.style.marginLeft = wid*0.15+'px';
+				deleteDiv.style.marginTop = (hei*0.75)/2+'px';
+				okButton.onclick = function(){
+					deleteDialog.style.display = 'none';
+					//删除操作
+					var deleteUrl;
+					if(postStr == 'reply'){
+						deleteUrl = '/'+getParam('puburl')+'/bbs/reply/'+replyid+'/delete';
+					}else{
+						deleteUrl = '/'+getParam('puburl')+'/bbs/post/'+replyid+'/delete';
+					}
+                    ajax(deleteUrl,'',function (resp) {
+
+                    });
+					location.reload();
+				};
+				cancelButton.onclick = function(){
+					deleteDialog.style.display = 'none';
+				};
+			}
+		};
+		
+		//显示列表
+		function showList(json){
+			var noData = document.getElementById('no_data');
+			if(json.length == 0){
+				noData.style.display = 'block';
+			}else{
+				noData.style.display = 'none';
+				for(var i=0;i<json.length;i++){
+					var itemDiv = document.createElement('div');
+					itemDiv.className = 'item_div';
+					itemDiv.innerHTML = item;
+					var lineDiv = document.createElement('div');
+					lineDiv.className = 'line';
+					list.appendChild(itemDiv);
+					list.appendChild(lineDiv);
+					var forumA = document.getElementById('forumA');
+					var title = document.getElementById('title');
+					var content = document.getElementById('content');
+					var hotrank = document.getElementById('hotrank');
+					var replyCount = document.getElementById('reply_count');
+					if(postStr == 'reply'){
+						forumA.href = '/warm/forum_detail.html?sid='+getParam('sid')+"&puburl="+getParam('puburl')+'&postId='+json[i].postId+'&user='+getParam('user');
+					}else{
+						forumA.href = '/warm/forum_detail.html?sid='+getParam('sid')+"&puburl="+getParam('puburl')+'&postId='+json[i].id+'&user='+getParam('user');
+					}
+					title.innerHTML = json[i].title;
+					content.innerHTML = json[i].content;
+					//限制字数
+					textCountLimit(65, content);
+					hotrank.innerHTML = json[i].hotrank;
+					replyCount.innerHTML = json[i].replyCount;
+					title.style.width = '100%';
+					title.id = 'title'+json[i].id;
+					content.id = 'content'+json[i].id;
+					hotrank.id = 'hotrank'+json[i].id;
+					replyCount.id = 'reply_count'+json[i].id;
+					forumA.id = 'forumA'+json[i].id;
+					//增加删除点击事件
+					if(getParam('userName') == getParam('user')){
+						var deleteButton = document.getElementById('delete_img_div');
+						deleteButton.onclick = deleteReply(json[i].id);
+						deleteButton.id = 'delete_img_div'+json[i].id;
+					}
+				}
+			}
+		}
+		
+		//请求回帖数据
+		var everyTimeCount = 10;
+
+
+		//请求个人信息
+		var userUrl = '/agent/user/'+getParam('userName');
+		var userJson;
+		//回帖
+		var replyUrl = '/agent/bbs/userreplies/'+getParam('userName')+'?afterId=0&count='+everyTimeCount;
+		var replyJsonStr = '';
+		var replyJson;
+		//发帖
+		var sendUrl = '/agent/bbs/userposts/'+getParam('userName')+'?afterId=0&count='+everyTimeCount;
+		var sendJsonStr = '';
+		var sendJson;
+
+		//回帖
+		ajax(replyUrl,null,function (resp) {
+            replyJson=resp;
+            showList(replyJson);
+        });
+
+		
+		//请求个人信息
+		ajax(userUrl,null,function (resp) {
+            userJson=resp;
+            var userImage = document.getElementById('user_img_home');
+            var sexImage = document.getElementById('sex_img');
+            var userName = document.getElementById('user_name_home');
+            userImage.style.background = 'url(' + userJson[0].photo + ') center no-repeat';
+            userImage.style.backgroundSize = 'cover';
+            if(userJson[0].sex == 'F'){
+                sexImage.style.background = 'url(images/women_img.png) no-repeat center';
+            }else{
+                sexImage.style.background = 'url(images/man_img.png) no-repeat center';
+            }
+            sexImage.style.backgroundSize = 'cover';
+            userName.innerHTML = userJson[0].alias;
+        });
+
+		//点击加载更多
+		function clickMoreReply(){
+			var moreReplyButton = document.getElementById('more_reply');
+			var loading = document.getElementById('loading');
+			list.removeChild(moreReplyButton);
+			loading.style.display = 'block';
+            list.removeChild(loading);
+			var url;
+			if(postStr == 'reply'){
+				url = '/agent/bbs/userreplies/'+getParam('userName')+'?afterId='+replyJson[replyJson.length-1].id+'&count='+everyTimeCount;
+			}else{
+				url = '/agent/bbs/userposts/'+getParam('userName')+'?afterId='+replyJson[sendJson.length-1].id+'&count='+everyTimeCount;
+			}
+			ajax(url,null,function (resp) {
+                replyJson=resp;
+                showList(replyJson);
+            });
+
+			if(replyJson.length == everyTimeCount){
+				var moreReplyButton = document.createElement('div');
+				moreReplyButton.id = 'more_reply';
+				moreReplyButton.onclick = clickMoreReply;
+				moreReplyButton.innerHTML = '点击加载更多';
+				var loading = document.createElement('div');
+				loading.id = 'loading';
+				loading.className = 'loading';
+				list.appendChild(moreReplyButton);
+				list.appendChild(loading);
+			}
+		}
+		
+		if(replyJson.length == everyTimeCount){
+			var moreReplyDiv = document.createElement('div');
+			moreReplyDiv.id = 'more_reply';
+			moreReplyDiv.onclick = clickMoreReply;
+			moreReplyDiv.innerHTML = '点击加载更多';
+			var loadingDiv = document.createElement('div');
+			loadingDiv.id = 'loading';
+			loadingDiv.className = 'loading';
+			list.appendChild(moreReplyDiv);
+			list.appendChild(loadingDiv);
+		}
+		
+		//点击回帖
+		function replyList(){
+			postStr = 'reply';
+			replyButton.style.color = '#FE6502';
+			replyButton.style.borderBottom = '2px solid #FE6502';
+			sendButton.style.color = '#282828';
+			sendButton.style.borderBottom = '1px solid #d8d8d8';
+			httpRequest.open('GET', replyUrl, false);
+			httpRequest.send();
+			if (httpRequest.readyState == 4) {
+				if (httpRequest.status == 200) {
+					replyJsonStr = httpRequest.responseText;
+				} else {
+					alert('There was a problem with the request.');
+				}
+			}
+			replyJson = eval(replyJsonStr);
+			list.innerHTML = '<div id="no_data" class="no_data">没有数据</div>';
+			showList(replyJson);
+			if(replyJson.length == everyTimeCount){
+				var moreReplyDiv = document.createElement('div');
+				moreReplyDiv.id = 'more_reply';
+				moreReplyDiv.onclick = clickMoreReply;
+				moreReplyDiv.innerHTML = '点击加载更多';
+				var loadingDiv = document.createElement('div');
+				loadingDiv.id = 'loading';
+				loadingDiv.className = 'loading';
+				list.appendChild(moreReplyDiv);
+				list.appendChild(loadingDiv);
+			}
+		}
+		
+		//点击发帖
+		function sendList(){
+			postStr = 'send';
+			sendButton.style.color = '#FE6502';
+			sendButton.style.borderBottom = '2px solid #FE6502';
+			replyButton.style.color = '#282828';
+			replyButton.style.borderBottom = '1px solid #d8d8d8';
+			httpRequest.open('GET', sendUrl, false);
+			httpRequest.send();
+			if (httpRequest.readyState == 4) {
+				if (httpRequest.status == 200) {
+					sendJsonStr = httpRequest.responseText;
+				} else {
+					alert('There was a problem with the request.');
+				}
+			}
+			sendJson = eval(sendJsonStr);
+			list.innerHTML = '<div id="no_data" class="no_data">没有数据</div>';
+			showList(sendJson);
+			if(sendJson.length == everyTimeCount){
+				var moreReplyDiv = document.createElement('div');
+				moreReplyDiv.id = 'more_reply';
+				moreReplyDiv.onclick = clickMoreReply;
+				moreReplyDiv.innerHTML = '点击加载更多';
+				var loadingDiv = document.createElement('div');
+				loadingDiv.id = 'loading';
+				loadingDiv.className = 'loading';
+				list.appendChild(moreReplyDiv);
+				list.appendChild(loadingDiv);
+			}
+		}
+		
+		
+		//居中用户名
+		var sexImgWid = sexImage.offsetWidth;
+		var userNameWid = userName.offsetWidth;
+		sexImage.style.marginLeft = ((wid-(sexImgWid+userNameWid))/2-5)+'px';
+		
+		//自动设置标签内容高度
+		var userDiv = document.getElementById('user_div');
+		var buttonDiv = document.getElementById('button_div');
+		var userDivHei = userDiv.offsetHeight;
+		var buttonDivHei = buttonDiv.offsetHeight;
+		list.style.height = (hei-userDivHei-buttonDivHei)-2 + 'px';
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+.body_div{
+	overflow: hidden;
+	background: #f5f5f5;
+}
+.div_inner{
+	padding:15px 5px 50px 5px ;
+	margin: 20px;
+    border: 1px solid #F9E4C5;
+    -moz-border-radius: 8px/8px;     
+    -webkit-border-radius: 8px/8px;  
+    border-radius:8px/8px;
+    background: #fff;
+    overflow: hidden;
+}
+.spn{
+	width: 5px;
+	height: 25px;
+	background: #fcab55;
+	float: left;
+	margin:2px 20px 0px 0px;
+}
+.title{
+	color: #282828;
+	font-size: 0.46875rem;
+	margin: 10px;
+	height: 30px;
+	line-height: 30px;
+}
+.text{
+	margin: 10px 10px 30px 10px;
+	font-size: 0.375rem;
+	color: #81807e;
+}
+.guideimg1,.guideimg2,.guideimg3,.guideimg4,.guideimg5,.guideimg6,.guideimg7,.guideimg8,.guideimg9,.guideimg10{
+	margin: 0 auto;
+	height: 8.67188rem;
+	position: relative;
+	background-size: 100% 100% !important;
+}
+.guideimg1{
+	background: url("../images/guideimgs/banner1.png") center;
+}
+.guideimg2{
+	background: url("../images/guideimgs/banner2.png") center;
+}
+.guideimg3{
+	background: url("../images/guideimgs/banner3.png") center;
+}
+.guideimg4{
+	background: url("../images/guideimgs/banner4.png") center;
+}
+.guideimg5{
+	background: url("../images/guideimgs/banner5.png") center;
+}
+.guideimg6{
+	background: url("../images/guideimgs/banner6.png") center;
+}
+.guideimg7{
+	background: url("../images/guideimgs/banner7.png") center;
+}
+.guideimg8{
+	background: url("../images/guideimgs/banner8.png") center;
+}
+.guideimg9{
+	background: url("../images/guideimgs/banner9.png") center;
+}
+.guideimg10{
+	background: url("../images/guideimgs/banner10.png") center;
+}
+.dot{
+	height: 0.34375rem;
+	background: url(../images/guideimgs/dot.png) repeat center 0;
+	margin: 50px 0 40px -11.5px;
+	background-size: contain;
+}
+.div_title{
+	margin-left: 10px;
+}
+.guideimg3,.guideimg5,.guideimg7{
+	margin-top: 50px;
+}
+.guideimg3,.guideimg5{
+	margin-bottom: 60px;
+}

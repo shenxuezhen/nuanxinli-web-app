@@ -1,0 +1,111 @@
+.test-result{
+    display: inline-block;
+    width: 76%;
+    font-size: 0.62667rem;
+    color: #393932;
+}
+.isEarnest{
+    display: inline-block;
+}
+.isEarnest img{
+    width: 1.5625rem;
+    height: 1.25rem;
+}
+/*.test-result-analysis{
+    margin-top: 2.4rem;
+}*/
+.test-division{
+    height: 0.86667rem;
+    margin-bottom: 0.50667rem;
+}
+.test-division>span{
+    display: inline-block;
+    width: 1.146rem;
+    height: 0.84rem;
+}
+.test-division .division-left{
+    float: left;
+    border: 1px solid #F28985;
+    border-right: none;
+}
+.test-division .division-right{
+    float: right;
+    border: 1px solid #AAE48D;
+    border-left: none;
+}
+.test-division .division-left span:nth-of-type(1),.test-division .division-right span:nth-of-type(1){
+    display: inline-block;
+    width: 40%;
+    padding-left: 10%;
+    font-size: 0.29333rem;
+    color: #393932;
+    text-align: center;
+}
+.test-division .division-left span:nth-of-type(2),.test-division .division-right span:nth-of-type(2){
+    display: inline-block;
+    width: 40%;
+    line-height: 1.4;
+    padding-right: 10%;
+    font-size: 0.61333rem;
+    color: #393932;
+    text-align: center;
+    float: right;
+}
+.test-division>div{
+    display: inline-block;
+    width: 6.04166rem;
+    height: 0.88667rem;
+    line-height: 0.88667rem;
+}
+.test-division>div>span{
+    display: inline-block;
+    height: 100%;
+    font-size: 0.4rem;
+    color: #FFFFFF;
+    float: left;
+}
+.test-division>div>span:nth-of-type(1){
+    padding-left: 2%;
+}
+.test-division>div>span:nth-of-type(2){
+    padding-right: 2%;
+    text-align: right;
+}
+.test-describe{
+    margin-top: 1.34667rem;
+}
+.test-describe p:nth-of-type(1){
+    font-size: 0.625rem;
+    color: #EF7E38;
+}
+.test-describe p:nth-of-type(2),.test-describe p:nth-of-type(2) p{
+    margin-top: 0.4rem;
+    margin-bottom: 1.06667rem;
+    font-size: 0.37333rem;
+    color: #81807E;
+    line-height: 1.8;
+}
+.test-describe .p2{
+    color: #393932 !important;
+}
+.test-result-title .MBTI_p3{
+    display: inline-block;
+    width: 100%;
+    font-size: 0.4rem !important;
+    text-align: center;
+    color: #FFFFFF;
+    position: absolute;
+    left: 0;
+    top: 2.5rem;
+    height: .8rem;
+    line-height: .8rem;
+}
+.result-image{
+    height: 6.3rem;
+    width: 100%;
+    margin-bottom: .8rem;
+}
+.result-image img{
+    height: 100%;
+    width: 100%;
+}

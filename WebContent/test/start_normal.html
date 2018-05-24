@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <title>测评</title>
+    <link rel="stylesheet" href="css/start_normal.css"/>
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script src="../js/flexible.js"></script>
+    <script src="../js/tools.js"></script>
+    <script src="../js/Decimal.js"></script>
+    <script src="js/common_methods.js"></script>
+    <script src="../js/zg_io.js"></script>
+</head>
+<body>
+<div class="loading"><img src="../images/loading.gif"></div>
+<div id="start_normal" style="display: none">
+    <div id="body-div" class="normal-div">
+        <img :src="testDJsonStr.img">
+        <p class="evaluationMassage">
+            <span id="count">{{testDJsonStr.testCountVirtual}}人测试过</span>
+        </p>
+        <p id="title">{{testDJsonStr.title}}</p>
+        <p id="desc" v-html="testDJsonStr.descr"></p>
+        <div class="test-begin" @touchstart="beginTest(1)" v-if="testDJsonStr.payState==0"><p>我想测完再付，直接开始测试</p>＞</div>
+        <div class="test-begin" @touchstart="getOrder('company')"
+             v-if="testDJsonStr.payState==1 && testDJsonStr.isOrgPay==0 && thirdPartyName"><p>我要给企业其他小伙伴购买</p>＞
+        </div>
+        <!--<div class="evaluationStart" id="buyBtn" @touchstart="buyTest()" v-if="testDJsonStr.payState==0">购买</div>
+        <div class="evaluationStart" id="startBtn" @touchstart="beginTest(1)" v-if="testDJsonStr.payState==1 || testIRule=='team' || testIRule=='company'">开始测评</div>-->
+    </div>
+    <div class="evaluationStart" id="buyBtn" @touchstart="buyTest()" v-if="testDJsonStr.payState==0">购买</div>
+    <div class="evaluationStart" id="startBtn" @touchstart="beginTest(1)"
+         v-if="testDJsonStr.payState==1 || testIRule=='team' || testIRule=='company'">开始测评
+    </div>
+    <div id="test-select-pay" style="display: none">
+        <div class="close-select-pay" @touchstart="closePromotion(1)"><img src="../images/test/tanchuang_guanbi.png">
+        </div>
+        <!--<div id="test-select-pay" v-show="testDJsonStr.payState==0">-->
+        <div class="test-img">
+            <img :src="testDJsonStr.img">
+            <p>{{testDJsonStr.title}}</p>
+        </div>
+        <div id="test-SalePrice"><!-- v-if="testDJsonStr.isSalePrice==1"-->
+            <p>机智！ </p>
+            <p>恭喜你成为愿意深入了解自己的人</p>
+            <p>本测评价格：<span>{{price(testDJsonStr.showPrice)}}</span></p>
+            <p>目前处在推广期</p>
+            <p>只要。。。。</p>
+            <p>oh my god</p>
+            <p><span>{{price(salePrice)}}</span>！！</p>
+            <p>
+                本测评有效期：<span>{{validDays}}</span>天
+            </p>
+        </div>
+        <div id="test-not-SalePrice" v-if="testDJsonStr.isSalePrice==0" style="display: none">
+            <p>机智！</br>恭喜你成为愿意深入了解自己的人</br>
+                本测评价格：<span>{{price(testDJsonStr.price)+'元/人'}}</span></br>
+                目前不是推广期</br>
+                所以，还是<span>{{testDJsonStr.price+'/人'}}</span></br>
+            </p>
+            <p>
+                （下次啥时候推广完全取决于老板拍脑袋，</br>
+                老板太爱忘事，</br>
+                嘘...</br>
+                所以，我劝你还是现在就买了吧）</p>
+        </div>
+        <div class="test-btn-pay" @touchstart="getOrder('person')">太幸运啦～</div>
+    </div>
+    <div id="shade" style="display: none"></div>
+</div>
+<iframe id="alipayWap" src="" frameborder="0" style="display: none"></iframe>
+</body>
+</html>
+<script>
+    //改颜色
+    var startBtn = document.getElementById("startBtn");
+    startBtn.style.background = localStorage.getItem('companyMainColor');
+    var sid = getParam('sid') ? getParam('sid') : localStorage.getItem('sid');
+    setCookie('sid', sid);
+    if (!testIRule)var testIRule = 'app';
+    if (!testDId)var testDId = getParam('testDId');
+    if (!needUserInfo)var needUserInfo = null;
+    loadEnv(function () {
+            $('.evaluationStart').css('background',buttonColor());
+            $('.test-btn-pay').css('background',buttonColor());
+            pushToHistory(window.location.href);
+            var url = needUserInfo ? '/public/test-d/' + testDId : '/public/test-d/service/' + testDId;
+            var test = {
+                testDJsonStr: {},
+                testIRule: testIRule,
+                needUserInfo: needUserInfo,
+                thirdPartyName: localStorage.getItem('company') == 'gzq'//此处是为了区别是为给企业购买并且目前为止只有工作圈有企业购买
+            };
+            ajax(url, null, function (resp) {
+                localStorage.setItem('testDId', testDId);//做题前购买则不删除，做完题再删除；做完题再购买购买完成直接删除就好
+                localStorage.setItem('title', resp.title);//做题前购买和做题后购买都删除
+                localStorage.setItem('type', resp.type);//做题前购买和做题后购买都删除
+                localStorage.setItem('orderPrice', resp.isSalePrice ? resp.testDPrice.salePrice : resp.price);//做题前购买和做题后购买都删除
+                localStorage.setItem('validDays', resp.isSalePrice ? resp.testDPrice.validDays : resp.validDays);//做题前购买和做题后购买都删除
+                localStorage.setItem('testImg', resp.img);
+                test.testDJsonStr = resp;
+                initShareObj({
+                    title: test.testDJsonStr.title,
+                    content: test.testDJsonStr.descr,
+                    iconUrl: window.location.origin + test.testDJsonStr.img,
+                    shareUrl: window.location.origin + '/warm/test/start_employee.html?testDId=' + testDId
+                })
+            });
+            new Vue({
+                el: "#start_normal",
+                data: test,
+                created: function () {
+                    $(".loading").css("display", "none");
+                    $("#start_normal").css("display", "block");
+
+                },
+                computed: {
+                    testcount: function () {
+                        if (this.$data.testDJsonStr.testCountVirtual / 10000 > 10) {
+                            return Math.floor(this.$data.testDJsonStr.testCountVirtual / 10000) + '万';
+                        } else {
+                            return this.$data.testDJsonStr.testCountVirtual;
+                        }
+                    },
+                    salePrice: function () {
+                        if (this.$data.testDJsonStr.isSalePrice && this.$data.testDJsonStr.isSalePrice == 1) {
+                            return this.$data.testDJsonStr.testDPrice.salePrice;
+                        } else {
+                            return this.$data.testDJsonStr.price;
+                        }
+                    },
+                    validDays: function () {
+                        if (this.$data.testDJsonStr.isSalePrice && this.$data.testDJsonStr.isSalePrice == 1) {
+                            return this.$data.testDJsonStr.testDPrice.validDays;
+                        } else {
+                            return this.$data.testDJsonStr.validDays;
+                        }
+                    }
+                },
+                methods: {
+                    buyTest: function () {//弹出购买测评弹窗
+                        window.scroll(0, 0);
+                        document.body.style.overflow = 'hidden';
+                        $('#shade').show();
+                        $('#test-select-pay').show();
+                    },
+                    beginTest: function (isBuy) {//开始测评
+                        // isBuy 0:不购买，1:购买
+                        if (isBuy == 0) {//未购买，跳过支付做题
+                            zhuge.track('点击跳过支付', {'测评名称': localStorage.getItem('title')});
+                            zhuge.track('开始测评', {
+                                '测评名称': localStorage.getItem('title'),
+                                '支付前后': '支付前做题'
+                            });
+                            $('#body-div').show();
+                            $('#test-select-pay').hide();
+                        } else if (isBuy == 1) {//购买，支付后做题
+                            zhuge.track('开始测评', {
+                                '测评名称': localStorage.getItem('title'),
+                                '支付前后': '支付后做题'
+                            });
+                            if (browser.nuanApp) {
+                                browser.nuanApp.stateChange(JSON.stringify({
+                                    "stateCode": "test_start",
+                                    "stateDesc": "开始测评"
+                                }));
+                            }
+                        }
+                        $("#start_normal").load('testing.html');
+                    },
+                    getOrder: function (customerIsOrg) {//点击支付
+                        localStorage.removeItem('createTime');// 从列表进来的话，需要移除。
+                        localStorage.removeItem('payState');// 从列表进来的话，需要移除。
+                        localStorage.removeItem('coupon');// 从列表进来的话，需要移除。
+                        if (browser.nuanApp) {
+                            browser.nuanApp.pay(JSON.stringify({
+                                'type': 'test',
+                                'po': {
+                                    'testDId': this.testDJsonStr.id,
+                                    'price': this.testDJsonStr.isSalePrice ? this.testDJsonStr.testDPrice.salePrice : this.testDJsonStr.price
+                                }
+                            }));
+                        } else {
+                            if (!localStorage.getItem('orderTotalPrice')) {
+                                localStorage.setItem('orderTotalPrice', this.testDJsonStr.isSalePrice ? this.testDJsonStr.testDPrice.salePrice : this.testDJsonStr.price);
+                            }
+                            localStorage.setItem('testTime', 'testBefore');//做题前购买，购买完成删除
+                            window.location.href = '/warm/order/test_order_details.html?customerIsOrg=' + customerIsOrg;
+                        }
+                    },
+                    closePromotion: function () {
+                        document.body.style.overflow = '';
+                        $('#test-select-pay').hide();
+                        $('#shade').hide();
+                    },
+                    price:function (str) {
+                        return transitionPrice(str)
+                    }
+                }
+            });
+        }, function () {
+            if (window.confirm('确定返回列表吗？')) {
+                //确定
+                popToHistory(window.location.href);
+                return true;
+            } else {
+                //取消
+                return false;
+            }
+        },
+        {
+            "type": "menu",
+            "hide": false,
+            "item": [
+                {
+                    "text": "分享",
+                    "onClick": "share();"
+                }
+            ]
+        });
+
+</script>

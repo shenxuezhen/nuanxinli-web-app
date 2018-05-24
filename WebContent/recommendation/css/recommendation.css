@@ -1,0 +1,94 @@
+.recommendation {
+    padding: 0 0.41rem 0 0.39rem;
+    background: #FFFFFF !important;
+}
+.recommendation-head {
+    display: flex;
+    align-items: center;
+    height: 0.48rem;
+    line-height: 0.48rem;
+}
+.recommendation-head-span {
+    width: 2.3rem;
+    font-size: 0.3rem;
+    text-align: center;
+    color: #FFFFFF;
+    background: #6CCCB5;
+}
+.recommendation-head-hr {
+    width: 100%;
+    height: 1px;
+    size: 1px;
+    border-top: 1px solid #6CCCB5;
+    border-left:none;
+    border-right:none;
+    border-bottom:none;
+}
+.recommendation-content-ul {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.recommendation-content-li {
+    display: flex;
+    padding: 0.53rem 0;
+    border-bottom: 1px solid #EFEFEE;
+    list-style-type: none;
+}
+.recommendation-content-li:nth-last-of-type(1) {
+    border-bottom: none;
+}
+.recommendation-content-li-left {
+    display: inline-block;
+    width: 3.8rem;
+    height: 2.12rem;
+}
+.recommendation-content-li-img {
+    width: 100%;
+    height: 100%;
+}
+.recommendation-content-li-right {
+    overflow: hidden;
+    display: inline-block;
+    padding-left: 0.35rem;
+    width: 100%;
+}
+.recommendation-content-li-right-title {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0.14rem 0 0 0;
+    font-size: 0.45rem;
+}
+.recommendation-content-li-right-content {
+    margin: 0;
+    padding: 0.25rem 0 0 0;
+    font-size: 0.35rem;
+    color: #81807E;
+}
+.recommendation-content-li-right-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0.2rem 0 0 0;
+    color: #B1AFAE;
+}
+.recommendation-content-li-right-bottom > span:nth-of-type(2) {
+    display: flex;
+    align-items: center;
+}
+.recommendation-content-li-right-bottom-amount {
+    font-size: 0.35rem;
+    color: #B1AFAE;
+}
+.recommendation-content-li-right-bottom-price {
+    font-size: 0.35rem;
+    text-decoration:line-through;
+    color: #B1AFAE;
+}
+.recommendation-content-li-right-bottom-sale-price {
+    margin-left: 0.56rem;
+    font-size: 0.45rem;
+    color: #EF7E38;
+}

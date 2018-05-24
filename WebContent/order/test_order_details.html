@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <title>订单详情</title>
+    <link rel="stylesheet" href="../test/css/font_size.css">
+    <link rel="stylesheet" href="../test/css/test_order_details.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script src="../test/js/common_methods.js"></script>
+    <script src="../js/flexible.js"></script>
+    <script src="../js/tools.js"></script>
+    <script src="../js/zg_io.js"></script>
+</head>
+<body style="background: #f8f8f8">
+<div class="loading"><img src="../images/loading.gif"></div>
+<div id="test-order" class="test-order" style="display: none">
+    <div class="order-header">
+        <div class="order-concise">
+            <div><img :src="photo"></div>
+            <div>
+                <p class="fs-1-640">{{title}}</p>
+                <p class="fs-2-640">{{type}}</p>
+            </div>
+        </div>
+    </div>
+    <!--支付个人-->
+    <div class="order-person">
+        <p class="fs-color">订单明细：</p>
+        <div class="order-details">
+            <p class="fs-3-640">有效期</p><p class="fs-3-640" style="font-family: Helvetica">{{validDay+'天'}}</p>
+        </div>
+        <div class="order-details">
+            <p class="fs-3-640">应付金额</p><p class="fs-3-640 price-color" style="font-family: Helvetica;color: #FCAB55">{{price('no','',orderTotalPrice)}}</p>
+        </div>
+        <div class="order-details" v-if=" couponPrice!= ''" @click="changeCoupon">
+            <p class="fs-3-640">优惠券</p><p class="fs-3-640 price-color" style="font-family: Helvetica;color: #FCAB55">{{'¥'+couponPrice+'元'}}</p>
+        </div>
+        <div class="order-details">
+            <p class="fs-3-640">实付金额</p><p class="fs-3-640 price-color" style="font-family: Helvetica;color: #FCAB55">{{price('yes',couponPrice,orderTotalPrice)}}</p>
+        </div>
+    </div>
+    <!--支付企业-->
+    <div class="order-company"  style="display: none">
+        <ul class="order-company-details">
+            <li>
+                <p class="fs-3-640 fs-color">订单明细：<span class="fs-2-640">（如有开发票需求，可直接联系客服）</span></p>
+                <p class="fs-3-640"><span>测评单价</span><span style="font-family: Helvetica">{{price(orderPrice)+'/人'}}</span></p>
+            </li>
+            <li class="order-details fs-3-640">
+                <span>有效期</span><span style="font-family: Helvetica">{{validDay+'天'}}</span>
+            </li>
+            <li class="order-details fs-3-640">
+                <span>员工数量</span><span style="font-family: Helvetica">{{companyCount+'人'}}</span>
+            </li>
+            <li class="order-details fs-3-640">
+               <span>购买数量</span><span style="font-family: Helvetica">{{companyCount+'份'}}</span>
+            </li>
+            <li class="order-details fs-3-640 last">
+                <span>应付金额</span><span class="price-color" style="font-family: Helvetica;color: #FCAB55;">{{price('no','',orderTotalPrice)}}</span>
+            </li>
+            <li class="order-details fs-3-640" v-if=" couponPrice!= ''" @click="changeCoupon">
+                <span>优惠券</span><span style="font-family: Helvetica">{{'¥'+couponPrice+'元'}}</span>
+            </li>
+            <li class="order-details fs-3-640 last">
+             <span>实付金额</span><span class="price-color" style="font-family: Helvetica;color: #FCAB55;">{{price('yes',couponPrice,orderTotalPrice)}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="order-pay" v-if="!browser">
+        <div class="order-pay-title fs-3-640">支付方式</div>
+        <div v-on:click="selectType('alipay')">
+            <img class="order-pay-typeimg" src="../images/test/alipay.png">
+            <!--<img class="order-pay-selectimg" id="aliselectimg" src="../images/test/paydid.png">-->
+        </div>
+        <!--<div v-on:click="selectType('jdpay')">
+            <img class="order-pay-typeimg" src="../images/test/jdImg.png">
+            <img class="order-pay-selectimg" id="jdselectimg" src="../images/test/willpay.png">
+        </div>-->
+    </div>
+    <div class="order-btn">
+        <div class="fs-5-640" @touchstart="pay">提交订单</div>
+        <p class="order-tip fs-3-640" style="font-family: Helvetica">请在10分钟内完成支付</p>
+        <p class="order-select-company fs-6-640 buyCompany" @touchstart="buyCompany" v-if="thirdPartyName">我要为企业的所有员工买单＞</p>
+        <p class="order-select-company fs-6-640 offline" style="display: none" @touchstart="openOffline">如果你想线下付费？</p>
+    </div>
+    <div class="warm-shade" style="display: none"></div>
+    <div class="order-offline" style="display: none">
+        <img src="../images/test/nuan_logo.png">
+        <div class="fs-1-640">
+            如果您想线下付费</br>不妨致电我们的官方热线</br><span class="fs-color-E38 fs-8-640" onclick="callPhone()">4006889848</span></br>&</br>现在 <span class="fs-color-E38 fs-8-640" onclick="feedBack()">联系客服</span></br>&</br>微信：2685606615
+        </div>
+        <p class="fs-color-E38 fs-8-640" @touchstart="closeOffline">知道了</p>
+    </div>
+</div>
+<iframe id="alipayWap" src="" frameborder="0" style="display: none"></iframe>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../js/Decimal.js"></script>
+<script type="text/javascript" src="../js/payment/payment.js"></script>
+<script type="text/javascript" src="../test/js/test_order_details.js"></script>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="cache-control" content="no-cache"/>
+		<link rel="stylesheet" href="css/size.css">
+		<link rel="stylesheet" href="css/forum_detail.css">
+		<link rel="stylesheet" href="css/forum_detele.css">
+		<link rel="stylesheet" href="css/more.css">
+	</head>
+	<body>
+		<div id="body_div">
+			<div id="up_div">
+				<div id="card_title"></div>
+				<div id="user_div">
+					<div id="user_img_card" class="user_img"></div>
+					<div id="card_user_name" class="user_name"></div>
+				</div>
+				<div id="card_content">
+				</div>
+				<div id="reply_div">
+					<div id="all_reply_div">
+						<div id="all_reply">全部回复</div>
+					</div>
+					<div id="replys">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/tools.js"></script>
+		<script type="text/javascript">
+			var wid = document.documentElement.clientWidth; // 屏幕宽
+			var hei = document.documentElement.clientHeight; //屏幕高
+			var bodyDiv = document.getElementById('body_div');
+			bodyDiv.style.width = wid + 'px';
+			if(getParam('sid')) {
+				setCookie('sid', getParam('sid'));
+			}
+			/*请求帖子详情*/
+			var httpRequest;
+			if(window.XMLHttpRequest) {
+				httpRequest = new XMLHttpRequest();
+			} else if(window.ActiveXObject) {
+				try {
+					httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
+				} catch(e) {
+					try {
+						httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+					} catch(e) {}
+				}
+			}
+			var forumUrl = '/public/bbs-post/' + getParam('postId');
+			var forumJsonStr = '';
+			if(!httpRequest) {
+				alert('Giving up L Cannot create an XMLHTTP instance');
+			} else {
+				httpRequest.open('GET', forumUrl, false);
+				httpRequest.send();
+				if(httpRequest.readyState == 4) {
+					if(httpRequest.status == 200) {
+						forumJsonStr = httpRequest.responseText;
+					} else {
+						if(httpRequest.responseText == '帖子不存在。') {
+							if(browser.ios) {
+								iosIframe.src = 'forumIsNotExist';
+							} else {
+								if(window.appInterface) {
+									window.appInterface.forumIsNotExist();
+								} else {
+									alert(httpRequest.responseText);
+								}
+							}
+						}
+					}
+				}
+			}
+			var forumJson = eval('[' + forumJsonStr + ']');
+			var cardTitle = document.getElementById('card_title'); //帖子标题
+			var cardContent = document.getElementById('card_content'); //帖子内容
+			var userName = document.getElementById('card_user_name'); //用户名
+			var userImage = document.getElementById('user_img_card'); //用户头像
+			var cardContentStr = forumJson[0].content.replace(/\n/g, "<p>");
+			cardTitle.innerHTML = forumJson[0].title;
+			cardContent.innerHTML = cardContentStr;
+			userName.innerHTML = forumJson[0].userAlias;
+			userImage.style.background = 'url(' + forumJson[0].userPhoto + ') center no-repeat';
+			userImage.style.backgroundSize = 'cover';
+
+//			parent.wxTitle = forumJson[0].title;
+//			parent.wxDesc = cardContentStr;
+//			//			parent.setWxImageUrl(data.user.photo);
+//			parent.iframeLoadConfig();
+
+			var replyDiv = document.getElementById('reply_div');
+			if(forumJson[0].replyCount != 0) {
+				var pageNum = 1;
+				var replyEveryTimeCount = 10;
+				var replyListUrl = '/public/bbs-post/' + getParam('postId') + '/bbs-reply/list?pageNum=' + pageNum + '&pageSize=' + replyEveryTimeCount;
+				var replyJsonStr;
+				var replyJson;
+				var replyJson1;
+				httpRequest.open('GET', replyListUrl, false);
+				httpRequest.send();
+				if(httpRequest.readyState == 4) {
+					if(httpRequest.status == 200) {
+						replyJsonStr = httpRequest.responseText;
+					} else {
+						alert('There was a problem with the request.');
+					}
+				}
+				//放回复div
+				var replysDiv = document.getElementById('replys');
+				//别人回复原帖
+				var replyItem1 = '<div class="reply_user_div"><div class="user_img_div"><div id="user_img" class="user_img"></div></div><div class="user_right"><div id="user_name" class="reply_user_name"></div><div id="reply_date" class="reply_date"></div></div></div><div id="reply_content" class="reply_content"></div>';
+				//别人回复别人
+				var replyItem3 = '<div class="reply_user_div"><div class="user_img_div"><div id="user_img" class="user_img"></div></div><div class="user_right"><div class="reply_user_name_div"><span id="user_name" class="reply_user_name"></span><span class="reply_text">&nbsp;回复&nbsp;</span><span id="user_name_other" class="reply_user_name_other"></span></div><div id="reply_date" class="reply_date"></div></div></div><div id="reply_content" class="reply_content"></div>';
+				replyJson1 = eval('[' + replyJsonStr + ']');
+				replyJson = replyJson1[0].list;
+				//显示回复列表
+				function showReplyList(replyJson) {
+					for(var i = 0; i < replyJson.length; i++) {
+						var replyItem = document.createElement('div');
+						replyItem.className = 'reply_item';
+						var dateStr = '';
+						if(replyJson[i].createTime.length >= 16) {
+							dateStr = replyJson[i].createTime.substr(0, 16);
+						}
+						if(replyJson[i].replyToUser) {
+							replyItem.innerHTML = replyItem3;
+							replysDiv.appendChild(replyItem);
+							var userName = document.getElementById('user_name');
+							var replyDate = document.getElementById('reply_date');
+							var replyContent = document.getElementById('reply_content');
+							var userNameOther = document.getElementById('user_name_other');
+							var userImage = document.getElementById('user_img');
+							userName.innerHTML = replyJson[i].userAlias;
+							replyDate.innerHTML = dateStr;
+							replyContent.innerHTML = replyJson[i].content;
+							userNameOther.innerHTML = replyJson[i].replyToAlias;
+							userImage.style.background = 'url(' + replyJson[i].userPhoto + ') center no-repeat';
+							userImage.style.backgroundSize = 'cover';
+							userName.id = 'user_name' + replyJson[i].id;
+							replyDate.id = 'reply_date' + replyJson[i].id;
+							replyContent.id = 'reply_content' + replyJson[i].id;
+							userNameOther.id = 'user_name_other' + replyJson[i].id;
+							userImage.id = 'user_img' + replyJson[i].id;
+						} else {
+							replyItem.innerHTML = replyItem1;
+							replysDiv.appendChild(replyItem);
+							var userName = document.getElementById('user_name');
+							var replyDate = document.getElementById('reply_date');
+							var replyContent = document.getElementById('reply_content');
+							var userImage = document.getElementById('user_img');
+							userName.innerHTML = replyJson[i].userAlias;
+							replyDate.innerHTML = dateStr;
+							replyContent.innerHTML = replyJson[i].content;
+							userImage.style.background = 'url(' + replyJson[i].userPhoto + ') center no-repeat';
+							userImage.style.backgroundSize = 'cover';
+							userName.id = 'user_name' + replyJson[i].id;
+							replyDate.id = 'reply_date' + replyJson[i].id;
+							replyContent.id = 'reply_content' + replyJson[i].id;
+							userImage.id = 'user_img' + replyJson[i].id;
+						}
+						var replyLineDiv = document.createElement('div');
+						replyLineDiv.className = 'reply_line';
+						replysDiv.appendChild(replyLineDiv);
+					}
+				}
+				//点击加载更多
+				function clickMoreReply() {
+					pageNum++;
+					var moreReplyButton = document.getElementById('more_reply');
+					var loading = document.getElementById('loading');
+					replysDiv.removeChild(moreReplyButton);
+					loading.style.display = 'block';
+					var replyListUrl = '/public/bbs-post/' + getParam('postId') + '/bbs-reply/list?pageNum=' + pageNum + '&pageSize=' + replyEveryTimeCount;
+					httpRequest.open('GET', replyListUrl, false);
+					httpRequest.send();
+					if(httpRequest.readyState == 4) {
+						if(httpRequest.status == 200) {
+							replyJsonStr = httpRequest.responseText;
+						} else {
+							alert('There was a problem with the request.');
+						}
+					}
+					replysDiv.removeChild(loading);
+					replyJson1 = eval('[' + replyJsonStr + ']');
+					replyJson = replyJson1[0].list;
+					showReplyList(replyJson);
+					if(replyJson.length == replyEveryTimeCount) {
+						var moreReplyDiv = document.createElement('div');
+						moreReplyDiv.id = 'more_reply';
+						moreReplyDiv.onclick = clickMoreReply;
+						moreReplyDiv.innerHTML = '点击加载更多';
+						var loadingDiv = document.createElement('div');
+						loadingDiv.id = 'loading';
+						loadingDiv.className = 'loading';
+						replysDiv.appendChild(moreReplyDiv);
+						replysDiv.appendChild(loadingDiv);
+					}
+				}
+				showReplyList(replyJson);
+				if(replyJson.length == replyEveryTimeCount) {
+					var moreReplyDiv = document.createElement('div');
+					moreReplyDiv.id = 'more_reply';
+					moreReplyDiv.onclick = clickMoreReply;
+					moreReplyDiv.innerHTML = '点击加载更多';
+					var loadingDiv = document.createElement('div');
+					loadingDiv.id = 'loading';
+					loadingDiv.className = 'loading';
+					replysDiv.appendChild(moreReplyDiv);
+					replysDiv.appendChild(loadingDiv);
+				}
+			} else {
+				replyDiv.style.display = 'none';
+			}
+		</script>
+	</body>
+
+</html>

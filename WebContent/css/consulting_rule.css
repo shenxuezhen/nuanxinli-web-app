@@ -1,0 +1,6 @@
+body{width: 100%;height: 100%;}
+.jyc_text{width: 92%;height: 100%;margin: 0 4%;}
+.jyc_tittle{text-align: center;font-size: 1.3rem;margin:1% 0 2% 0;line-height:1.8rem;}
+.jyc_name{text-align: left;font-size: 1.1rem;margin:0 0 1% 0;line-height:1.6rem;}
+.jyc_clause{width: 100%; font-size: 1rem;color: #717171; line-height:1.5rem;}
+.jyc_firstClause{width: 100%; font-size: 1rem;text-indent:2em;color: #717171;line-height:1.5rem;}

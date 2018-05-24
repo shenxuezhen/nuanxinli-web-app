@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<link rel="stylesheet" href="css/size.css">
+<link rel="stylesheet" href="css/new_forum.css">
+</head>
+<body>
+	<div id="body_div">
+		<div id="topic_div" class="item_div">
+			<div class="item_content_div">
+				<div id="topic_text_left" class="text1">话题</div>
+				<div id="topic_text_right" class="text2">（必选）</div>
+				<select id="topic_select">
+					<option style="border: none;">1111111</option>
+					<option style="border: none;">222222</option>
+					<option style="border: none;">##333333</option>
+				</select>
+			</div>
+			<div class="line"></div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript">
+		var wid = document.documentElement.clientWidth;// 屏幕宽
+		var hei = document.documentElement.clientHeight;//屏幕高
+		var bodyDiv = document.getElementById('body_div');
+		bodyDiv.style.width = wid + 'px';
+		bodyDiv.style.height = hei + 'px';
+	</script>
+</body>
+</html>

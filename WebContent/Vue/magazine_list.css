@@ -1,0 +1,134 @@
+/*.magazine-list-magazine{
+    padding: 0 .36rem .2133rem .4267rem;
+}*/
+.magazine-list-hot,span{
+    display: inline-block;
+}
+.magazine-list-hot img{
+    width: .3333rem;
+    height: .4533rem;
+    margin-right: .2667rem;
+}
+.magazine-list-hot span{
+    font-size: .3467rem;
+    font-family: Helvetica;
+    color: #B1AFAE;
+}
+.magazine-list-admonition-card{
+    padding-bottom: .64rem;
+}
+.magazine-list-date {
+    height: .55rem;
+    line-height: .55rem;
+    margin: 0;
+    text-align: right;
+    font-size: .3467rem;
+    font-family: Helvetica;
+    color: #B1AFAE;
+    float: right;
+}
+
+.magazine-list-admonition-icon{
+    position: relative;
+    margin-top: .3rem;
+}
+.magazine-list-admonition-icon>img{
+    position: absolute;
+    width: .5467rem;
+    height: 1.533rem;
+    left: .1333rem;
+}
+.magazine-list-admonition-icon>p{
+    width: .36rem;
+    font-size: .3733rem;
+    color: #FFFFFF;
+    position: absolute;
+    top: .1466rem;
+    left: .205rem;
+    margin: 0;
+}
+.magazine-list-admonition-tag{
+    width: 100%;
+    height: 4.3733rem;
+}
+.magazine-list-admonition-tag img{
+    width: 100%;
+    height: 100%;
+}
+.magazine-list-admonition-title{
+    font-size: .4533rem;
+    color: #393932;
+    font-weight: bold;
+    margin: .4667rem 0 .7333rem;
+}
+.magazine-list-magazine-header{
+    height: .55rem;
+    /*display: flex;
+    justify-content: space-between;*/
+}
+.magazine-list-magazine-tag{
+    display: inline-block;
+    width: 1.8rem;
+    height: .55rem;
+    line-height: .5rem;
+    border: .5px #000 solid;
+    -moz-border:.5px #000 solid;
+    -webkit-border:.5px #000 solid;
+    border-radius: 2px;
+    text-align: right;
+}
+.magazine-list-magazine-tag span{
+    width: 1.5733rem;
+    height: 100%;
+    line-height: .55rem;
+    border-left: .5px solid;
+    text-align: center;
+}
+.magazine-list-magazine-body{
+    width: 100%;
+    height: 2.1333rem;
+    margin: .3rem auto .5867rem;
+    display: flex;
+    justify-content: space-between;
+}
+.magazine-list-magazine-content{
+    padding: .6133rem .4rem 0 .4rem;
+    border-bottom: 1px #EFEFEE solid;
+}
+/*未生效*/
+.magazine-list-magazine-content:nth-last-child(1){
+    border-bottom: none;
+}
+
+
+.magazine-list-magazine-text{
+    width: 5.733rem;
+    height: 100%;
+}
+.magazine-list-magazine-text p{
+    width: 100%;
+    height: 1.1rem;
+    line-height: .6rem;
+    font-size: .433rem;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0.6397rem;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-family: Helvetica;
+}
+.magazine-list-magazine-text p>span:nth-of-type(1){
+    width: 73%;
+    text-align: left;
+}
+.magazine-list-magazine-img{
+    width: 2.8rem;
+    height: 2.1333rem;
+}
+.magazine-list-magazine-img img{
+    width: 100%;
+    height: 100%;
+}

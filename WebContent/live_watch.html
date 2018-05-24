@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+</head>
+<body>
+<div id="player"></div>
+<script type="text/javascript" src="http://open.yizhibo.tv/player/yzbPlayer.js"></script>
+<script type="text/javascript">
+
+
+
+    var app_nonce = 'ccwj3s4n6pw1667c';
+    var app_key_id = 'A5tWlY5BE0FdZ1AW';
+    var app_signature = '413407ab767e8ca89396289998cc7b6104326427';
+    var vid = '4jEYTvlkvpcVaM';
+
+    var yzbPlayer = new yzbPlayer({
+        playerid:'player',//���Զ�����Ĳ�����id�������벥������idһ��
+        app_nonce:app_nonce,
+        app_key_id:app_key_id,
+        app_signature:app_signature,
+        vid:vid,
+        setOptions:{
+            height:'100%',//����Ӧ��Ļ�߶���д����100%
+            width:'100%',//����Ӧ��Ļ�����д����100%
+//            height:'568',//���Զ���߶�
+//            width:'320',//���Զ�����
+            poster:'http://open.yizhibo.tv/player/poster.png',//���趨��Ƶ����,�粻�趨ɾ���˲����
+            autostart:true//�Զ�����Ĭ��Ϊfalse
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #F6F6F6;
+    font-family: "Arial";
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.loading img {
+    width: 1.2rem;
+    height: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+/*.body-div {
+    width: 90%;
+    padding: 0 3%;
+    height: 90%;
+    margin: 5% 2%;
+}*/
+
+.body-div .synopsis {
+    width: 100%;
+    text-align: center;
+    color: #a4a9ad;
+    font-size: 1rem;
+    margin-top: 4rem;
+}
+
+#strip {
+    overflow: hidden;
+    margin: 0px auto 3rem;
+}
+
+#strip span {
+    float: left;
+    color: #a4a9ad;
+    font-size: 1.2rem;
+}
+
+#strip span:nth-of-type(1){
+    color: #3F907F;
+}
+
+#strip .strip {
+    float: left;
+    position: relative;
+    width: 80%;
+    top: 7px;
+    left: 2%;
+}
+
+#strip .strip-down {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #b2b2b2;
+    z-index: 10;
+}
+
+#strip .steip-up {
+    position: absolute;
+    height: 2px;
+    background: #26AC8B;
+    z-index: 100;
+}
+
+#strip img {
+    width: 2rem;
+    height: 1rem;
+    position: absolute;
+    top: -0.4rem;
+    left: 0;
+    z-index: 100;
+}
+
+#topic {
+    overflow: hidden;
+    background: #FFFFFF;
+}
+
+/*.subject {
+    width: 98%;
+    text-align: center;
+    font-size: 1.3rem;
+    color: #fcab55;
+    margin: 10px 0px;
+}*/
+
+#hint {
+    width: 98%;
+    text-align: center;
+    font-size: 1rem;
+    margin: 10px 0px;
+    color: #f00;
+}
+
+#topic label {
+    width: 99%;
+    border-bottom: 1px solid #EFEFEE;
+    color: #393932;
+    padding: 10px 0px;
+    float: left;
+    font-size: 1.1rem;
+    text-align: left;
+    padding-left: 2rem;
+}
+
+.checked {
+    color: #3F907E !important;;
+}
+
+#topic .image-div {
+    width: 40%;
+    margin: 5%;
+    float: left;
+}
+
+#topic .image-div img {
+    width: 90%;
+}
+
+#topic input {
+    display: none;
+}
+
+.bodyBotoom {
+    overflow: hidden;
+    margin: 20px auto 30px;
+    width: 100%;
+    line-height: 3rem;
+}
+
+.bodyBotoom li{
+    display: inline-block;
+    float: left;
+    width: 49%;
+    border: 1px solid #3F907F;
+    font-size: 1rem;
+    text-align: center;
+    color: #3f907e;
+}
+.bodyBotoom li:nth-of-type(1){
+    border-right: none;
+}
+.bodyBotoom li#submit{
+    background: #3F907F;
+    color: #FFFFFF;
+}
+.firstLi{
+    border:1px solid #B1B0AE !important;
+    color: #B1B0AE !important;
+}

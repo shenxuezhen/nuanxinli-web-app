@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <title>测评</title>
+    <link rel="stylesheet" href="css/groupStart.css">
+    <script type="text/javascript" src="js/flexible.js"></script>
+</head>
+<body>
+<section class="interview">
+    <section id="inter_company" class="inter_company">
+        <img id="comLogo" src="images/group_bg.png">
+    </section>
+    <article class="inter_guide">
+        <p>欢迎<span class="teamName"></span>来到暖心理</p>
+    </article>
+    <section class="inter_group">
+        <div><img src="images/group_bg3.png"></div>
+        <img src="images/group_bg1.png">
+        <div><img src="images/group_bg3.png"></div>
+    </section>
+    <section class="inter_info">
+        <p><input placeholder="姓名" id="name" type="string"></p>
+        <p><span id="warn1" style="display: none">请输入正确姓名</span></p>
+        <p><input placeholder="手机号" id="tel" type="number"></p>
+        <p><span id="warn2" style="display: none">请输入正确手机号</span></p>
+        <p onclick="next()">下一步</p>
+    </section>
+    <div class="warningBox" style="display: none"></div>
+    <section class="warning" style="display: none">
+        <p class="tip">啊哦~你不是有效用户哦</p>
+        <div class="tip">可能：</div>
+        <p class="con_tip">1、姓名、手机号填写有误</p>
+        <p class="con_tip">2、没有被录入到应聘者库中</p>
+        <p class="con_tip">3、亲爱的，你已经做过测试了</p>
+        <div class="exitWarn">知道了</div>
+    </section>
+</section>
+</body>
+</html>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript">
+    var testDId,tel,name;
+    var warn2=document.getElementById("warn2");
+    var url=window.location.search;
+    var logo=getParamAndUrl(url,'logo');
+    var teamName=getParamAndUrl(url,'name');
+    if(logo){
+        $("#comLogo").attr('src',logo);
+    }
+    $(".teamName").text(teamName);
+    function next() {
+        tel=document.getElementById("tel").value.trim();
+        name=document.getElementById('name').value;
+        var companyId=getParam('companyId');
+        var testDId=getParam('testDId');
+        var reg1=/[0-9|\*|\.|\ |\_]/img;
+        var reg2=/^1[^12690]\d{9}$/g;
+        if(reg1.test(name) || name=='') {
+            warn1.style.display='block';
+            setTimeout(function () {
+                warn1.style.display='none';
+            },3000);
+            return;
+        }
+        if(!reg2.test(tel)){
+            warn2.style.display='block';
+            setTimeout(function () {
+                warn2.style.display='none';
+            },3000);
+            return;
+        }
+        var testi={"companyId":companyId,"cellPhone":tel,"testDId":testDId,"alias":name.trim()};
+        ajax('/public/company/add_team_member',testi,function (resp) {
+            window.location.href = 'evaluationStart.html?testDId=' + testDId+'&cellPhone='+tel+'&alias='+name+'&companyId='+getParam('companyId')+'&role='+testDJsonStr.role+'&flag=1&isShare=0';
+        });
+    }
+</script>

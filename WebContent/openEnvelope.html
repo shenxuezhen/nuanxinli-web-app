@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>红包</title>
+    <script type="text/javascript" src="js/flexible.js"></script>
+    <link rel="stylesheet" href="css/code.css">
+</head>
+<body id="body">
+<section id="openEnvelope_a" class="openEnvelope_a">
+    <img class="img1" src="images/lives/caihua.png">
+    <p class="a_p1">
+        <span>来暖心理</span><br>
+        <span>轻咨询、解梦、直播送礼</span>
+    </p>
+    <p id="a_p2" class="a_p2">￥20</p>
+    <p id="a_p3" class="a_p3" style="display: none">啊哦~~</p>
+    <p id="a_p4" class="a_p4" style="display: none">你已经领过这个红包咯</p>
+    <img class="img2" src="images/lives/hongbao_dakai.png">
+</section>
+<section class="openEnvelope_b">
+    <p id="textPhone" class="p1"></p>
+    <p class="p2">请到"<span>我-优惠券</span>"中查看红包</p>
+</section>
+<section class="openEnvelope_c">
+    <div onclick="download()">下载暖心理APP</div>
+</section>
+</body>
+</html>
+<script type="text/javascript" src="js/html5.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript">
+    var textPhone=document.getElementById('textPhone');
+    //var openEnvelopeA=document.getElementById('openEnvelope_a');
+    var aP2=document.getElementById('a_p2');
+    var aP3=document.getElementById('a_p3');
+    var aP4=document.getElementById('a_p4');
+    var ary=location.href.split("?")[1].split("&");
+    if(ary.length<3){
+        for(var i=0;i<ary.length;i++){
+            if(/cellPhone=/.test(ary[i])){
+                var cellPhone=ary[i].split("=")[1];
+                textPhone.innerHTML=cellPhone;
+            }
+        }
+    }else {
+        aP2.style.display='none';
+        aP3.style.display='block';
+        aP4.style.display='block';
+        for(var i=0;i<ary.length;i++){
+            if(/cellPhone=/.test(ary[i])){
+                var cellPhone=ary[i].split("=")[1];
+                textPhone.innerHTML=cellPhone;
+            }
+        }
+        setTimeout(function(){
+            download();
+        },1000);
+    }
+    function download() {
+        if (browser.ios) {
+            if (browser.weixin) {
+                location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                location.href = 'https://itunes.apple.com/us/app/nuan-xin-li/id983939376';
+            }
+        } else {
+            if (browser.weixin) {
+                location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+            } else {
+                location.href = 'http://app.nuanxinli.com/warm/WarmApp.apk';
+            }
+        }
+    }
+</script>

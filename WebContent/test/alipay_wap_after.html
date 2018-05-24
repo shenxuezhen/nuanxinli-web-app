@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title></title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="../js/payment/payment.js"></script>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../js/zg_io.js"></script>
+<script>
+    var orderNo = localStorage.getItem('orderNo');
+    loadEnv(function () {
+        successPayment();
+    });
+    /*if (localStorage.getItem('serviceType') === 'test') {
+     if (localStorage.testIId) {
+     parent.location.href = '/warm/test/result_agent.html?testIId=' + localStorage.getItem('testIId') + '&testIRule=app&backTo=paid';
+     } else {
+     if (localStorage.getItem('company')) {//入口是第三方登录的
+     parent.location.href = '/warm/test/start_normal.html?testDId=' + localStorage.getItem('testDId')+'&backTo=paid';
+     } else {
+     parent.location.href = '/warm/test/start_employee.html?testDId=' + localStorage.getItem('testDId');
+     }
+     }
+     } else if (localStorage.getItem('serviceType') === 'course') {
+     parent.location.href = '/warm/course/course_own.html?courseId=' + JSON.parse(localStorage.getItem('course')).id+'&backTo=paid';
+     }*/
+</script>

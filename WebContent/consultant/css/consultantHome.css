@@ -1,0 +1,389 @@
+#consultant_home{
+    width: 100%;
+    height: 100%;
+}
+.list{
+    /*margin-top: 0 !important;*/
+}
+.up_div{
+    width: 100%;
+    height: 5rem;
+}
+.homeBackimage{
+    width: 100%;
+    height: 100%;
+}
+.test-person-header{
+    background: url("https://apptest.nuanxinli.com/warm/images/consultant/homepage_user_bg.jpg") no-repeat center 0;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 5rem;
+    text-align: center;
+}
+.test-person-header>div:nth-of-type(1){
+    display: inline-block;
+    margin-top: .5467rem;
+}
+.test-person-header>div:nth-of-type(1) img{
+    width: 2.16rem;
+    height: 2.16rem;
+    border-radius: 50%;
+}
+#userName{
+    margin-top: .3333rem;
+    font-size: .4267rem;
+    color: #FFFFFF;
+}
+.mainType{
+    display: flex;
+    height: .6rem;
+}
+#userType{
+    width: 90%;
+    margin: auto;
+    height: .6rem;
+    display: flex;
+    justify-content: space-around;
+}
+.labelList{
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .267rem;
+    border-radius: .3rem;
+    color: white;
+    padding: 0 .2rem;
+    background: green;
+}
+.typeMore{
+    width: 5%;
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .8rem;
+    color: white;
+    position: absolute;
+    right: .2rem;
+}
+.serviceDiv{
+    width: 100%;
+    background: white;
+    height: 2.5rem;
+}
+.mark{
+    width: 100%;
+    height: .5rem;
+    position: relative;
+}
+.mark-title{
+    width: 1.76rem;
+    height: .5rem;
+    line-height: .5rem;
+    background: #6cccb5;
+    text-align: center;
+    color: #fff;
+    margin-left: 4%;
+    font-size: .29rem;
+}
+.mark-line{
+    width: 80%;
+    right: 0;
+    height: 1px;
+    position: absolute;
+    background:#6cccb5;
+    top: 50%;
+}
+.serviceContent{
+    width: 90%;
+    margin: .5067rem auto;
+    height: 1rem;
+}
+.serviceContent img{
+    height: .8rem;
+    width: .8rem;
+    float: left;
+}
+.textinfo{
+    height: 100%;
+    width: 53%;
+    display: inline-block;
+    margin-left: .5rem;
+}
+.textinfo .name{
+    color: #393932;
+    font-size: .453rem;
+    height: .5rem;
+    line-height: .5rem;
+    width: 100%;
+}
+.textinfo .txt{
+    color: #81807E;
+    font-size: .29rem;
+    height: .5rem;
+    line-height: .5rem;
+    width: 100%;
+}
+.callteacher{
+    background: #2DCCCE;
+    color: white;
+    font-size: .4rem;
+    height: .8rem;
+    line-height: .8rem;
+    width: 1.84rem;
+    float: right;
+    text-align: center;
+    border-radius: .1rem;
+}
+.lineView{
+    width: 100%;
+    height: .4rem;
+    background: #f6f6f6;
+}
+.selectDiv{
+    width: 100%;
+    height: 1.12rem;
+    background: white;
+    margin-top:0;
+}
+.selectDiv .who{
+    height: 1.12rem;
+    width: 50%;
+    float: left;
+    border-left: .5px solid #D9D8D8;
+    font-size: .453rem;
+    line-height: 1.12rem;
+    text-align: center;
+}
+.selectDiv .bbs{
+    height: 1.12rem;
+    width: 49%;
+    float: left;
+    border-left: .5px solid #D9D8D8;
+    font-size: .453rem;
+    line-height: 1.12rem;
+    text-align: center;
+}
+.bottomSelect{
+    border-bottom: 2px solid #2DCCCE;
+    color: #2DCCCE;
+}
+.bottomNotSelect{
+    border-bottom: 2px solid #D9D8D8;
+    color: #444343;
+}
+.whoDiv{
+    width: 100%;
+    background: white;
+    padding: .5866rem 0 .5866rem 0;
+}
+.philosophy{
+    width: 90%;
+    margin: auto;
+    height: .8rem;
+    line-height: .8rem;
+    font-size: .4rem;
+    color: #3A3732;
+    text-align: left;
+    padding: .2rem 0 0 0;
+}
+.philosophyContent{
+    width: 90%;
+    margin: auto;
+    line-height: .7rem;
+    font-size: .32rem;
+    color: #81807E;
+    padding: 0 0 .2rem 0;
+}
+.line{
+    border-top: 1px solid #ECECEC;
+}
+.more{
+    width: 90%;
+    margin: auto;
+    color: #6CCCB5;
+    font-size: .28rem;
+    height: .4rem;
+    line-height: .4rem;
+    text-align: right;
+}
+.bbsDiv{
+    width: 100%;
+    background: white;
+    border-bottom: 1px solid #ECECEC;
+    padding: .2rem 0 .2rem 0;
+}
+.bbsTitle{
+    width: 90%;
+    margin: auto;
+    height: .8rem;
+    line-height: .8rem;
+    font-size: .4rem;
+    color: #393932;
+    text-align: left;
+}
+.bbsContent{
+    width: 90%;
+    margin: auto;
+    max-height: 1.4rem;
+    line-height: .7rem;
+    font-size: .32rem;
+    color: #81807e;
+    padding: 0 0 .2rem 0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+}
+.bbs_bottom{
+    width: 90%;
+    margin: .15rem auto;
+    height: .3rem;
+}
+.sendOrReplay{
+    width: .3rem;
+    height: .3rem;
+    float: left;
+}
+.sendOrReplayText{
+    height: .3rem;
+    line-height: .3rem;
+    margin-left: .2rem;
+    float: left;
+    color: #b1afae;
+    font-size: .2rem;
+}
+.hot{
+    width: .4rem;
+    height: .3rem;
+    float: right;
+}
+.hotText{
+    height: .3rem;
+    line-height: .3rem;
+    margin-left: .2rem;
+    float: right;
+    margin-right: .7rem;
+    color: #b1afae;
+    font-size: .2rem;
+}
+.count{
+    width: .3rem;
+    height: .3rem;
+    float: right;
+}
+.countText{
+    height: .3rem;
+    line-height: .3rem;
+    margin-left: .2rem;
+    float: right;
+    color: #b1afae;
+    font-size: .2rem;
+}
+.warm-shade{
+    background: #000000;
+    opacity: .5;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.warm-type-tip{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    z-index: 1;
+    /*border-radius: .1rem;*/
+}
+#logoAll{
+    width: 9.5rem;
+    margin: auto;
+    padding: 0.5rem 0 .1rem 0;
+}
+.smallImage {
+    height: 1rem;
+    line-height: 1rem;
+    width: 32.5%;
+    margin: 0 auto;
+    display: inline-block;
+}
+.smallTitleDiv{
+    margin: 0 auto;
+    color: #393732;
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .28rem;
+    text-align: center;
+    background: red;
+    width: 2rem;
+    border-radius: .1rem;
+}
+.warm-call-tip{
+    width: 7.266rem;
+    height: 5.266rem;
+    position: absolute;
+    background: #fff;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    margin-left:-3.633rem;
+    margin-top:-2.633rem;
+    border-radius: 6px;
+}
+.warm-call-tip .title{
+    height: .933rem;
+    border-bottom: 1px solid #00706B;
+    padding: 0 .5rem 0 .5rem;
+}
+.contact{
+    height: .933rem;
+    line-height: .933rem;
+    font-size: .453rem;
+    color: #00706B;
+    text-align: left;
+    width: 2rem;
+    display: inline-block;
+}
+.warm-call-tip .title img{
+    width: .44rem;
+    height: .44rem;
+    float: right;
+    position: absolute;
+    left: 90%;
+    top: 9%;
+    margin-left: -.22rem;
+    margin-top: -.22rem;
+}
+.imageDiv{
+    width: 100%;
+    height: .773rem;
+    margin-top: .66rem;
+}
+.imageDiv img{
+    width: .773rem;
+    height: .773rem;
+    display: block;
+    margin: auto;
+}
+.textDiv{
+    width: 100%;
+    height: .4rem;
+    line-height: .4rem;
+    font-size: .346rem;
+    color: #393932;
+    text-align: center;
+    margin-top: .56rem;
+}
+.buttonDiv{
+    width: 2.04rem;
+    height: .76rem;
+    line-height: .76rem;
+    border-radius: .1rem;
+    background: #2DCCCE;
+    color: white;
+    font-size: .4rem;
+    text-align: center;
+    display: block;
+    margin: .533rem auto;
+}

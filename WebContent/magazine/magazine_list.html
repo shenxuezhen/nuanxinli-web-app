@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>心理杂志</title>
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="../Vue/magazine_list.css">
+    <link rel="stylesheet" href="css/magazine_list.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../css/myScroll.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+</head>
+<body>
+<div class="top">
+    <div class="search-magazine">
+        <form id="searchform" method="get" action="magazine_list.html" accept-charset="utf-8">
+            <img class="search-img" src="../images/ios7-search.png">
+            <input class="search-magazine-input" name="keyword" type="search" maxlength="2048">
+            <img class="clear-img" src="../images/bbs/down_selection.png">
+            <span class="cancel-search">取消</span>
+        </form>
+        <div id="search-magazine-blank" class="" style="display: block"></div>
+    </div>
+</div>
+<div id="wrapper" style="display: none">
+    <div id="scroller" class="list-block">
+        <div class="magazine" id="thelist">
+            <magazine-component v-for="magazineItem in magazineList" :item="magazineItem"></magazine-component>
+        </div>
+    </div>
+    <nav class="warm-shade" onclick="hiddenShade()" style="display: none"></nav>
+    <div class="warm-type-tip" style="display: none">
+        <div class="wantspeak">我想看</div>
+        <div class="logoAll">
+            <div class="smallImage" v-for="(typeItem,tIndex) in typeList" v-on:click="chooseTypeClick(tIndex)" >
+                <div class="imageDiv">
+                    <img class="myimg" v-bind:src="typeItem.image"/>
+                </div>
+                <div class="smallTitleDiv">{{typeItem.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="js/magazine_list.js"></script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" href="css/font_size.css">
+    <link rel="stylesheet" href="css/test_person_order.css">
+    <link rel="stylesheet" href="../css/myScroll.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+</head>
+<body>
+<div class="loading"><img src="../images/loading.gif"></div>
+<div id="thelist" class="person-order">
+    <ul>
+        <li v-for="order in list"
+            @click="order.state == 'canceled-by-pay-timeout'?'':getOrders(order)">
+            <div class="person-order-title">
+                <p class="fs-2-750">{{order.createTime}}</p>
+                <p class="fs-7-750">{{order.title}}</p>
+            </div>
+            <div class="person-order-body">
+                <p class="fs-3-750">价格：<span>{{getPersonPrice(order)+'元/人'}}</span>
+                    &nbsp;&nbsp;&nbsp;人数：<span>{{(order.customerIsOrg==1?order.customerCount:1)+'人'}}</span>&nbsp;&nbsp;&nbsp;实付：<span>{{order.price+'元'}}</span>
+                </p>
+                <p v-if="order.state == 'canceled-by-pay-timeout'" style="background: #81807e;">已取消</p>
+                <p v-if="order.state == 'submitted'">已提交</p>
+                <p v-if="order.state == 'paid'" style="background:#3F907E">已支付</p>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="js/common_methods.js"></script>
+<script type="text/javascript" src="../js/Decimal.js"></script>
+<script type="text/javascript" src="js/test_person_order.js"></script>

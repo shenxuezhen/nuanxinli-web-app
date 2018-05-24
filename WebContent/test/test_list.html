@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>心理测评</title>
+    <link rel="stylesheet" href="../Vue/test_list.css">
+    <link rel="stylesheet" href="css/test_list.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../css/myScroll.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/Decimal.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+</head>
+<body>
+<div class="top">
+    <div class="search-test">
+        <form id="searchform" method="get" action="test_list.html" accept-charset="utf-8">
+            <img class="search-img" src="../images/ios7-search.png">
+            <input class="search-test-input" name="keyword" type="search" maxlength="2048">
+            <img class="clear-img" src="../images/bbs/down_selection.png">
+            <span class="cancel-search">取消</span>
+        </form>
+        <div id="search-test-blank" class="" style="display: block"></div>
+    </div>
+</div>
+<div id="test-list">
+    <div class="psychTest" @click="openTestIntroduction">
+        <p class="fs-1-640">什么是心理测评？</p>
+        <img src="../images/test/test_introduce.png" alt="">
+    </div>
+    <ul class="list-container" id="thelist">
+        <my-component v-for="testItem in testLists" :item="testItem"></my-component>
+    </ul>
+    <div v-if="test.isPhoto==1" class="per-head-portrait" @touchstart="getPersonHomepage" style="display: none">
+        <img id="userPhoto" src="../images/test/gzq_header.jpg">
+    </div>
+    <nav class="warm-shade" style="display: none"></nav>
+    <div class="warm-type-part-code" style="display: none">
+        <div class="wantspeak">我想看</div>
+        <div class="logoAll">
+            <div class="smallImage" v-for="(typeItem,tIndex) in typeList" v-on:click="chooseTypeClick(tIndex)" >
+                <div class="imageDiv">
+                    <img class="myimg" v-bind:src="typeItem.image"/>
+                </div>
+                <div class="smallTitleDiv">{{typeItem.name}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="warm-test-tip" style="display: none">
+        <p>心理测评须知</p>
+        <div>
+            <p>心理测评：是通过科学的手段和方法，将人的某些心理特征数量化，来衡量个体心理因素水平和个体差异的一种科学的测量方法。是了解自我和他人的重要渠道。</p>
+            <p>1、本测评只提供专业心理学方面的参考，并不是一个人终生的论断；</p>
+            <p>2、心理测评不是心理健康的唯一标准，与被试者当下的心态与状态相关；</p>
+            <p>3、测评时请严格参考各测试题指导语，并凭直觉直接作答；</p>
+            <p>4、如若没有肯定的选项，请选择跟自己最贴近的选项；</p>
+            <p>5、本测评只提供分析结果，如需更深入的探究请约见咨询师；</p>
+            <p>6、一次购买，在规定有效期内可重复测评并查看该次测评的结果，超过有效期需重新购买，有效期以订单中显示为准；</p>
+            <p>7、建议所有测评一周内不要重复测试，答题结束后会形成一份专业的测评报告；</p>
+            <p>8、本模块最终解释权归暖心理所有。</p>
+        </div>
+        <div class="warm-btn" @click="closeTestIntroduction">好的，我知道了</div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="js/common_methods.js"></script>
+<script type="text/javascript" src="js/test_list.js"></script>

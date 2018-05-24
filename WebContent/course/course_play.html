@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache" />
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="css/course_play.css">
+    <link rel="stylesheet" href="../lib/video-js/video-js-course.css">
+    <link rel="stylesheet" href="../recommendation/css/recommendation.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../test/js/iscroll.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+    <script type="text/javascript" src="../js/Decimal.js"></script>
+    <script src="//cdn.staticfile.org/video.js/6.0.1/video.min.js"></script>
+    <script src="//cdn.bootcss.com/videojs-flash/2.0.1/videojs-flash.min.js"></script>
+    <script src="//cdn.bootcss.com/videojs-contrib-hls/5.11.0/videojs-contrib-hls.min.js"></script>
+    <script>
+        videojs.options.flash.swf = "//cdn.bootcss.com/videojs-swf/5.4.1/video-js.swf";
+    </script>
+</head>
+
+<body>
+    <div id="slider_body" class="slider_body">
+        <div id="slider_image" class="slider_image">
+            <video id="hls-audio" class="video-js" style="width:100%;height:6rem;" x5-playsinline="true" webkit-playsinline="true" playsinline="true"
+                :poster="audioData.item.cover" controls>
+                <source id="hls-source" src="" type="application/x-mpegURL">
+            </video>
+        </div>
+        <div id="slider_button_div">
+            <img src="../images/audio/audiodownload.png" onclick="download()">
+        </div>
+        <div class="course-name-lecturer">
+            <p class="blank-0-32"></p>
+            <p class="course-name">{{audioData.item.name}}</p>
+            <p class="blank-0-32"></p>
+            <p class="course-lecturer">讲师：{{audioData.item.lecturer}}</p>
+        </div>
+        <div class="course-description">
+            <p class="course-description-h">课程简介：</p>
+            <p class="course-description-c"><span v-html="audioData.item.description"></span></p>
+        </div>
+        <div class="course-lecturer-description">
+            <p class="course-description-h">讲师简介：</p>
+            <p class="course-description-c"><span v-html="audioData.item.lecturerDescr"></span></p>
+        </div>
+        <recommendation-component v-if="serviceRecommend.relationList.length>0" :item="serviceRecommend"></recommendation-component>
+    </div>
+    <script type="text/javascript" src="../js/tools.js"></script>
+    <script type="text/javascript" src="../test/js/common_methods.js"></script>
+    <script type="text/javascript" src="../Vue/components.js"></script>
+    <script type="text/javascript" src="js/course_play.js"></script>
+</body>
+
+</html>

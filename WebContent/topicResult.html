@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>测评结果</title>
+    <link rel="stylesheet" href="css/topicResult.css">
+    <script type="text/javascript" src="js/flexible.js"></script>
+</head>
+<body>
+<div class="loading" v-show="isHidden != '1'" style="display: block;width: 100px">
+    <img src="images/loading.gif">
+</div>
+<section id="topicResult" v-show="isHidden === '1'" style="display: none">
+    <article class="topic_information">
+        <p class="title">{{testD.title}}</p>
+        <p class="condition"><span>{{testD.testCount}}</span>人测过/<span>{{testD.type}}</span></p>
+    </article>
+    <section class="topic_describe">
+        <img src="images/ceshijieguo_tijiao.png">
+    </section>
+    <article class="enter_user">
+        <p>您也可以下载暖心理了解更多心理学内容~</p>
+        <p>账户名：您的手机号（首页填写的手机号）</p>
+        <p>密&nbsp;码：手机号后6位</p>
+    </article>
+</section>
+</body>
+</html>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript">
+    //ajax请求判断
+    (function () {
+        var url=window.parent.location.search;
+        url=url.replace('?url=','');//获取url
+        var sid = getParamAndUrl(url,'sid');
+        if (sid != null && sid != 'null') {
+            setCookie('sid', sid);
+        }
+        var role=getParamAndUrl(url,"role");
+        var testIId = getParamAndUrl(url,"testIId");//获取testIId
+        var answerJson = localStorage.getItem("answerJson");//提交的答案存储到html5的localStorage里面
+        if(!testIId){//url没有testIId就在localStorage中获取
+            if(!answerJson){
+                testIId=localStorage.getItem("testIId");
+                localStorage.removeItem("testIId");
+            }
+        }
+        var isShare=getParamAndUrl(url,"isShare");//是否分享
+        var resultUrl = testIId ? '/public/test-i/' + testIId : '/public/test-i/create';//ajax的url
+        var resultType = testIId ? 'GET' : 'POST';//ajax请求类型
+        var resultData;//数据存储
+        localStorage.removeItem("answerJson");
+        if(role !='team-member'){
+            if (!testIId && !answerJson) {
+                return;
+            }
+        }
+        ajax(resultUrl,testIId ? '' : answerJson,function (resp) {
+            resultData = resp;
+            var vm = new Vue({
+                el: "#topicResult",
+                data: resultData,
+                ready:function () {
+                    $('.loading').hide();
+                }
+            });
+            if (resultData.isHidden === '1') return;//用户测评结果是否隐藏1是0不是
+            resultType = resultData.testD.resultType;
+            if (testIId) {
+                if (resultType == "arrage") {
+                    window.parent.location.href = 'arrageResult.html?testIId=' + testIId + "&isShare=" + isShare + "&sid=" + sid+'&role='+role;
+                } else if (resultType == "combine") {//组合类型的答案
+
+                } else if (resultType == "general") {//计分类型的答案
+                    window.parent.location.href = 'evaluationResult.html?testIId=' + testIId + "&isShare=" + isShare + "&sid=" + sid+'&role='+role;
+                }
+            } else {
+                if (resultType == "arrage") {
+                    window.parent.location.href = 'arrageResult.html?testIId=' + resultData.id + "&isShare=" + isShare + "&sid=" + sid+'&role='+role;
+                } else if (resultType == "combine") {//组合类型的答案
+
+                } else if (resultType == "general") {//计分类型的答案
+                    window.parent.location.href = 'evaluationResult.html?testIId=' + resultData.id + "&isShare=" + isShare + "&sid=" + sid+'&role='+role;
+                }
+            }
+        });
+    })();
+</script>

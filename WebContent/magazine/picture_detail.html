@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>心理杂志</title>
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="../css/index_slide.css">
+    <link rel="stylesheet" href="/warm/magazine/css/decoration.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/tools.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+</head>
+<body>
+<div id="share_img_url" style="display: none;"></div>
+<div id="slider_body" class="slider_body">
+    <div id="slider_image" class="slider_image"></div>
+    <div id="slider_content_div" class="slider_content_div">
+        <div id="slider_content" class="picture_slider_content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //获取当前年月日
+    var wid = document.documentElement.clientWidth;// 屏幕宽
+    var hei = document.documentElement.clientHeight;// 屏幕高
+    var bodyDiv = document.getElementById('slider_body');
+    bodyDiv.style.height = hei + 'px';
+    //动态设置contentdiv高度
+    var sliderContentDiv = document.getElementById('slider_content_div');
+    sliderContentDiv.style.height = '40%';
+    // 请求数据
+    var httpRequest;
+    var json = '';
+    loadEnv(function () {
+        pushToHistory(window.location.href);
+        var url = '/public/sift/' + getParam('id');
+        ajax(url, null, function (resp) {
+            initShareObj({
+                title:resp.title,
+                content: resp.descr, // 分享描述
+                shareUrl: window.location.href,
+                iconUrl:window.location.origin+resp.image
+            });
+            /*var time = resp.postTime;
+             time = time.replace(new RegExp("-", "gm"), "/");
+             var timeLong = new Date(time).getTime();
+             var date = new Date(timeLong);
+             var day = date.getDate().toString();
+
+             if (day.length == 1) {
+             day = '0' + day;
+             }
+             var month = date.getMonth();
+             if (month == 0) {
+             month = 'Jan';
+             } else if (month == 1) {
+             month = 'Feb';
+             } else if (month == 2) {
+             month = 'Mar';
+             } else if (month == 3) {
+             month = 'Apr';
+             } else if (month == 4) {
+             month = 'May';
+             } else if (month == 5) {
+             month = 'Jun';
+             } else if (month == 6) {
+             month = 'Jul';
+             } else if (month == 7) {
+             month = 'Aug';
+             } else if (month == 8) {
+             month = 'Sep';
+             } else if (month == 9) {
+             month = 'Oct';
+             } else if (month == 10) {
+             month = 'Nov';
+             } else {
+             month = 'Dec';
+             }
+             var year = date.getFullYear();*/
+            /* //添加分享图片src
+             var shareImg = document.getElementById('share_img');
+             alert(shareImg);
+             shareImg.innerHTML = resp.image;
+             alert(shareImg.innerHTML); */
+            //添加标题
+            document.title = resp.title;
+            var imageDiv = document.getElementById('slider_image');// 图片
+            imageDiv.style.marginTop = '0px';
+            var contentDiv = document.getElementById('slider_content');// 内容
+            var shareImageUrlDiv = document.getElementById('share_img_url');
+            shareImageUrlDiv.innerHTML = resp.image;
+            //调整详情页样式
+            contentDiv.style.fontSize = '.44rem';
+            contentDiv.style.lineHeight = '.8rem';
+            contentDiv.style.paddingLeft = '.5733rem';
+            contentDiv.style.paddingRight = '.5733rem';
+            imageDiv.style.background = 'url(' + resp.image
+                + ') center no-repeat';
+            contentDiv.innerHTML = resp.descr;
+            //日期
+            /*var dayDiv = document.getElementById('day_div');
+             var monthDiv = document.getElementById('month_div');
+             dayDiv.innerHTML = day;*/
+            //monthDiv.innerHTML = month + ',' + year;
+        });
+    },function () {
+        popToHistory(window.location.href)
+    },null,0);
+</script>
+</body>
+<script type="text/javascript" src="/warm/magazine/js/decoration.js"></script>
+</html>

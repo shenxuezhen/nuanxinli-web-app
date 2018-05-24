@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="../Vue/bbs_list.css">
+    <link rel="stylesheet" href="css/bbs_list.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../css/myScroll.css">
+    <title>心事</title>
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+</head>
+<body>
+<div class="per-head-portrait" style="display: block" onclick="postingClick()">
+    <img id="userPhoto" src="../images/bbs/levitationbutton.png">
+</div>
+<nav class="warm-shade" onclick="hiddenShade()" style="display: none"></nav>
+<div id="bbsMainList" style="display: none">
+    <div class="type" v-on:click="changeTypeClick()">
+        <div class="div1">
+            <img class="img1" src="../images/bbs/huatixuanzetubiao.png" alt="">
+        </div>
+        <div class="typeTitle">{{typeStr}}</div>
+        <div class="div2">
+            <img class="img2" src="../images/bbs/down_selection.png" alt="">
+        </div>
+    </div>
+    <div class="list" id="thelist">
+        <bbs-component  v-for="bbsItem in bbsList" :item="bbsItem"></bbs-component>
+    </div>
+    <div class="warm-type-tip" style="display: none">
+        <div class="wantspeak">我想看</div>
+        <div class="logoAll">
+            <div class="smallImage" v-for="(typeItem,tIndex) in typeList" v-on:click="chooseTypeClick(tIndex)" >
+                <div class="imageDiv">
+                    <img class="myimg" v-bind:src="typeItem.image"/>
+                </div>
+                <div class="smallTitleDiv">{{typeItem.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="js/bbs_list.js"></script>

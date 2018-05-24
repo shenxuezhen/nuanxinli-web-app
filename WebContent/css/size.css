@@ -1,0 +1,33 @@
+html {
+    font-size : 13px;
+}
+@media only screen and (min-width: 365px){
+    html {
+        font-size: 14px !important;
+    }
+}
+@media only screen and (min-width: 401px){
+    html {
+        font-size: 15px !important;
+    }
+}
+@media only screen and (min-width: 428px){
+    html {
+        font-size: 16.75px !important;
+    }
+}
+@media only screen and (min-width: 481px){
+    html {
+        font-size: 21px !important; 
+    }
+}
+@media only screen and (min-width: 569px){
+    html {
+        font-size: 26px !important; 
+    }
+}
+@media only screen and (min-width: 641px){
+    html {
+        font-size: 31px !important; 
+    }
+}

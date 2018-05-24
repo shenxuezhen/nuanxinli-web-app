@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+
+</body>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script>
+	var thirdPartyName=getParam('thirdPartyName')?('&thirdPartyName='+getParam('thirdPartyName')):'';
+	var seqkey=getParam('seqkey')?('&seqkey='+getParam('seqkey')):'';
+	var companyId=getParam('companyId')?('&companyId='+getParam('companyId')):'';
+	if(getParam('url').indexOf('?')>-1){
+        window.location.href=getParam('url')+thirdPartyName+seqkey+companyId+'&wx_code='+getParam('code');
+    }else {
+        window.location.href=getParam('url')+'?wx_code='+getParam('code');
+    }
+</script>
+</html>

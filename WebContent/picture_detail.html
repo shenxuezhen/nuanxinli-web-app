@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<link rel="stylesheet" href="css/size.css">
+<link rel="stylesheet" href="css/index_slide.css">
+</head>
+<body>
+	<div id="share_img_url" style="display: none;"></div>
+	<div id="slider_body" class="slider_body">
+		<div id="slider_image" class="slider_image"></div>
+		<div id="slider_content_div" class="slider_content_div">
+			<div id="date_div" class="date_div">
+				<div id="day_div" class="day_div"></div>
+				<div id="month_div" class="month_div"></div>
+				<div id="data_line" class="data_line"></div>
+			</div>
+			<div id="picture_slider_content_div" class="picture_slider_content_div">
+				<div id="slider_content" class="picture_slider_content"
+				></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript">
+	//获取当前年月日
+		var wid = document.documentElement.clientWidth;// 屏幕宽
+		var hei = document.documentElement.clientHeight;// 屏幕高
+		var bodyDiv = document.getElementById('slider_body');
+		bodyDiv.style.height = hei + 'px';
+		//动态设置contentdiv高度
+		var sliderContentDiv = document.getElementById('slider_content_div');
+		sliderContentDiv.style.height = '40%';
+		// 请求数据
+		var httpRequest;
+		var jsonStr;
+		var url = '/public/sift/' + getParam('id');
+		if (window.XMLHttpRequest) {
+			httpRequest = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			try {
+				httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
+			} catch (e) {
+				try {
+					httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+				} catch (e) {
+				}
+			}
+		}
+		if (!httpRequest) {
+			alert('Giving up L Cannot create an XMLHTTP instance');
+		} else {
+			httpRequest.open('GET', url, false);
+			httpRequest.send();
+			if (httpRequest.readyState == 4) {
+				if (httpRequest.status == 200) {
+					jsonStr = httpRequest.responseText;
+				} else {
+					alert('There was a problem with the request.');
+				}
+			}
+		}
+		var json = eval('[' + jsonStr + ']');
+		var time = json[0].postTime;
+		time = time.replace(new RegExp("-","gm"),"/");
+		var timeLong = new Date(time).getTime();
+		var date = new Date(timeLong);
+		var day = date.getDate().toString();
+		
+		if(day.length == 1){
+			day = '0'+day;
+		}
+		var month = date.getMonth();
+		if(month == 0){
+			month = 'Jan';
+		}else if(month == 1){
+			month = 'Feb';
+		}else if(month == 2){
+			month = 'Mar';
+		}else if(month == 3){
+			month = 'Apr';
+		}else if(month == 4){
+			month = 'May';
+		}else if(month == 5){
+			month = 'Jun';
+		}else if(month == 6){
+			month = 'Jul';
+		}else if(month == 7){
+			month = 'Aug';
+		}else if(month == 8){
+			month = 'Sep';
+		}else if(month == 9){
+			month = 'Oct';
+		}else if(month == 10){
+			month = 'Nov';
+		}else{
+			month = 'Dec';
+		}
+		var year = date.getFullYear();
+		/* //添加分享图片src
+		var shareImg = document.getElementById('share_img');
+		alert(shareImg);
+		shareImg.innerHTML = json[0].image;
+		alert(shareImg.innerHTML); */
+		//添加标题
+		document.title = json[0].title;
+		var imageDiv = document.getElementById('slider_image');// 图片
+		imageDiv.style.marginTop = '0px';
+		var contentDiv = document.getElementById('slider_content');// 内容
+		var shareImageUrlDiv = document.getElementById('share_img_url');
+		shareImageUrlDiv.innerHTML = json[0].image;
+		//调整详情页样式
+		contentDiv.style.fontSize = '1.3rem';
+		contentDiv.style.lineHeight = '2.3rem';
+		imageDiv.style.background = 'url(' + json[0].image
+				+ ') center no-repeat';
+		contentDiv.innerHTML = json[0].descr;
+		//日期
+		var dayDiv = document.getElementById('day_div');
+		var monthDiv = document.getElementById('month_div');
+		dayDiv.innerHTML = day;
+		monthDiv.innerHTML = month+','+year;
+	</script>
+</body>
+</html>

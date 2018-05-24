@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../lib/minirefresh/css/minirefresh.css"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../lib/pure/menus.css">
+    <link rel="stylesheet" href="css/category.css">
+    <link rel="stylesheet" href="../Vue/menu_list.css">
+    <link rel="stylesheet" href="../Vue/bbs_list.css">
+    <link rel="stylesheet" href="../Vue/test_list.css">
+    <link rel="stylesheet" href="../Vue/magazine_list.css">
+    <link rel="stylesheet" href="../Vue/course_list.css">
+    <link rel="stylesheet" href="../Vue/audio_list.css">
+    <link rel="stylesheet" href="../css/myScroll.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/Decimal.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+</head>
+
+<body>
+
+<div id="cateList">
+
+    <div class="per-head-portrait" style="display: none" onclick="postingClick()">
+        <img id="userPhoto" src="">
+    </div>
+
+    <div class="top">
+        <div class="banner" v-on:click="bannerDetail(banner)"><img class="banner-img" src="../images/group_bg.png"></div>
+    </div>
+    <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+        <ul class="pure-menu-list">
+            <menu-list v-for="(menu, index) in menuList" :item="menu" :index="index"></menu-list>
+        </ul>
+    </div>
+
+    <!-- 两类菜单之一 -->
+    <div class="content" v-if="menuArray.length === 4">
+
+        <div id="minirefresh0" class="minirefresh-wrap">
+            <div class="minirefresh-scroll">
+                <div class="bbs-list-list" id="listdata0">
+                    <bbs-component v-for="bbsItem in itemList.bbs" :item="bbsItem"></bbs-component>
+                </div>
+            </div>
+        </div>
+
+        <div id="minirefresh1" class="minirefresh-wrap minirefresh-hidden">
+            <div class="minirefresh-scroll">
+                <ul class="list-container" id="listdata1">
+                    <my-component v-for="testItem in itemList.test" :item="testItem"></my-component>
+                </ul>
+            </div>
+        </div>
+
+        <div id="minirefresh2" class="minirefresh-wrap minirefresh-hidden">
+            <div class="minirefresh-scroll">
+                <div class="magazine-list-magazine" id="listdata2">
+                    <magazine-component v-for="magazineItem in itemList.sift" :item="magazineItem"></magazine-component>
+                </div>
+            </div>
+        </div>
+
+        <div id="minirefresh3" class="minirefresh-wrap minirefresh-hidden">
+            <div class="minirefresh-scroll">
+                <ul class="list" id="listdata3">
+                    <course-list v-for="course in itemList.course" :item="course"></course-list>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 两类菜单之一 -->
+    <div class="content" v-if="menuArray.length === 5">
+
+        <div id="minirefresh0" class="minirefresh-wrap">
+            <div class="minirefresh-scroll">
+                <div class="bbs-list-list" id="listdata0">
+                    <bbs-component v-for="bbsItem in itemList.bbs" :item="bbsItem"></bbs-component>
+                </div>
+            </div>
+        </div>
+
+        <div id="minirefresh1" class="minirefresh-wrap minirefresh-hidden">
+            <div class="minirefresh-scroll">
+                <div id="listdata1">
+                    <audio-component v-for="audioItem in itemList.audio" :item="audioItem"></audio-component>
+                </div>
+            </div>
+        </div>
+
+        <div id="minirefresh2" class="minirefresh-wrap minirefresh-hidden">
+            <div class="minirefresh-scroll">
+                <div class="magazine-list-magazine" id="listdata2">
+                    <magazine-component v-for="magazineItem in itemList.sift" :item="magazineItem"></magazine-component>
+                </div>
+            </div>
+        </div>
+
+        <div id="minirefresh3" class="minirefresh-wrap minirefresh-hidden">
+            <div class="minirefresh-scroll">
+                <ul class="list-container" id="listdata3">
+                    <my-component v-for="testItem in itemList.test" :item="testItem"></my-component>
+                </ul>
+            </div>
+        </div>
+
+        <div id="minirefresh4" class="minirefresh-wrap minirefresh-hidden">
+            <div class="minirefresh-scroll">
+                <ul class="list" id="listdata4">
+                    <course-list v-for="course in itemList.course" :item="course"></course-list>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+</body>
+
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="../lib/minirefresh/js/minirefresh.js"></script>
+<script type="text/javascript" src="js/category.js"></script>

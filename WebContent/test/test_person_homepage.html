@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="css/test_person_homepage.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+</head>
+<body>
+<div class="loading"><img src="../images/loading.gif"></div>
+<nav class="test-person-header" style="display: none">
+    <div>
+        <img id="userPhoto" src="../images/test/gzq_header.jpg">
+        <p id="userName"></p>
+    </div>
+</nav>
+<div class="list-block media-list" style="display: none">
+    <ul>
+        <li>
+            <div href="#" class="item-content" @touchstart="getTestHistory()">
+                <img src="../images/test/grzy_ceping.png">
+                <div class="item-inner">
+                    <span class="item-subtitle">测评结果</span>
+                    <img src="../images/test/jiantou.png">
+                </div>
+
+            </div>
+        </li>
+        <li>
+            <div href="#" class="item-content" @touchstart="getOrder()">
+                <img src="../images/test/grzy_dingdan.png">
+                <div class="item-inner">
+                    <div class="item-subtitle">我的订单</div>
+                    <img src="../images/test/jiantou.png">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div href="#" class="item-content" @touchstart="getCoupon()">
+                <img src="../images/test/grzy_coupon.png">
+                <div class="item-inner">
+                    <div class="item-subtitle">我的优惠券</div>
+                    <img src="../images/test/jiantou.png">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div href="#" class="item-content" @touchstart="getAbout()">
+                <img src="../images/test/grzy_guanyu.png">
+                <div class="item-inner">
+                    <div class="item-subtitle">关于我们</div>
+                    <img src="../images/test/jiantou.png">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div href="#" class="item-content" @touchstart="getFeedback()">
+                <img src="../images/test/grzy_yijian.png">
+                <div class="item-inner">
+                    <div class="item-subtitle">意见反馈</div>
+                    <img src="../images/test/jiantou.png">
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="js/common_methods.js"></script>
+<script type="text/javascript" src="js/test_person_homepage.js"></script>

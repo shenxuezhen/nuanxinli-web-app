@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="css/size.css">
+    <link rel="stylesheet" href="css/index_slide.css">
+    <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+<div id="share_img_url" style="display: none;"></div>
+<div id="slider_body" class="slider_body">
+    <div id="slider_image" class="slider_image">
+        <div id="play_img" class="play_img" onClick="play()"></div>
+        <div id="play_progress" class="play_progress">
+            <audio id="play_audio" ontimeupdate="myData()"></audio>
+            <div id="current_time" class="time_div">--:--</div>
+            <div id="progress_div" class="progress_div">
+                <div id="progress" class="progress">
+                    <div id="second_progress" class="second_progress"></div>
+                </div>
+            </div>
+            <div id="duration_time" class="time_div">--:--</div>
+        </div>
+    </div>
+    <div id="slider_content_div" class="slider_content_div">
+        <div id="slider_title" class="slider_title"></div>
+        <div id="slider_content" class="slider_content"
+        ></div>
+    </div>
+    <div id="down_div">
+        <div id="down_content">
+            <a id='down_a'>
+                <img id="down_img" src="images/down_img.png">
+                <div id="down_text">
+                    <div id="down_text_up">
+                        <div id="down_text_up_left">下载</div>
+                        <div id="down_text_up_right">暖心理</div>
+                    </div>
+                    <div id="down_line"></div>
+                    <div id="down_text_down">尽享别致的心理学</div>
+                </div>
+            </a>
+        </div>
+        <img id="close_img" src="images/close_img.png" onclick="closeDownDiv();">
+    </div>
+</div>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript">
+    var wid = document.documentElement.clientWidth;// 屏幕宽
+    var hei = document.documentElement.clientHeight;// 屏幕高
+    var bodyDiv = document.getElementById('slider_body');
+    bodyDiv.style.height = hei + 'px';
+    var playImg = document.getElementById('play_img');
+    var imageDiv = document.getElementById('slider_image');// 图片
+    imageDiv.style.marginTop = '0px';
+    var titleDiv = document.getElementById('slider_title');// 标题
+    var contentDiv = document.getElementById('slider_content');// 内容
+    var shareImageUrlDiv = document.getElementById('share_img_url');
+    var playButton = document.getElementById('play_img');
+    var audios = document.getElementById('play_audio');
+    var totalSeek = document.getElementById('progress');
+    var secondSeek = document.getElementById('second_progress');
+    var currentTime = document.getElementById('current_time');
+    var durationTime = document.getElementById("duration_time");
+    var Allseek = totalSeek.clientWidth;
+    contentDiv.style.paddingLeft = '1.5rem';
+    contentDiv.style.paddingRight = '1.5rem';
+    titleDiv.style.fontSize = '1.5rem';
+    contentDiv.style.fontSize = '1.3rem';
+    contentDiv.style.lineHeight = '2.3rem';
+    playImg.style.left = (wid - 60) / 2 + "px";
+    playImg.style.top = (hei * 0.4 - 60) / 2 + "px";
+    //动态设置contentdiv高度
+    var sliderContentDiv = document.getElementById('slider_content_div');
+    sliderContentDiv.style.height = '40%';
+    ajax('/public/sift/' + getParam('id'), null, function (resp) {
+        //添加标题
+        document.title = resp[0].title;
+
+        shareImageUrlDiv.innerHTML = resp[0].image;
+        //调整详情页样式
+
+        imageDiv.style.background = 'url(' + resp[0].image + ') center no-repeat';
+        titleDiv.innerHTML = resp[0].title;
+        contentDiv.innerHTML = resp[0].descr;
+
+        audios.addEventListener('ended', function () {
+            audios.src = resp[0].content;
+            audios.currentTime = 0;
+            currentTime.innerHTML = '00:00';
+            secondSeek.style.width = 0 + 'px';
+        }, false);
+        audios.addEventListener('play', function () {
+            playButton.style.background = "url('images/pause.png')";
+            playButton.style.backgroundSize = 'contain';
+        }, false);
+        audios.addEventListener('pause', function () {
+            playButton.style.background = "url('images/play.png')";
+            playButton.style.backgroundSize = 'contain';
+        }, false);
+        // 播放事件
+        function play() {
+            if (!audios.src) {
+                audios.src = resp[0].content;
+            }
+            if (audios.paused) {
+                audios.play();
+            } else {
+                audios.pause();
+            }
+        }
+    });
+
+    function closeAudios() {
+        if (audios) {
+            audios.pause();
+        }
+    }
+
+    function myData() {
+        currentTime.innerHTML = timeDispose(audios.currentTime);
+        if (audios.duration != 'Infinity') {
+            durationTime.innerHTML = timeDispose(audios.duration);
+        }
+        var seekData = parseInt(audios.currentTime) / parseInt(audios.duration)
+            * 100;
+        secondSeek.style.width = (Allseek * seekData) / 100 + "px";
+    }
+    // 格式化时间
+    function timeDispose(number) {
+        var minute = parseInt(number / 60);
+        var second = parseInt(number % 60);
+        minute = minute >= 10 ? minute : "0" + minute;
+        second = second >= 10 ? second : "0" + second;
+        return minute + ":" + second;
+    }
+
+    //底部下载
+    var downContentDiv = document.getElementById('down_content');
+    var downA = document.getElementById('down_a');
+    if (browser.ios) {
+        if (browser.weixin) {
+            downA.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+        } else {
+            downA.href = 'https://itunes.apple.com/us/app/nuan-xin-li/id983939376';
+        }
+    } else {
+        if (browser.weixin) {
+            downA.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+        } else {
+            downA.href = 'http://psycholate.imeap.com/warm/WarmApp.apk';
+        }
+    }
+    var downDiv = document.getElementById('down_div');
+    var downDivHeight = downDiv.offsetHeight;
+    if (browser.ios) {
+        downDiv.style.top = hei - downDivHeight + 'px';
+    } else {
+        downDiv.style.bottom = 0 + 'px';
+    }
+    function closeDownDiv() {
+        downDiv.style.display = 'none';
+    }
+</script>
+</body>
+</html>

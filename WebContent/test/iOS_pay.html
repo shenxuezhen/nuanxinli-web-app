@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>支付</title>
+    <link rel="stylesheet" href="css/font_size.css">
+    <link rel="stylesheet" href="css/iOS_pay.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+</head>
+<body>
+<div class="ios-pay">
+    <div class="ios-pay-tip fs-2-640">啊！苹果用户您好！由于Apple Pay一些原因所以给您的付费添麻烦了！</div>
+    <div class="ios-pay-step">
+        <p class="fs-5-640 fs-color">——麻烦您——</p>
+        <p><img src="../images/test/ios_zhifu_1.png"><span class="fs-1-640">截屏，保存这张二维码至相册</span></p>
+        <p><img src="../images/test/ios_zhifu_2.png"><span class="fs-1-640">打开微信/支付宝扫一扫，在右上角的相册中找到这张二维码</span></p>
+        <p><img src="../images/test/ios_zhifu_3.png"><span class="fs-1-640">支付完成后点击下方的“支付完成”按钮即可</span></p>
+    </div>
+    <div class="ios-pay-QRcode">
+        <img id="ios_code" src="../images/test/ios_QRcode.png">
+    </div>
+    <div class="ios-pay-btn fs-5-640">支付完成</div>
+</div>
+</body>
+</html>
+<script src="../js/tools.js"></script>
+<script src="js/common_methods.js"></script>
+<script>
+    var iosCode=$('#ios_code')[0];
+
+    $('.ios-pay-btn').on('click',function () {
+        verifyOrder();
+    });
+</script>

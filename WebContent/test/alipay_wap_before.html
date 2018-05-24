@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title></title>
+</head>
+<body>
+<script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="//pv.sohu.com/cityjson?ie=utf-8"></script>
+<script src="../js/zg_io.js"></script>
+<script src="js/common_methods.js"></script>
+<script src="../js/tools.js"></script>
+<script>
+    /**
+     * app支付：直接调用app的方法
+     * 工作圈支付：获取订单号，获取签名，验证签名，向后台统一下单，最后调用工作圈的支付（）
+     * S365支付：应该和工作圈一样
+     * 微信支付：（两者通过localStorage.getItem('company')做判断）
+     *          1、微信公众号支付：获取code，；
+     *          2、微信支付（走ping++）：
+     * 其它通道支付宝支付（走ping++）：
+     * */
+    loadEnv(function () {
+        if(parent.serviceObj){
+            parent.orderAndPay(parent.paymentObj,parent.serviceObj);
+        }
+    })
+</script>
+</body>
+</html>

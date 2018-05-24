@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="css/size.css">
+    <link rel="stylesheet" href="css/index_slide.css">
+</head>
+<body>
+<div id="share_img_url" style="display: none;"></div>
+<div id="slider_body" class="slider_body">
+    <div id="slider_image" class="slider_image"></div>
+    <div id="slider_content_div" class="slider_content_div">
+        <div id="slider_title" class="slider_title"></div>
+        <div id="slider_content" class="slider_content"
+        ></div>
+    </div>
+    <div id="down_div">
+        <div id="down_content">
+            <a id='down_a'>
+                <img id="down_img" src="images/down_img.png">
+                <div id="down_text">
+                    <div id="down_text_up">
+                        <div id="down_text_up_left">下载</div>
+                        <div id="down_text_up_right">暖心理</div>
+                    </div>
+                    <div id="down_line"></div>
+                    <div id="down_text_down">尽享别致的心理学</div>
+                </div>
+            </a>
+        </div>
+        <img id="close_img" src="images/close_img.png" onclick="closeDownDiv();">
+    </div>
+</div>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript">
+    var wid = document.documentElement.clientWidth;// 屏幕宽
+    var hei = document.documentElement.clientHeight;// 屏幕高
+    var bodyDiv = document.getElementById('slider_body');
+    bodyDiv.style.height = hei + 'px';
+    //动态设置contentdiv高度
+    var sliderContentDiv = document.getElementById('slider_content_div');
+    sliderContentDiv.style.height = '40%';
+    // 请求数据
+    var httpRequest;
+    var json = '';
+    var url = '/public/sift/' + getParam('id');
+    ajax(url, null, function (resp) {
+        json = resp;
+    });
+    //添加标题
+    document.title = json[0].title;
+    var imageDiv = document.getElementById('slider_image');// 图片
+    var titleDiv = document.getElementById('slider_title');// 标题
+    var contentDiv = document.getElementById('slider_content');// 内容
+    var shareImageUrlDiv = document.getElementById('share_img_url');
+    shareImageUrlDiv.innerHTML = json[0].image;
+    //调整详情页样式
+    contentDiv.style.paddingLeft = '1.5rem';
+    contentDiv.style.paddingRight = '1.5rem';
+    titleDiv.style.fontSize = '1.5rem';
+    contentDiv.style.fontSize = '1.3rem';
+    contentDiv.style.lineHeight = '2.3rem';
+    imageDiv.style.marginTop = '0px';
+    imageDiv.style.background = 'url(' + json[0].image
+        + ') center no-repeat';
+    titleDiv.innerHTML = json[0].title;
+    contentDiv.innerHTML = json[0].descr;
+    //底部下载
+    var downContentDiv = document.getElementById('down_content');
+    var downA = document.getElementById('down_a');
+    if (browser.ios) {
+        if (browser.weixin) {
+            downA.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+        } else {
+            downA.href = 'https://itunes.apple.com/us/app/nuan-xin-li/id983939376';
+        }
+    } else {
+        if (browser.weixin) {
+            downA.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.chocolate.warmapp&g_f=991653';
+        } else {
+            downA.href = 'http://psycholate.imeap.com/warm/WarmApp.apk';
+        }
+    }
+    var downDiv = document.getElementById('down_div');
+    var downDivHeight = downDiv.offsetHeight;
+    if (browser.ios) {
+        downDiv.style.top = hei - downDivHeight + 'px';
+    } else {
+        downDiv.style.bottom = 0 + 'px';
+    }
+    function closeDownDiv() {
+        downDiv.style.display = 'none';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <title>咨询师分享</title>
+    <link rel="stylesheet" href="css/size.css"/>
+    <link rel="stylesheet" href="css/advice.css"/>
+    <link rel="stylesheet" href="css/ratchet.css"/>
+</head>
+<body>
+<section id="content" class="content">
+    <div id="table_flag" class="table-view">
+        <div id="consultant_info" class="table-view-cell media">
+            <img class="media-object-header" v-bind:src="user.photo"/>
+            <p class="alias">{{user.alias}}</p>
+        </div>
+        <div class="table-view-cell media">
+            <div class="nxl-server">暖心服务 <span></span></div>
+        </div>
+        <div>
+            <!--语音咨询-->
+            <div id="voice" class="table-view-cell">
+                <a class="navigate">
+                    <img class="media-object pull-left" src="images/tea_person/voice.png">
+                    <div class="media-body">
+                        <div>{{servicePriceList[1].serviceTitle}}</div>
+                        <p>{{servicePriceList[1].serviceSlogan}}</p>
+                        <p>价格￥<span>{{servicePriceList[1].price}}</span>元/分钟</p>
+                    </div>
+                </a>
+            </div>
+            <!--图文咨询-->
+            <div id="text" class="table-view-cell">
+                <a class="navigate">
+                    <img class="media-object pull-left" src="images/tea_person/text.png">
+                    <div class="media-body">
+                        <div>{{servicePriceList[0].serviceTitle}}</div>
+                        <p>{{servicePriceList[0].serviceSlogan}}</p>
+                        <div id="text-price">
+                            <p>原价￥<span id="text-old-price">{{servicePriceList[0].price}}</span>元/次</p>
+                            <p>今日￥<span id="text-new-price">{{servicePriceList[0].salePrice}}</span>元/次</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!--暖店-->
+            <div id="warm" class="table-view-cell">
+                <a class="navigate">
+                    <img class="media-object pull-left" src="images/tea_person/nuanStore.png">
+                    <div class="media-body">
+                        <div>暖店</div>
+                        <p>讲真！</p>
+                        <p>这里有大咖最想向你介绍的内容！</p>
+                        <p class="store-watch" v-on:click="warmStore()">
+                            进店看看
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <!--视频-->
+            <div id="table_video" class="table-view-cell">
+                <div id="id_video_container" style="width:100%; height:auto;"></div>
+                <p></p>
+            </div>
+            <!--播放历史-->
+            <div id="play_history" class="table-view-cell media">
+                <div class="nxl-server">直播历史 <span></span></div>
+                <span >{{test}}</span>
+                <ul class="live_back">
+                    <li v-on:click="changeRoom(list.id)" v-for="list in liveList">
+                        <img v-bind:src="list.image">
+                        <p>{{list.title}}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="table-view-cell media">
+            <div class="nxl-server">简介 <span></span></div>
+        </div>
+    </div>
+    <div id="row" class="rowTab">
+        <div id="profile" class="table-view actives">
+            <li class="table-view-cell">
+                <p>咨询理念</p>
+                <p>{{consultant.principle}}</p>
+            </li>
+            <li class="table-view-cell">
+                <p>擅长领域</p>
+                <p>{{consultant.primaryField}}</p>
+            </li>
+            <li class="table-view-cell">
+                <p id="tec-value">国家二级心理咨询师</p>
+                <p>{{consultant.descr?consultant.descr:""}}</p>
+            </li>
+            <li class="table-view-cell">
+                <p id="tec-profession">专业背景</p>
+                <p>{{consultant.specialty}}</p>
+            </li>
+        </div>
+        <div id="post">
+        </div>
+    </div>
+</section>
+</body>
+</html>
+<script src="js/html5.js" type="text/javascript"></script>
+<script src="js/tools.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script src="//qzonestyle.gtimg.cn/open/qcloud/video/h5/h5connect.js" charset="utf-8"></script>
+<script src="js/zepto.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var httpRequest;
+    $.ajax({
+        type: "get",
+        url: '/public/consultant/' + getParam('id') + '/for-website',
+        dataType: "json",
+        async: true,
+        success: function (data) {
+            console.log(data);
+            var vm = new Vue({
+                el: '#content',
+                data: data,
+                methods: {
+                    warmStore: function () {
+                        location.href = data.consultant.nuanStore;
+                    },
+                    changeRoom: function (id) {
+                        location.href = "live_share.html?" + "id=" + encodeURI(id);
+                    }
+                }
+            });
+            //更新数据
+
+            update(data);
+            //请求播放历史
+            $.ajax({
+                type: "get",
+                url: "/public/live-cast/" + data.user.username + "/list?pageNum=" + 1 + "&pageSize=" + 2,
+                dataType: "json",
+                async: true,
+                success: function (lists) {
+                    if (lists.length==0) {
+                        $("#play_history").hide();
+                    }else {
+                        $("#play_history").show();
+                        vm.$set('liveList',lists);
+                    }
+
+                }
+            });
+            if(!data.consultant.videoIntro)return;
+            var reg=/\/\//;
+            var str=data.consultant.videoIntro;
+            str=str.split(reg)[1];
+            var player = new qcVideo.Player("id_video_container", {
+                "file_id":str,
+                "app_id": "1252567899",
+                "width": '100%',
+                "height": '100%'
+            });
+        }
+    });
+
+    function update(data) {
+        var $consultantServer = data.servicePriceList;
+        var $consultant = data.consultant;
+        if (!$consultant.nuanStore) {
+            $("#warm").hide();
+        } else {
+            $("#warm").show();
+        }
+        if (!$consultant.videoIntro) {
+            $("#table_video").hide();
+        } else {
+            $("#table_video").show();
+        }
+        if ($consultantServer.length==0) {
+            $("#voice").hide();
+            $("#text").hide();
+        }else {
+            $.each($consultantServer, function (key) {
+                var len=$consultantServer.length;
+                if (len < 2) {
+                    switch ($consultantServer[key].commMode) {
+                        case 'im':
+                            $("#text").show();
+                            $("#voice").hide();
+                            break;
+                        case 'voice':
+                            $("#voice").show();
+                            $("#text").hide();
+                            break;
+                    }
+                }else {
+                    $("#text").show();
+                    $("#voice").show();
+                }
+            });
+        }
+    }
+</script>

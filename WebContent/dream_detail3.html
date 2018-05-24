@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>梦</title>
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="css/size.css">
+    <link rel="stylesheet" href="css/dream_detail.css">
+</head>
+<body>
+<!--梦详情的分享页面-->
+<div id="dream-box">
+    <div id="body_div">
+        <div class="item">
+            <div id="question" class="question">
+                <div id="customer_info" class="question_div">{{userInfo}}</div>
+                <div v-if="type == 'voice'" class="voice-box">
+                    <div class="audio">
+                        <div id="audio_progress" class="voice_progress">
+                            <i class="i-bg"></i>
+                            <img src="images/lives/voice_progress.png"/>
+                        </div>
+                        <p class="voice-detail">
+                            <span id="voice_yes">00:00</span>
+                            <a href="javascript:;" class="ply" id="voice_ply" onclick="audioPlay();">
+                                <audio ontimeupdate="myData()" id="audio"></audio>
+                                <img src="images/lives/voice_play_img.png"/>
+                            </a>
+                            <span id="voice_no">00:00</span>
+                        </p>
+                    </div>
+                </div>
+                <div v-if="type == 'im'" class="im-box">
+                    <p>{{content}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="item" v-for="(item, index) in items">
+            <div class="question">
+                <div class="need_answer_img">*</div>
+                <div class="question_div">{{index+1}}.{{item.title}}</div>
+            </div>
+            <div class="answer_div">{{index+1!=items.length?item.content:'由于保护隐私，这部分内容不能显示哟'}}</div>
+        </div>
+    </div>
+    <div id="provider_info_div">
+        <div id="provider_img"></div>
+        <div id="provider_name">{{provider.alias}}</div>
+        <div id="provider_title">{{provider.title}}</div>
+    </div>
+    <div id="reply_content">
+        <div class="reply_content_text">{{interpretation}}</div>
+    </div>
+</div>
+<script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+<script type="text/javascript" src="js/html5.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript">
+    loadEnv(function () {
+        var wid = document.documentElement.clientWidth;// 屏幕宽
+        var hei = document.documentElement.clientHeight;// 屏幕高
+        var audios = document.getElementsByClassName('audio')[0];
+        var audioProgress = document.getElementById("audio_progress");
+        var voicesPro = audioProgress.getElementsByTagName("img")[0];
+        var aud=document.getElementsByTagName("audio")[0];
+        var voiceYes = document.getElementById("voice_yes");
+        var voicePly = document.getElementById("voice_ply");
+        var voiceImg=voicePly.getElementsByTagName('img')[0];
+        var voiceNo = document.getElementById("voice_no");
+        var questions = document.getElementById("question");
+        var providerInfoDiv = document.getElementById('provider_info_div');
+        var providerImage = document.getElementById('provider_img');
+        var providerTitle = document.getElementById('provider_title');
+        var replyContent = document.getElementById('reply_content');
+        var oBg = document.getElementsByClassName('i-bg')[0];
+        var voiceLength = audioProgress.offsetWidth;
+        /*请求数据*/
+        var url = '/public/dream-service/' + getParam('dreamId') + '?detail=true';
+        ajax(url,null,function (resp) {
+            var responseObj = resp;
+            initShareObj({
+                title: responseObj.dreamService.title, // 分享标题
+                content: responseObj.dreamService.content, // 分享描述
+                shareUrl: window.location.href,
+                iconUrl: window.location.origin + '/warm/images/logo120.png'
+            });
+            var vm = new Vue({
+                el: '#dream-box',
+                data: responseObj.dreamService,
+                computed: {
+                    userInfo: function () {
+                        var user = this.customer;
+                        var sexTitle = user.sex == 'M' ? '男' : '女';
+                        return '梦主：' + sexTitle + (user.age ? ',' + user.age : "") + (user.userType ? ',' + user.userType : "");
+                    }
+                }
+            });
+            if (responseObj.dreamService.type != 'voice') {
+                //调整二次分享
+                var div = document.createElement('div');
+                questions.appendChild(div);
+                div.setAttribute('class', 'answer_div');
+                audios.innerHTML = null;
+                div.innerHTML = '梦：' + responseObj.dreamService.content;
+            } else {
+                var au=responseObj.dreamService.content;
+                au=au.replace(/amr/g,'mp3');
+                console.log(au);
+                aud.getAttribute('arc');
+                aud.setAttribute('src', au);
+                aud.addEventListener('ended', function(){
+                    this.currentTime = 0;
+                    if(this.currentTime===this.duration){
+                        voiceYes.innerHTML = '00:00';
+                        oBg.style.width = 0+'px';
+                    }
+                    voiceImg.setAttribute('src','images/lives/voice_play_img.png');
+                }, false);
+            }
+            //回复内容
+            providerJson = responseObj.dreamService.provider;
+            if (responseObj.dreamService.interpretation) {
+                providerInfoDiv.style.display = 'block';
+                replyContent.style.display = 'block';
+                providerImage.style.background = 'url(' + providerJson.photo
+                    + ') center no-repeat';
+                providerImage.style.backgroundSize = 'cover';
+            } else {
+                providerInfoDiv.style.display = 'none';
+                replyContent.style.display = 'none';
+            }
+        });
+    },null,null,0);
+    //播放或暂停
+    function audioPlay() {
+        if (aud.paused) {
+            aud.play();
+            voiceImg.setAttribute('src','images/lives/voice_pause_img.png');
+            return;
+        }
+        aud.pause();
+        voiceImg.setAttribute('src','images/lives/voice_play_img.png');
+    }
+    function myData() {
+        console.log(aud.duration);
+        voiceYes.innerHTML = timeDispose(aud.currentTime);
+        if (aud.duration != 'Infinity') {
+            voiceNo.innerHTML = timeDispose(aud.duration);
+        }
+        move();
+    }
+    function timeDispose(number) {
+        var minute = parseInt(number / 60);
+        var second = parseInt(number % 60);
+        minute = minute >= 10 ? minute : "0" + minute;
+        second = second >= 10 ? second : "0" + second;
+        return minute + ":" + second;
+    }
+    //进度条移动
+
+    function move() {
+        var timer = setInterval(function () {
+            var speed = voiceLength / aud.duration;
+            var playLen = aud.currentTime * speed;
+            if (Math.abs((voiceLength - playLen) - speed) <= 0) {
+                voicesPro.style.left = voiceLength + "px";
+                oBg.style.width = voiceLength + 'px';
+                voiceImg.setAttribute('src','images/lives/voice_pause_img.png');
+                clearInterval(timer);
+            } else {
+                voicesPro.style.left = speed * aud.currentTime + "px";
+                oBg.style.width = speed * aud.currentTime + "px";
+            }
+        }, 1000);
+    }
+</script>
+</body>
+</html>
+

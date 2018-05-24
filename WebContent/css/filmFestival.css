@@ -1,0 +1,176 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: #FFFFFF;
+}
+.fs-1{/*36*/
+    font-size: .48rem;
+}
+.fs-2{/*34*/
+    font-size: .4533rem;
+}
+.fs-3{/*30*/
+    font-size: .4rem;
+}
+.fs-4{/*26*/
+    font-size: .3467rem;
+}
+.fs-5{/*24*/
+    font-size: .3333rem;
+}
+.fs-6{/*22*/
+    font-size: .2933rem;
+}
+.nuanxinli{
+    background: url("../images/filmFestival/40557613040794225121271015705422.png") repeat-y;
+    background-size: contain;
+    padding: 1.2rem .72rem 1.2267rem;
+}
+.logo{
+    width: 70%;
+    margin: 0 auto .5333rem;
+    display: flex;
+    justify-content: space-around;
+}
+.logo img:nth-of-type(1){
+    width: 1.7867rem;
+    height: 1.2rem;
+}
+.logo img:nth-of-type(2){
+    width: 1.08rem;
+    height: 1.08rem;
+}
+.dream-proverb>p:nth-of-type(1){
+    text-align: center;
+}
+.dream-proverb>p:nth-of-type(2){
+    text-align: right;
+    margin-bottom: .5466rem;
+}
+.dream-proverb-content p{
+    line-height: .48rem;
+    margin-bottom: .3rem;
+}
+.dream{
+    position: relative;
+    width: 6.6933rem;
+    margin: 0 auto;
+}
+.dream-draw{
+    width: 5.08rem;
+    height: 6.4133rem;
+    overflow: hidden;
+    margin: .6533rem auto .4rem;
+}
+.dream-draw ul{
+    position: relative;
+    width: 45.72rem;
+    height: 6.4133rem;
+}
+.dream-draw li{
+    list-style: none;
+    width: 5.08rem;
+    height: 6.4133rem;
+    float: left;
+}
+.dream-draw li img{
+    width: 100%;
+    height: 100%;
+}
+.prev{
+    position: absolute;
+    display: inline-block;
+    top: 14%;
+    left: -3%;
+}
+.next{
+    position: absolute;
+    display: inline-block;
+    top: 14%;
+    right: -3%;
+}
+.prev img,.next img{
+    width: .2933rem;
+    height: .48rem;
+}
+.dream-interpret{
+    margin: 0 auto;
+    overflow: hidden;
+}
+.dream-interpret ul{
+    position: relative;
+    width: 60.2397rem;
+}
+.dream-interpret ul li{
+    list-style: none;
+    width: 6.6933rem;
+    float: left;
+}
+.dream-mater{
+    text-align: left;
+    margin: 0 auto .6667rem;
+}
+.dream-mater p:nth-of-type(1){
+    margin-bottom: .2933rem;
+}
+.dream-content{
+    margin-bottom: .8rem;
+}
+.dream-content p:nth-of-type(2){
+    margin-bottom: .2933rem;
+}
+.dream-content p:nth-of-type(3){
+    line-height: .48rem;
+}
+.event-introduction{
+    clear: both;
+    text-align: center;
+    margin-bottom: .5333rem;
+}
+.dream-btn div{
+    width: 5.08rem;
+    height: 1.1867rem;
+    line-height: 1.1867rem;
+    text-align: center;
+    margin: 0 auto .8133rem;
+    background: #DF3603;
+    border-radius: 5px;
+}
+.nuan-terrace{
+    line-height: .4933rem;
+    text-align: center;
+    margin-bottom: .3067rem;
+}
+.nuan-terrace span{
+    text-decoration: underline;
+    font-weight: bold;
+}
+.nuan-logo{
+    text-align: center;
+}
+.nuan-logo img{
+    width: 1.6533rem;
+    height: 1.6533rem;
+}
+.share{
+    width: 86%;
+    height: 3rem;
+    position: absolute;
+    top: 4rem;
+    left: 7%;
+    background: #fff;
+    border-radius: 5px;
+    text-align: center;
+}
+.share p{
+    text-align: center;
+    color: #000;
+    font-size: .46rem;
+    margin-top: .6rem;
+    
+}
+.share a{
+    color:#000;
+    font-weight:bold;
+    text-decoration:none;
+}

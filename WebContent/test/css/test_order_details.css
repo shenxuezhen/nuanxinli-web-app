@@ -1,0 +1,146 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#test-order{
+    background: #f8f8f8;
+}
+.order-header{
+    height: 2.21rem;
+    background: #FFFFFF;
+    margin-bottom: .4375rem;
+    padding-left: .4688rem;
+}
+.order-concise{
+    margin-top: 0.4219rem;
+    display: inline-flex;
+    justify-content: space-around;
+}
+.order-concise div:nth-of-type(1){
+    width: 1.2969rem;
+    height: 1.2969rem;
+    margin-right: .4219rem;
+}
+.order-concise div:nth-of-type(1) img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.order-concise div:nth-of-type(2){
+    width: 5.75rem;
+}
+.fs-color{
+    margin-right: 0.6rem;
+    margin-left: 0.4rem;
+    line-height: 1.36rem;
+    font-size: 0.37rem;
+    font-weight: bold;
+}
+.order-concise div p{
+    line-height: .7rem;
+}
+.orderTotalPrice{
+    text-align: right;
+}
+.order-person,.order-company,.order-pay{
+    width: 100%;
+    background: #FFFFFF;
+    margin-bottom: .3281rem;
+}
+.order-details{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+.order-company-details li,.order-details{
+    border-top: 1px solid #EFEFEE;
+    background: #FFFFFF;
+    padding: .5469rem .6rem .5rem .4rem;
+}
+.order-company-details li:nth-of-type(1) p:nth-of-type(2){
+    margin-top: .6406rem;
+    display: flex;
+    justify-content: space-between;
+}
+.order-company-details li:nth-last-of-type(1){
+    border-bottom: none;
+}
+.order-pay div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 1.375rem;
+    line-height: 1.375rem;
+    padding: 0 .7819rem;
+    border-bottom: 1px solid #EFEFEE;
+}
+.order-pay .order-pay-title{
+    height: .9063rem;
+    line-height: .9063rem;
+    padding-left: .5313rem;
+    border-bottom: 1px solid #EFEFEE;
+}
+.order-pay div label{
+    height: 1.375rem;
+    line-height: 1.375rem;
+}
+.order-pay-typeimg{
+    width: 1.0313rem;
+    height: .5469rem;
+}
+.order-pay-selectimg{
+     width: .5469rem;
+     height: .5469rem;
+ }
+.order-btn{
+    margin-top: 2.2rem;
+    text-align: center;
+}
+.order-tip{
+    color: #81807E;
+    margin-bottom: .8594rem;
+}
+.order-select-company{
+    display: inline-block;
+    color: #3F907E;
+    padding-bottom: .1094rem;
+    border-bottom: 1px solid #3F907E;
+    margin-bottom: 1rem;
+}
+.order-offline{
+    position: absolute;
+    width: 7.8594rem;
+    height: 7.4rem;
+    top:50%;
+    left: 50%;
+    margin-top: -3.7rem;
+    margin-left: -3.9297rem;
+    text-align: center;
+    background: #FFFFFF;
+    z-index: 1;
+}
+.order-offline img{
+    width: 1.25rem;
+    height: 1.25rem;
+    position: absolute;
+    top:-.625rem;
+    left:3.3047rem;
+}
+.order-offline div{
+    margin-top: 1.25rem;
+    padding-bottom: .7344rem;
+    border-bottom: 1px solid #FEC8A3;
+}
+.order-offline p{
+    height: 1.4688rem;
+    line-height: 1.4688rem;
+}
+.alipayWap{
+    display: block !important;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left:0;
+    top:0;
+    z-index:1;
+}

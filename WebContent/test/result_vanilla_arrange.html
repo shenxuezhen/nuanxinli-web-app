@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--排列组合测评结果页面 eg.DISC-->
+<head>
+    <meta charset="UTF-8">
+    <title>测评结果</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/result_general.css"/>
+    <link rel="stylesheet" type="text/css" href="css/result_arrange.css"/>
+</head>
+<body style="text-align: center;">
+<div class="loading"><img src="../images/loading.gif"></div>
+<div id="resultArrange" style="display: none">
+    <img class="img" src="../images/result.png">
+    <div class="top">
+        <div class="title">{{data.testD.title}}</div>
+        <div class="condition"><span>{{testcount}}</span>人测过&nbsp;/<span>{{data.testD.type}}</span></div>
+    </div>
+    <div class="center">
+        <div class="test-title">
+            <p class="h2">「测评结果」</p>
+            <div class="isEarnest" v-if="earnests.length"><!--判断是否是测谎题-->
+                <img v-if="earnests[0].isEarnest" src="../images/renzhen_jieguoye.png">
+                <img v-if="!earnests[0].isEarnest" src="../images/burenzhen_jieguoye.png">
+            </div>
+            <div v-if="earnests != ''" class="earnest-result">{{earnests[0].content}}</div>
+            <div class="test-result-title" v-bind:class="earnests==''?earnests-result-title:''" v-if="divisions==''">
+                <hr v-bind:style="{background:results[0].color,border:results[0].color}">
+                <div class="title-bg" v-bind:style="{background:results[0].color,color:results[0].color}">
+                    {{results[0].divisionTitle}}{{results[0].title}}
+                </div>
+                <div class="title-text" v-bind:style="{background:results[0].color}">
+                    {{results[0].divisionTitle}}{{results[0].title}}
+                </div>
+            </div>
+            <div class="test-result-title" v-bind:class="earnests==''?earnests-result-title:''" v-if="results==''">
+                <hr v-bind:style="{background:divisions[0].color,border:divisions[0].color}">
+                <div class="title-bg" v-bind:style="{background:divisions[0].color,color:divisions[0].color}">
+                    {{divisions[0].divisionTitle}}{{divisions[0].title}}
+                </div>
+                <div class="title-text" v-bind:style="{background:divisions[0].color}">
+                    {{divisions[0].divisionTitle}}{{divisions[0].title}}
+                </div>
+            </div>
+            <!--画图的容器-->
+            <div id="container"></div>
+            <div class="trait" v-if="data.isSimpleResult"><!-- class="trait"-->
+                <p>「特质描述」</p>
+                <p class="p2" v-html="results[0].simpleResult"></p>
+            </div>
+        </div>
+        <div class="result-division" v-if="!data.isSimpleResult">
+            <div class="trait">
+                <p class="p1">性格特质：</p>
+                <p class="p2" v-html="divisions[0].content"></p>
+            </div>
+            <div class="trait">
+                <p class="p1">职业特质：</p>
+                <p class="p2 work" v-html="divisions[0].suggestion"></p>
+            </div>
+            <div class="dimension" v-for="division in divisions[0].testIResultAnalysisList">
+                <div id="divisionColor" v-bind:style="{background: dyeing(division.color)}">
+                    <span class="p3" v-bind:style="{color: division.color}">{{division.title}}</span>
+                    <p class="p4">{{division.content}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="payTips" v-if="data.isSimpleResult && data.testD.isFee">
+        <div class="p1">「注意」</div>
+        <div class="payReason">
+            <p>您还有80%的测评结果未查看</p>
+            <img src="../images/payjiantou.png">
+        </div>
+        <div class="payBtn" v-on:click="payBtn" v-if="data.testDPrice">{{data.testDPrice.salePrice}}元员工专享价</div>
+        <div class="payBtn" v-on:click="payBtn" v-if="!data.testDPrice">查看更多{{data.testD.price}}元</div>
+        <div class="payClues" v-if="data.testDPrice">尊敬的企业用户<br>您享受低价查看详细结果的权利</div>
+        <iframe id="payIframe" frameborder="0" style="display: none"></iframe>
+    </div>
+    <div style="background: url('../images/herb.png') 0 center;background-size: 100% 100%;width: 84%;height: 3rem;margin: 0.5rem auto;"></div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="js/common_methods.js"></script>
+<script type="text/javascript" src="js/result_arrange.js"></script>

@@ -1,0 +1,270 @@
+*{margin: 0;padding: 0}
+.per-head-portrait{
+    display: inline-block;
+    width: 3.7334rem;
+    height: 1.2267rem;
+    background: #fff;
+    margin: 0.2553rem 0;
+    border-radius: .61335rem;
+    position: fixed;
+    right: -1.8667rem;
+    bottom: 2rem;
+    z-index: 2;
+}
+.per-head-portrait img{
+    width: 1.04rem;
+    height: 1.04rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -.52rem;
+    margin-left: -1.667rem;
+    border-radius: 50%;
+}
+.psychTest{
+    height: .67rem;
+    line-height: .67rem;
+    z-index: 1;
+    width: 100%;
+}
+.psychTest img{
+    width: .35rem;
+    height: .35rem;
+    float: right;
+    margin-top: .15rem;
+}
+.fs-1-640{
+    display: inline-block;
+    font-size: .3733rem;
+    color: #81807e;
+    margin-right: .4rem;
+    float: right;
+}
+.warm-shade{
+    background: #000000;
+    opacity: .5;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.warm-test-tip{
+    width: 7.5867rem;
+    height: 13.44rem;/*14.44*/
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -3.7934rem;
+    margin-top: -6.72rem;
+    background: #fff;
+    z-index: 1;
+    border-radius: .1rem;
+}
+.warm-test-tip>p{
+    height: .8rem;
+    line-height: .8rem;
+    text-align: center;
+    border-bottom: 2px solid #FEE2C5;
+    font-size: .4rem;
+    color: #282828;
+}
+.warm-test-tip>div{
+    padding: .4267rem .28rem .4rem .4rem;
+    line-height: .5067rem;
+    color: #393932;
+}
+.warm-btn{
+    background: #EF7E38;
+    color: #fff!important;
+    border-radius: .1rem;
+    margin: .5rem auto;
+    width: 2.7777rem;
+    padding: 0!important;
+    height: .72rem;
+    line-height: .72rem!important;
+    text-align: center;
+}
+.test-tip-btn{
+    padding-left: .4rem;
+    text-align: left;
+    color: #EF7E38!important;
+    display: inline-flex;
+    align-items: center;
+}
+.test-tip-btn input{
+    display: inline-block;
+    width: .5rem;
+    height: .5rem;
+
+}
+.top {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.top-height-100 {
+    height: 100%;
+    background: #FFFFFF;
+}
+.search-test {
+    width: 100%;
+    height: 1.38rem;
+    line-height: 1.38rem;
+    background: #EAE8E8;
+}
+.search-img {
+    position: absolute;
+    top: 0.5rem;
+    left: .6rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    line-height: 0.8rem;
+}
+input[type="search"]::-webkit-search-cancel-button{
+    display: none;
+}
+.search-test-input {
+    width: 7.87rem;
+    height: 0.8rem;
+    margin-left: 0.33rem;
+    padding-left: 0.8rem;
+    border-radius: .4rem;
+    border:none;
+    font-size: 0.36rem;
+}
+.search-test-input:focus{
+    border: none;
+    outline: none;
+}
+.clear-img {
+    position: absolute;
+    width: .5rem;
+    height: .3rem;
+    top: .55rem;
+    right: 2.1rem;
+}
+.cancel-search {
+    margin-left: 0.43rem;
+    font-size: 0.43rem;
+}
+.search-test-blank {
+    position: relative;
+    top: 1.37rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    opacity: 1;
+}
+#test-list {
+    margin-top: 1.38rem !important;
+}
+.warm-type-part-code{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    z-index: 1;
+    /*border-radius: .1rem;*/
+}
+.wantspeak{
+    font-size: .5rem;
+    text-align: left;
+    padding: .5267rem .8rem 0 .8rem;
+}
+.logoAll{
+    width: 9.5rem;
+    margin: auto;
+    margin-bottom: .5267rem;
+}
+span{
+    display: inline-block;
+    text-align: center;
+}
+.smallImage {
+    width: 25%;
+    margin: 0 auto;
+    display: inline-block;
+}
+.imageDiv{
+    margin: .37rem auto 0;
+    position: relative;
+    text-align: center;
+}
+.myimg{
+    width: 60%;
+}
+.smallTitleDiv{
+    margin: .1rem auto;
+    color: #393732;
+    font-size: .28rem;
+    text-align: center;
+}
+.typeShade{
+    background: black;
+    opacity: .4;
+    bottom: 0;
+    position: absolute;
+}
+.typeCheck{
+    width: .75rem;
+    height: .75rem;
+    position: absolute;
+    left:50%; top: 50%;
+    margin-left: -.375rem;margin-top: -.375rem;
+}
+.permissionCheck{
+    width: .546rem;
+    height: .386rem;
+    margin-top: 1rem;
+}
+.type{
+    width: 90%;
+    margin: .4266rem auto 0 ;
+    height: .986rem;
+    border: 1px solid #B1B0AE;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+.type .div1{
+    width: .986rem;
+    height: .986rem;
+    border-right: 1px solid #B1B0AE;
+    float: left;
+    position: relative;
+
+}
+.type .div1 .img1{
+    width: .48rem;
+    height: .48rem;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -.24rem; /* 高度的一半 */
+    margin-left: -.24rem; /* 宽度的一半 */
+}
+.typeTitle{
+    color: #393932;
+    font-size: .426rem;
+    line-height: .986rem ;
+}
+.type .div2{
+    width: .986rem;
+    height: .986rem;
+    float: right;
+    position: relative;
+}
+.type .div2 .img2{
+    width: .466rem;
+    height: .306rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -.153rem; /* 高度的一半 */
+    margin-left: -.233rem; /* 宽度的一半 */
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <title>面询记录</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/face_to_face.css">
+    <script type="text/javascript" src="js/flexible.js"></script>
+</head>
+<body>
+<div id="ftf-consultant" class="pure-g ftf-consultant">
+    <div class="pure-u-1-1 tip">
+        <p>预约成功!</p>
+        <div>工作时间（9:00-21:00），用户提交面询申请后，助理将会在2小时内主动联系您，非工作时间，将会在上班后3小时内联系您，请保持通讯畅通</div>
+    </div>
+    <div class="pure-u-1-1 top">
+        <img v-bind:src="consultingService.provider.photo">
+        <b class="name">{{consultingService.consultant.name}}</b>
+        <p class="principle">{{consultingService.consultant.principle}}</p>
+    </div>
+    <div class="pure-u-1-1 center">
+        <div>基本资料</div><span></span>
+        <table class="pure-table pure-table-bordered">
+            <tr class="t1">
+                <td colspan="2">（仅老师和助理可见）</td>
+            </tr>
+            <tr class="t2">
+                <td class="d1">称呼:</td>
+                <td class="d2">{{consultingService.character.name}}</td>
+            </tr>
+            <tr class="t2">
+                <td class="d1">年龄:</td>
+                <td class="d2">{{consultingService.character.age}}</td>
+            </tr>
+            <tr class="t2">
+                <td class="d1">性别:</td>
+                <td class="d2">{{userInfo}}</td>
+            </tr>
+            <tr class="t2 tellPhone">
+                <td class="d1">手机号:</td>
+                <td class="d2">{{consultingService.character.cellPhone}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="pure-u-1-1 bottom">
+        <div>客服电话:<span id="cellphone">400-688-9848</span></div>
+    </div>
+</div>
+</body>
+</html>
+<script src="js/html5.js" type="text/javascript"></script>
+<script src="js/tools.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script src="js/zepto.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    loadEnv(function () {
+        ajax("/public/consulting-service/"+getParam("id"),null,function (resp) {
+            var vm=new Vue({
+                el:"#ftf-consultant",
+                data:resp,
+                computed:{
+                    userInfo:function(){
+                        var user = this.consultingService.character;
+                        return user.sex == 'M' ? '男' : '女';
+                    }
+                }
+            });
+        });
+    });
+    var Tel=$(".tellPhone");
+    (function (Tel){
+        var url=location.href;
+        url=url.split("&")[1].split("=")[1];
+        url=="true"? Tel.hide():Tel.show();
+    })(Tel);
+    $("#cellphone").on('click',function(){
+        if(browser.ios){
+            var iframe=$("<iframe id='cellphones' frameborder='0' style='display: none'></iframe>");
+            (iframe).appendTo($("#cellphone"));
+            iframe.attr("src","call");
+        }else {
+            if(window.appInterface){
+                window.appInterface.call('4006889848');
+            }
+        }
+
+    })
+</script>

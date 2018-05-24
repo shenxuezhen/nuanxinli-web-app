@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="css/consultantHome.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../test/js/iscroll.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+</head>
+<body>
+<nav class="warm-shade" onclick="hiddenShade()" style="display: none"></nav>
+<div id="consultant_home">
+    <div id="wrapper">
+        <div id="scroller" class="list-block">
+            <div class="list" id="thelist">
+                <nav class="test-person-header up_div">
+                    <div>
+                        <img id="userPhoto" v-bind:src="objData.user.photo">
+                        <p id="userName">{{objData.user.alias}}</p>
+                    </div>
+                    <div class="mainType">
+                        <div v-if="objData.consultant.labelList" id="userType">
+                            <div class="labelList" v-for="(item,index) in objData.consultant.labelList" v-if="index<3" v-bind:style="{background: item.color}">{{item.text}}</div>
+                        </div>
+                        <div v-for="(item,index) in objData.consultant.labelList" v-if="index==3" class="typeMore" v-on:click="typeMore()">></div>
+                    </div>
+                </nav>
+                <div class="serviceDiv">
+                    <div class="mark">
+                        <div class="mark-title">暖心服务</div>
+                        <div class="mark-line"></div>
+                    </div>
+                    <div class="serviceContent">
+                        <img src="../images/consultant/psychologicalfirstaid.png" alt="">
+                        <div class="textinfo">
+                            <div class="name">心理急救站</div>
+                            <div class="txt">心塞别憋着！咨询师很有用哦~</div>
+                        </div>
+                        <div class="callteacher" v-on:click="callPhone()">联系TA</div>
+                    </div>
+                </div>
+                <div class="lineView"></div>
+                <div class="selectDiv">
+                    <div v-on:click="changeType('who')" v-bind:class="['who', homeType=='who' ? 'bottomSelect' : 'bottomNotSelect']">TA是谁</div>
+                    <div v-on:click="changeType('bbs')" v-bind:class="['bbs', homeType=='bbs' ? 'bottomSelect' : 'bottomNotSelect']">TA的帖子</div>
+                </div>
+                <div class="whoDiv" v-if="homeType=='who'">
+                    <div class="mark" style="margin-bottom: 0.2rem;">
+                        <div class="mark-title">简介</div>
+                        <div class="mark-line"></div>
+                    </div>
+                    <div class="philosophy">咨询理念</div>
+                    <div class="philosophyContent">{{objData.consultant.principle}}</div>
+                    <div class="philosophy line">擅长领域</div>
+                    <div class="philosophyContent">{{objData.consultant.primaryField}}</div>
+                    <div class="philosophy line">简介</div>
+                    <div class="philosophyContent" v-html="objData.descStr"></div>
+                    <div class="moreDiv" style="display: none">
+                        <div class="philosophy line">专业背景</div>
+                        <div class="philosophyContent">{{objData.consultant.specialty}}</div>
+                    </div>
+                    <div v-if="isMore" class="more" v-on:click="moreClick(isMore)">点击合并 </div>\
+                    <div v-else class="more" v-on:click="moreClick(isMore)">点击展开 ></div>
+                </div>
+                <div class="bbsDiv" v-if="homeType=='bbs'" v-for="bbsItem in consultantBbsList" v-on:click="bbsDetail(bbsItem.postId)">
+                    <div class="bbsTitle">{{bbsItem.title}}</div>
+                    <div class="bbsContent">{{bbsItem.content}}</div>
+                    <div class="bbs_bottom">
+                        <img v-if="bbsItem.type=='BbsReply'" class="sendOrReplay" src="../images/consultant/replyImg.png">
+                        <img v-else class="sendOrReplay" src="../images/consultant/sendImg.png">
+                        <div v-if="bbsItem.type=='BbsReply'" class="sendOrReplayText">TA回的</div>
+                        <div v-else class="sendOrReplayText">TA发的</div>
+
+                        <div class="countText">{{bbsItem.replyCount}}</div>
+                        <img class="count" src="../images/bbs/comment_gray.png" alt="">
+                        <div class="hotText">{{bbsItem.hotrank}}</div>
+                        <img class="hot" src="../images/bbs/Seen.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="warm-type-tip" style="display: none">
+        <div id="logoAll">
+            <div class="smallImage" v-for="typeItem in objData.consultant.labelList">
+                <div class="smallTitleDiv" v-bind:style="{background: typeItem.color}">{{typeItem.text}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="warm-call-tip" style="display: none">
+        <div class="title">
+            <div class="contact">联系TA</div>
+            <img src="../images/consultant/closeicon.png" onclick="hiddenShade()">
+        </div>
+        <div class="imageDiv">
+            <img src="../images/consultant/Phoneappointment.png">
+        </div>
+        <div class="textDiv">您可以选择直接找助理预约老师进行咨询</div>
+        <div class="buttonDiv" v-on:click="callStaff()">电话预约</div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="js/consultantHome.js"></script>

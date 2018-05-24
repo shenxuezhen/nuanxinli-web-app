@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #FFFFFF !important;
+}
+li {
+    list-style-type: none;
+}
+/* 超出部分显示省略号 */
+.ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.blank-0-2 {
+    height: 0.2rem;
+}
+.blank-0-32 {
+    height: 0.32rem;
+}
+.blank-0-39 {
+    height: 0.39rem;
+}
+.wrapper {
+    position: relative !important;
+    padding-bottom: 1.31rem;
+    min-height:100%
+}
+.course-cover {
+    position: relative;
+    height: 5rem;
+    background: gray;
+}
+.course-cover-img {
+    width: 100%;
+    height: 5rem;
+}
+.course-name-lecturer p {
+    margin-right: 0.6rem;
+    margin-left: 0.4rem;
+    line-height: 0.72rem;
+}
+.course-name {
+    line-height: 0.53rem;
+    font-size: 0.53rem;
+}
+.course-lecturer {
+    line-height: 0.4rem;
+    font-size: 0.4rem;
+}
+.course-description {
+    margin-top: 0.55rem;
+    margin-right: 0.6rem;
+    margin-bottom: 0.89rem;
+    margin-left: 0.4rem;
+}
+.course-description-h {
+    margin-bottom: 0.1rem;
+    font-size: 0.45rem;
+}
+.course-description-c {
+    line-height: 0.64rem;
+    color: #81807E;
+}
+.course-lecturer-description {
+    margin-top: 0.55rem;
+    margin-right: 0.6rem;
+    margin-bottom: 0.89rem;
+    margin-left: 0.4rem;
+}
+.view-all {
+    text-align: center;
+    color: #6CCCB5;
+}
+.course-items {
+    margin-top: 0.53rem;
+    border-top: 1px solid #EFEFEF;
+}
+.course-items p {
+    margin-right: 0.6rem;
+    margin-left: 0.4rem;
+}
+.course-items-amount {
+    height: 1.32rem;
+    line-height: 1.32rem;
+    font-size: 0.45rem;
+}
+.course-items-item {
+    height: 1.88rem;
+    border-top: 1px solid #EFEFEF;
+}
+.course-items-item-h {
+    margin-top: 0.44rem;
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    line-height: 0.71rem;
+    font-size: 0.37rem;
+}
+.course-items-item-t {
+    line-height: 0.48rem;
+    color: #81807E;
+}
+.course-buy-button {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 1.31rem;
+    background: #2DCCCE;
+    color: #FFFFFF;
+    font-size: 0.45rem;
+    text-align: center;
+    line-height: 1.31rem;
+}

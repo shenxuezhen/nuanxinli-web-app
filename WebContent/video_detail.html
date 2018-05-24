@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <link rel="stylesheet" href="css/size.css">
+    <link rel="stylesheet" href="css/index_slide.css">
+</head>
+<body>
+<div id="share_img_url" style="display: none;"></div>
+<div id="slider_body" class="slider_body">
+    <div id="video" class="slider_image"></div>
+    <div id="slider_content_div" class="slider_content_div">
+        <div id="slider_title" class="slider_title"></div>
+        <div id="slider_content" class="slider_content"
+        ></div>
+    </div>
+</div>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="//player.youku.com/jsapi"></script>
+<script type="text/javascript">
+    var wid = document.documentElement.clientWidth;// 屏幕宽
+    var hei = document.documentElement.clientHeight;// 屏幕高
+    var bodyDiv = document.getElementById('slider_body');
+    bodyDiv.style.height = hei - 7 + 'px';
+    // 请求数据
+    var httpRequest;
+    var jsonStr;
+    var url = '/public/sift/' + getParam('id');
+    if (window.XMLHttpRequest) {
+        httpRequest = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        try {
+            httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
+        } catch (e) {
+            try {
+                httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+            } catch (e) {
+            }
+        }
+    }
+    if (!httpRequest) {
+        alert('Giving up L Cannot create an XMLHTTP instance');
+    } else {
+        httpRequest.open('GET', url, false);
+        httpRequest.send();
+        if (httpRequest.readyState == 4) {
+            if (httpRequest.status == 200) {
+                jsonStr = httpRequest.responseText;
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+    }
+    var json = eval('[' + jsonStr + ']');
+    var content = json[0].content;
+    //添加标题
+    document.title = json[0].title;
+    var titleDiv = document.getElementById('slider_title');// 标题
+    var contentDiv = document.getElementById('slider_content');// 内容
+    var shareImageUrlDiv = document.getElementById('share_img_url');
+    shareImageUrlDiv.innerHTML = json[0].image;
+    //调整详情页样式
+    contentDiv.style.paddingLeft = '1.5rem';
+    contentDiv.style.paddingRight = '1.5rem';
+    titleDiv.style.fontSize = '1.5rem';
+    contentDiv.style.fontSize = '1.3rem';
+    contentDiv.style.lineHeight = '2.3rem';
+    titleDiv.innerHTML = json[0].title;
+    contentDiv.innerHTML = json[0].descr;
+    //http://v.youku.com/v_show/id_XOTQ3MjY0MTg0.html?f=23762093&from=y1.3-paike-grid-4071-10195.90404-90171.5-1
+    //http://v.youku.com/v_show/id_XMjczMTIyMzI0.html?from=s1.8-1-1.2
+    var videoId = '';
+    if (content) {
+        var v1 = content.split('.html');
+        var v2 = v1[0].split('id_');
+        videoId = v2[1];
+    }
+    //XNDgwMTUyMzA0
+    //播放视频
+    player = new YKU.Player('video', {
+        styleid: '0',
+        client_id: 'd2b20748c74f3375',
+        vid: videoId,
+        show_related: false,
+        autoplay: false,
+        embsig: 'VERSION_TIMESTAMP_SIGNATURE'
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+*{margin: 0;padding: 0;}
+body{
+    background: white !important;
+}
+.list{
+    width: 100%;
+    height: 100%;
+}
+#wrapper{
+    top: 1.5rem !important;
+}
+#scroller{
+    background: white;
+}
+.per-head-portrait{
+    width: 2rem;
+    position: fixed;
+    right: 0;
+    bottom: 1rem;
+    z-index: 2;
+    -webkit-tap-highlight-color:rgba(255,255,255,0);
+}
+.per-head-portrait img{
+    width: 100%;
+    height: 100%;
+}
+.warm-shade{
+    background: #000000;
+    opacity: .5;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.warm-type-tip{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    z-index: 1;
+    /*border-radius: .1rem;*/
+}
+.wantspeak{
+    font-size: .5rem;
+    text-align: left;
+    padding: .5267rem .8rem 0 .8rem;
+}
+.logoAll{
+    width: 9.5rem;
+    margin: auto;
+    margin-bottom: .5267rem;
+}
+span{
+    display: inline-block;
+    text-align: center;
+}
+.smallImage {
+    width: 25%;
+    margin: 0 auto;
+    display: inline-block;
+}
+.imageDiv{
+    margin: .37rem auto 0;
+    position: relative;
+    text-align: center;
+}
+.myimg{
+    width: 60%;
+}
+.smallTitleDiv{
+    margin: .1rem auto;
+    color: #393732;
+    font-size: .28rem;
+    text-align: center;
+}
+.typeShade{
+    background: black;
+    opacity: .4;
+    bottom: 0;
+    position: absolute;
+}
+.typeCheck{
+    width: .75rem;
+    height: .75rem;
+    position: absolute;
+    left:50%; top: 50%;
+    margin-left: -.375rem;margin-top: -.375rem;
+}
+.permissionCheck{
+    width: .546rem;
+    height: .386rem;
+    margin-top: 1rem;
+}
+.type{
+    width: 90%;
+    margin: .4266rem auto 0 ;
+    height: .986rem;
+    border: 1px solid #B1B0AE;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+.type .div1{
+    width: .986rem;
+    height: .986rem;
+    border-right: 1px solid #B1B0AE;
+    float: left;
+    position: relative;
+
+}
+.type .div1 .img1{
+    width: .48rem;
+    height: .48rem;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -.24rem; /* 高度的一半 */
+    margin-left: -.24rem; /* 宽度的一半 */
+}
+.typeTitle{
+    color: #393932;
+    font-size: .426rem;
+    line-height: .986rem ;
+}
+.type .div2{
+    width: .986rem;
+    height: .986rem;
+    float: right;
+    position: relative;
+}
+.type .div2 .img2{
+    width: .466rem;
+    height: .306rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -.153rem; /* 高度的一半 */
+    margin-left: -.233rem; /* 宽度的一半 */
+}

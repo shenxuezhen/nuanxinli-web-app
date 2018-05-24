@@ -1,0 +1,171 @@
+body {
+	width: 100%;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background-color: #F5F5F5;
+	font-family: "Arial";
+}
+
+a{
+	text-decoration: none;
+}
+
+#body_div{
+	width:90%; 
+	height:100%;
+    border: 1px solid #fcab55;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius:10px 10px 10px 10px;
+    margin: auto;
+    background: #fff;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+/*每组问题div*/
+.item{
+	margin: 2%;
+}
+
+.question{
+}
+
+.voice-box, .im-box{
+	margin: 1rem 1.5rem 1.2rem 1.4rem;
+}
+.voice_progress{
+	width: 95%;
+	margin: 2rem 0.5rem;
+	height: 0.4rem;
+	background: #cbcbcb;
+	position: relative;
+}
+.i-bg{
+	height:0.4rem;
+	width:0.2rem;
+	background:#fcab55;
+	display:block;
+	position:absolute;
+	top: 0;
+	left:0;
+}
+.voice_progress>img{
+	position: absolute;
+	left: 0px;
+	top: -8px;
+}
+.voice-detail a,.voice-detail span{
+	display: inline-block;
+	width: 32%;
+}
+#voice_yes{
+	float: left;
+	font-size: 1rem;
+	text-align: left;
+	height: 0.75rem;
+	line-height: 0.75rem;
+}
+#voice_no{
+	float: right;
+	font-size: 1rem;
+	text-align: right;
+	height: 0.75rem;
+	line-height: 0.75rem;
+}
+.voice-detail a{
+	text-align: center;
+}
+.voice-detail .ply img{
+	width: 3rem;
+	height: 3rem;
+}
+/*必答还是选答图标*/
+.need_answer_img{
+	width: 5%;
+	color: #fcab55;
+	float: left;
+	font-size: 0.8rem;
+}
+
+/*问题div*/
+.question_div{
+	width: 93%;
+	font-weight: bold;
+	font-size: 1rem;
+	color: #282828;
+}
+
+/*答案div*/
+.answer_div{
+	font-size: 0.8rem;
+	color: #757575;
+	margin-top: 1rem;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	margin-left: 5%;
+}
+
+/*线*/
+.line{
+	height: 1px;
+	background-color: #f1f1f1;
+}
+
+/*咨询师信息div*/
+#user_info{
+	width: 90%;
+	margin: auto;
+}
+
+/*咨询师头像*/
+#provider_img{
+	width: 3rem;
+	height: 3rem;
+	border-radius: 100%;
+	background: url(../images/default_photo.png) center no-repeat;
+	background-size: 100%;
+	margin: auto;
+}
+
+/*咨询师名称*/
+#provider_name{
+	height: 1.2rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: #282828;
+	text-align: center;
+	margin-top: 0.3rem;
+}
+
+/*咨询师title*/
+#provider_title{
+	height: 1rem;
+	font-size: 1rem;
+	color: #757575;
+	text-align: center;
+	margin-top: 0.3rem;
+}
+
+/*回复背景*/
+#reply_content{
+	width: 90%;
+	margin: auto;
+	min-height: 1rem;
+	border: 1px solid #FCE7E7;
+    -moz-border-radius: 10px 10px 10px 10px;;     
+    -webkit-border-radius: 10px 10px 10px 10px;;  
+    border-radius:10px 10px 10px 10px;
+    background: #fef1ef;
+	margin-top: 0.6rem;
+	margin-bottom: 1rem;
+}
+
+/*回复内容*/
+.reply_content_text{
+	margin: 10px;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	color: #757575;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <title>发布心事</title>
+    <link rel="stylesheet" href="css/release_talk.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+</head>
+<body>
+<nav class="warm-shade" onclick="hiddenShade()" style="display: none"></nav>
+<div id="release_talk">
+    <div class="type" v-on:click="changeTypeClick()">
+        <div class="div1">
+            <img class="img1" src="../images/bbs/labelselection.png" alt="">
+        </div>
+        <div class="typeTitle">{{typeStr}}</div>
+        <div class="div2">
+            <img class="img2" src="../images/bbs/down_selection.png" alt="">
+        </div>
+    </div>
+    <div class="title">
+        <div>标题</div>
+        <input type="text" placeholder="（明确的题目能吸引更多的回复哦~）" v-model="objTitle" onchange="titleChange(this.value)" style="border-style:none">
+    </div>
+    <div class="content">
+        <div class="t">
+            <div class="div1">说心事：</div>
+            <div class="div2">说出你的故事，从此不再孤单~</div>
+        </div>
+        <textarea id="textarea" rows="3" cols="30" style="border-style:none"
+                  placeholder="心事会以随机分配昵称的匿名方式展示给大家，放心倾诉吧~"  v-model="objContent" v-onchange="contentChange()"></textarea>
+    </div>
+    <div class="bottom" v-on:click="changeModeClick()">
+        <div class="b-left">
+            <div class="bottomdiv1">
+                <img class="img1" src="../images/bbs/whocansee.png" alt="">
+            </div>
+            <div class="div1">谁可以看</div>
+        </div>
+        <div class="b-right">
+            <div class="div2">{{permissionsStr}}</div>
+            <div class="bottomdiv2">
+                <img class="img2" src="../images/bbs/back.png" alt="">
+            </div>
+            <div class="div3" onclick="submitClick(event)">发布</div>
+        </div>
+
+    </div>
+    <div class="warm-type-tip" style="display: none">
+    <div class="wantspeak">我想说</div>
+    <div id="logoAll">
+              <div class="smallImage" v-for="(typeItem,tIndex) in typeList" v-on:click="chooseTypeClick(tIndex)" >
+                  <div class="imageDiv">
+                      <img class="myimg" v-bind:src="typeItem.image"/>
+                  </div>
+                 <div class="smallTitleDiv">{{typeItem.name}}</div>
+              </div>
+    </div>
+</div>
+    <div class="warm-permissions-tip" style="display: none">
+        <div class="showAll" v-for="(permissionsItem,pIndex) in permissionsList" v-on:click="choosePermissionsClick(pIndex)">
+            <div class="showdiv">
+                <img class="showimage" v-bind:src="permissionsItem.image" alt="">
+                <div class="showtitle">{{permissionsItem.title}}</div>
+            </div>
+            <div class="showcontent">{{permissionsItem.content}}</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../Vue/components.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="js/release_talk.js"></script>

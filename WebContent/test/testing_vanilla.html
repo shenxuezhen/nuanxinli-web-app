@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="cache-control" content="no-cache"/>
+    <title>测评</title>
+    <link rel="stylesheet" type="text/css" href="css/testing.css"/>
+</head>
+<body>
+<div class="loading"><img src="../images/loading.gif"></div>
+<div id="testing" class="body-div" style="display: none">
+    <div id="strip">
+        <div class="stripBox">
+            <span id="progress_text"><span>{{questionIndex+1}}</span><span>/</span><span>{{questionLength}}</span></span>
+            <div class="strip">
+                <div class="strip-down"></div>
+                <div class="steip-up" id="progress" :style="{width: showProgress()}"></div>
+                <img src="../images/test.png" :style="{left: showProgress()}">
+            </div>
+        </div>
+    </div>
+    <div id="hint" style="display:none">请选择答案</div>
+    <div id="topic">
+        <div class="subject" id="title">
+            <label v-html="question.title"></label>
+        </div>
+        <!--单选题-->
+        <div class="typeSingle" v-if="question.type != 'descr'" v-for="(choice,choiceIndex) in question.choices">
+            <label :class="{checked:choice.checked}" :name="choiceIndex" ontouchstart="onTouchStart(event)"
+                   ontouchend="onTouchEnd(event)"
+                   @click="onSelectChoice(choiceIndex)">
+                <img v-if="choice.img" :src="choice.img">
+                {{String.fromCharCode(choiceIndex+65)+'、'+choice.title}}
+            </label>
+        </div>
+    </div>
+    <ul class="bodyBottom">
+        <li v-if="questionIndex==0" :class="{firstLi:questionIndex==0}">上一题</li>
+        <li v-if="questionIndex!=0" :class="{preLi:questionIndex > 0}" @click="prev()">上一题</li>
+        <li id="goDown" @click="next()" v-show="questionIndex<questionLength-1">下一题</li>
+        <li id="submit" @click="normalSubmit()" v-show="questionIndex==questionLength-1">提交</li>
+    </ul>
+    <iframe style="display: none;" id="iosIfram"></iframe>
+</div>
+<script type="text/javascript" src="js/testing_vanilla.js"></script>
+<script type="text/javascript" src="../js/tools.js"></script>
+</body>
+</html>

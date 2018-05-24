@@ -1,0 +1,81 @@
+*{margin: 0 ;padding: 0;}
+.page-current{
+    background: #FFFFFF;
+}
+.test-person-header{
+    background: url("../../images/test/trst_person_bg.png") no-repeat center 0;
+    background-size: 100% 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 4.9733rem;
+    text-align: center;
+}
+.test-person-header div{
+    display: inline-block;
+    margin-top: .9467rem;
+}
+.test-person-header div img{
+    width: 2.16rem;
+    height: 2.16rem;
+    border-radius: 50%;
+}
+.test-person-header div p{
+    margin-top: .3333rem;
+    font-size: .4267rem;
+    color: #FFFFFF;
+}
+.list-block{
+    position: absolute;
+    top:4.9rem;
+    left:0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    width: 100%;
+}
+.list-block ul{
+    background: #FFFFFF;
+    list-style: none;
+}
+.list-block li{
+    border-bottom: 1px solid #f6f6f6;
+    width: 100%;
+    height: 1.3067rem;
+}
+.list-block .item-content{
+    padding-left: .5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.list-block .item-content>img{
+    width: .59rem;
+    height: .56rem;
+}
+.list-block .item-inner{
+    width: 100%;
+    height: 1.3067rem;
+    line-height: 1.3067rem;
+    background-size: .5rem;
+    margin: .2267rem .36rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.list-block .item-inner>img{
+    width: .24rem;
+    height: .4267rem;
+}
+.list-block .item-subtitle{
+    font-size: .4267rem;
+    color: #393932;
+}
+.loading img {
+    width: 0.4rem;
+    height: 0.4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}

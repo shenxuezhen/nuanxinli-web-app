@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="cache-control" content="no-cache"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="css/bbs_revert.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../css/myScroll.css">
+    <script type="text/javascript" src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+    <script type="text/javascript" src="../js/flexible.js"></script>
+    <script type="text/javascript" src="../js/zg_io.js"></script>
+</head>
+<body>
+<div id="bbs_revert">
+    <div class="up_div" v-on:click="formClick()">
+        <div class="card_title">{{formData.title}}</div>
+        <div class="user_div">
+            <img v-if="formData.isAnonymous==1" class="user_image" :src="nimingHeader(formData.isAnonymous)" alt="">
+            <img v-else class="user_image" v-bind:src="formData.userPhoto" alt="">
+            <div class="user_info">
+                <div class="card_name">{{formData.userAlias}}</div>
+                <div class="card_time">{{deleteTime(formData.createTime)}}</div>
+            </div>
+        </div>
+        <div class="card_content">{{formData.content}}</div>
+        <div class="good">
+            <div class="good_count_div">{{formData.praiseCount}}</div>
+            <div class="good_div" v-on:click="formGoodClick(event)"
+                 v-bind:class="{ 'elect_good': priseData.yesPrise, 'not_elect_good': priseData.noPrise}">赞</div>
+        </div>
+    </div>
+    <div v-for="(reverBbsItem,tIndex) in revertList" v-if="tIndex==0">
+        <div class="all_reply" v-if="isFristList">全部回复</div>
+        <div class="all_reply" v-else>此条评论的全部回复</div>
+    </div>
+    <div class="bottom_div" v-for="(reverBbsItem,tIndex) in revertList">
+        <div class="user_div" v-on:click="secondReplyClick(reverBbsItem.createAlias,reverBbsItem.id,reverBbsItem.createUser)">
+            <img v-if="reverBbsItem.isAnonymous==1" class="user_image" :src="nimingHeader(formData.isAnonymous)" alt="">
+            <img v-else class="user_image" v-bind:src="reverBbsItem.userPhoto" alt="">
+            <div class="user_info">
+                <div class="card_name">{{reverBbsItem.createAlias}}</div>
+                <!--<div class="card_reply">回复</div>-->
+                <!--<div class="card_reply_name">{{reverBbsItem.replyToAlias}}</div>-->
+                <div class="card_time">{{deleteTime(reverBbsItem.createTime)}}</div>
+            </div>
+            <!--咨询师-->
+            <div class="good" v-if="reverBbsItem.userTitle">
+                <div class="contact_div" v-on:click="contactTeacherClick(reverBbsItem.createUser)">联系TA</div>
+            </div>
+            <!--用户-->
+            <div class="good" v-else>
+                <div class="good_count_div">{{reverBbsItem.thanksCount}}</div>
+                <div class="good_div" v-on:click="replyGoodClick(reverBbsItem,reverBbsItem.id,tIndex,event)"
+                     v-bind:class="{ 'elect_good': reverBbsItem.yesThank, 'not_elect_good': reverBbsItem.noThank}">赞</div>
+            </div>
+            <div class="frist_reply_div">{{reverBbsItem.content}}</div>
+        </div>
+        <div class="user_div" v-for="secondItme in reverBbsItem.secondReplyList" v-on:click="secondReplyClick(secondItme.createAlias,secondItme.id,secondItme.createUser)">
+            <!--二级回复-->
+            <div class="second_reply_div">
+                <div class="card_time">{{deleteTime(secondItme.createTime)}}</div>
+                <div class="card_name">{{secondItme.createAlias}}</div>
+                <div class="card_reply">回复</div>
+                <div class="card_reply_name">{{secondItme.replyToAlias}}</div>
+                <div class="second_reply_content_div">{{secondItme.content}}</div>
+            </div>
+        </div>
+        <div class="more" v-if="isFristList && reverBbsItem.moreReplyCount>2" v-on:click="moreClick(reverBbsItem.postId,reverBbsItem.id)">查看本条全部回复 》</div>
+    </div>
+    <div class="input_div">
+        <div class="textarea_text_div">
+            <textarea class="textarea_text" v-bind:placeholder="placeholder"  name="" id="" cols="30" rows="10"
+                      v-model="parameter.content" onchange="contentChange(this.value)" onfocus="getFocus()"></textarea>
+        </div>
+        <div class="textarea_image_div" v-on:click="sendClick(event)">
+            <img  class="textarea_image" src="../images/bbs/sendcomment.png" alt="">
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/tools.js"></script>
+<script type="text/javascript" src="../test/js/common_methods.js"></script>
+<script type="text/javascript" src="js/bbs_revert.js"></script>

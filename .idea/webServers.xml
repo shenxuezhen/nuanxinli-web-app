@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a45a4e67-eccc-404e-a063-3ecbdae3076e" name="qd" url="http://118.190.174.186">
+        <fileTransfer host="118.190.174.186" port="22" rootFolder="/home/nuanxinli/warm" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

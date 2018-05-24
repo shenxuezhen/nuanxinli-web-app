@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<link rel="stylesheet" href="css/size.css">
+<link rel="stylesheet" href="css/experience_test.css">
+</head>
+<body>
+	<div id="title_div">过去一年我经历过</div>
+	<div id="body">
+		<div class="body_item_div">
+			<div class="body_font_div">嗜睡/失眠</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="drowsiness" name="checkbox" class="checkbox" value="drowsiness"/><label for="drowsiness"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<div class="body_item_div">
+			<div class="body_font_div">暴食/厌食</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="apocleisis" name="checkbox" class="checkbox" value="apocleisis"/><label for="apocleisis"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<div class="body_item_div">
+			<div class="body_font_div">身体不明原因的过敏/疼痛</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="pain" name="checkbox" class="checkbox" value="pain"/><label for="pain"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<div class="body_item_div">
+			<div class="body_font_div">和别人吵架/身边有反感的人</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="quarrel" name="checkbox" class="checkbox" value="quarrel"/><label for="quarrel"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<div class="body_item_div">
+			<div class="body_font_div">换工作/学校</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="changejob" name="checkbox" class="checkbox" value="changejob"/><label for="changejob"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<div class="body_item_div">
+			<div class="body_font_div">法律纠纷</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="dispute" name="checkbox" class="checkbox" value="dispute"/><label for="dispute"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<div class="body_item_div">
+			<div class="body_font_div">恋爱/结婚/怀孕</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="marry" name="checkbox" class="checkbox" value="marry"/><label for="marry"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<div class="body_item_div">
+			<div class="body_font_div">失恋/离婚/分居</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="divorce" name="checkbox" class="checkbox" value="divorce"/><label for="divorce"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<!-- <div class="body_item_div">
+			<div class="body_font_div">亲人/自己疾病</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="ill" name="checkbox" class="checkbox" value="ill"/><label for="ill"></label>
+			</div>
+		</div>
+		<div class="body_line"></div> -->
+		<div class="body_item_div">
+			<div class="body_font_div">亲人生病/过世，自己生病</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="die" name="checkbox" class="checkbox" value="die"/><label for="die"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<div class="body_item_div">
+			<div class="body_font_div">进入青春期/更年期</div>
+			<div class="body_check_box_div">
+				<input type="checkbox" id="puberty" name="checkbox" class="checkbox" value="puberty"/><label for="puberty"></label>
+			</div>
+		</div>
+		<div class="body_line"></div>
+		<div id="submit_button_div">
+			<button id="submit_button" onclick="submit();">完成</button>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript">
+		setCookie('sid',trimStr(getParam('sid')));
+		localStorage.setItem('puburl', trimStr(getParam('puburl')));
+		function submit(){
+			var postJsonStr = '';
+			var checkBox = document.getElementsByName('checkbox');
+			for(var i=0;i<checkBox.length;i++){
+				if(checkBox[i].checked){
+					postJsonStr += '{"code":"'+checkBox[i].value+'","value":1},'
+				}
+			}
+			postJsonStr = postJsonStr.substr(0,postJsonStr.length-1);
+			var param = '['+postJsonStr+']';
+			localStorage.setItem('experienceTestJson', param);
+			window.location.href='experience_test_result.html?test=0';
+		}
+	</script>
+</body>
+</html>
